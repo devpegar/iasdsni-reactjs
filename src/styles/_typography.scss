@@ -1,0 +1,101 @@
+// ======================================
+// TIPOGRAFÍA GLOBAL IASD
+// ======================================
+// Regla oficial:
+// Advent Sans SOLO puede usarse junto con el símbolo de la Iglesia Adventista.
+// Para todo el contenido textual, se usan Noto Sans (principal) y Noto Serif (de apoyo).
+// ======================================
+@use "sass:color";
+@use "variables" as *;
+
+// ---------- TITULOS Y JERARQUIA ----------
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-primary;
+  font-weight: 700;
+  color: $primary-color;
+  margin-bottom: 0.5em;
+  line-height: 1.2;
+}
+
+// Títulos generales (NO acompañan símbolo) → usar Noto Sans
+body:not(.with-symbol) h1,
+body:not(.with-symbol) h2,
+body:not(.with-symbol) h3,
+body:not(.with-symbol) h4,
+body:not(.with-symbol) h5,
+body:not(.with-symbol) h6 {
+  font-family: "Noto Sans", sans-serif;
+}
+
+// Escalas sugeridas
+h1 {
+  font-size: 2.5rem;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+h4 {
+  font-size: 1.25rem;
+}
+h5 {
+  font-size: 1.1rem;
+}
+h6 {
+  font-size: 1rem;
+}
+
+// ---------- CUERPO DE TEXTO ----------
+p,
+li,
+span,
+small {
+  font-family: "Noto Sans", sans-serif;
+  color: $gray-100;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+strong {
+  font-weight: 600;
+  color: color.adjust($primary-color, $lightness: 15%);
+}
+
+// ---------- CITAS Y DESTACADOS ----------
+blockquote {
+  font-family: "Noto Serif", serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: $gray-500;
+  border-left: 4px solid $primary-color;
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+}
+
+// ---------- ENLACES ----------
+a {
+  color: $primary-color;
+  text-decoration: underline;
+  transition: color 0.3s;
+
+  &:hover {
+    color: color.adjust($primary-color, $lightness: 10%);
+  }
+}
+
+// ---------- BOTONES ----------
+button,
+.btn {
+  font-family: "Noto Sans", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}

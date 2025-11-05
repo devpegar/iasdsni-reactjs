@@ -1,0 +1,17 @@
+// ======================================
+// ARCHIVO PRINCIPAL DE ESTILOS
+// ======================================
+
+@use "fonts";
+@forward "variables";
+@forward "mixins";
+@forward "reset";
+@forward "typography";
+@forward "global";
+
+@use "variables" as *;
+
+body {
+  background-color: #fff;
+  font-family: $font-primary;
+}

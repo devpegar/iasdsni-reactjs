@@ -1,0 +1,36 @@
+@use "sass:color";
+@use "../styles/variables" as *;
+// ======================================
+// ESTILOS GLOBALES Y UTILIDADES
+// ======================================
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-lg {
+  margin-top: $spacing-lg;
+}
+
+.mb-lg {
+  margin-bottom: $spacing-lg;
+}
+
+.btn {
+  background-color: $primary-color;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  transition: background 0.3s;
+
+  &:hover {
+    background-color: color.adjust($primary-color, $lightness: 10%);
+  }
+}

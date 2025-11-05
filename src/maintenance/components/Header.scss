@@ -1,0 +1,29 @@
+@use "sass:color";
+@use "../../styles/variables" as *;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: #fff;
+
+  .logo img {
+    height: 60px;
+  }
+
+  .social {
+    display: flex;
+    gap: 1rem;
+
+    a {
+      color: $primary-color;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+
+      &:hover {
+        color: color.adjust($primary-color, $lightness: 10%);
+      }
+    }
+  }
+}

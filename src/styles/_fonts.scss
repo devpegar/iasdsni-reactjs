@@ -1,0 +1,46 @@
+// ======================================
+// FUENTES LOCALES IASD
+// ======================================
+
+// Advent Sans (oficial IASD)
+@font-face {
+  font-family: "Advent Sans";
+  src: url("../assets/fonts/Advent\ Sans-Logo.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Noto Sans (auxiliar)
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../assets/fonts/NotoSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Sans";
+  src: url("../assets/fonts/NotoSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Noto Serif (auxiliar secundaria)
+@font-face {
+  font-family: "Noto Serif";
+  src: url("../assets/fonts/NotoSerif-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Serif";
+  src: url("../assets/fonts/NotoSerif-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
