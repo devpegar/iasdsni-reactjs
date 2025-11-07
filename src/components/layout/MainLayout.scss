@@ -1,0 +1,35 @@
+@use "../../styles/variables" as *;
+
+.layout {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  min-height: 100vh;
+  font-family: "Noto Sans", sans-serif;
+  background-color: #fff;
+
+  .content {
+    grid-column: span 6;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .sabbath-column {
+    background-color: $primary-color;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    .logo {
+      width: 80%;
+      max-width: 180px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    .sabbath-column {
+      display: none;
+    }
+  }
+}

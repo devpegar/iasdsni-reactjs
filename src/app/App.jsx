@@ -1,4 +1,11 @@
 // src/app/App.jsx
+import MainLayout from "../components/layout/MainLayout.jsx";
+import Home from "../pages/Home/Home.jsx";
+
 export default function App() {
-  return <h1>Hola desde la app principal</h1>;
+  return (
+    <MainLayout>
+      <Home />
+    </MainLayout>
+  );
 }
