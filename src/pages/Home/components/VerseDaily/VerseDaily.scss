@@ -1,0 +1,47 @@
+@use "../../../../styles/variables" as *;
+@use "sass:color";
+
+.verse-daily {
+  width: 100%;
+  background-color: #fff;
+  color: $primary-color;
+  text-align: center;
+  padding: 5rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 2px solid color.adjust($primary-color, $lightness: 20%);
+  border-bottom: 2px solid color.adjust($primary-color, $lightness: 20%);
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .verse-daily__text {
+    font-family: "Noto Serif", serif;
+    font-size: 1.6rem;
+    font-style: italic;
+    line-height: 1.5;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .verse-daily__ref {
+    margin-top: 1rem;
+    font-family: "Noto Sans", sans-serif;
+    font-size: 1.1rem;
+    color: color.adjust($primary-color, $lightness: -10%);
+  }
+
+  @media (max-width: 768px) {
+    padding: 3rem 1.5rem;
+
+    .verse-daily__text {
+      font-size: 1.3rem;
+    }
+  }
+}
