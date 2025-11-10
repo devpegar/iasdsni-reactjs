@@ -30,7 +30,7 @@ export default function HeroCarousel() {
                 quienes te rodean.
               </p>
               <a
-                href="/assets/docs/libro-misionero.pdf"
+                href="/assets/docs/libro-misionero-2025.pdf"
                 className="btn-primary"
                 download
               >

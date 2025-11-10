@@ -1,11 +1,11 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import versesData from "../../../../data/verses.json";
+import useInViewAnimation from "../../../../hooks/useInViewAnimation";
 import "./VerseDaily.scss";
 
 export default function VerseDaily() {
   const [verse, setVerse] = useState(versesData[0]);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
+  const { ref, isVisible } = useInViewAnimation(0.3);
 
   // Elegir versículo aleatorio al cargar
   useEffect(() => {
@@ -13,29 +13,8 @@ export default function VerseDaily() {
     setVerse(versesData[randomIndex]);
   }, []);
 
-  // Detectar visibilidad del componente
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect(); // se ejecuta una sola vez
-        }
-      },
-      { threshold: 0.3 } // visible al 30%
-    );
-
-    if (sectionRef.current) observer.observe(sectionRef.current);
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section
-      className={`verse-daily ${isVisible ? "visible" : ""}`}
-      ref={sectionRef}
-    >
+    <section className={`verse-daily ${isVisible ? "visible" : ""}`} ref={ref}>
       <blockquote className="verse-daily__text">
         “{verse.text}”
         <footer className="verse-daily__ref">— {verse.ref}</footer>
