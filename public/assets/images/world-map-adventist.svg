@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  world-map-adventist.svg
+  Mapa estilizado simple (continentes) para "Adventistas en el mundo".
+  Formato SVG optimizado, cada forma tiene class="country" o "country active".
+  Puedes editar las clases para activar/desactivar países/zonas.
+-->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 2000 1000"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">Mapa mundial — presencia adventista (estilizado)</title>
+  <desc id="desc">
+    Mapa estilizado simple con continentes como formas. Las zonas con clase
+    "country active" están resaltadas y representan la presencia adventista.
+  </desc>
+
+  <defs>
+    <!-- Gradientes o filtros si se quisieran -->
+    <linearGradient id="bgGrad" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#003366" />
+      <stop offset="1" stop-color="#0072CE" />
+    </linearGradient>
+  </defs>
+
+  <!-- Fondo (opcional, transparente si preferís) -->
+  <rect x="0" y="0" width="2000" height="1000" fill="none" />
+
+  <!-- Oceano (tono oscuro para contraste) -->
+  <g id="ocean">
+    <rect x="0" y="0" width="2000" height="1000" fill="#022643" opacity="0.06" />
+  </g>
+
+  <!-- CONTINENTES (formas simplificadas) -->
+  <!-- NORTH AMERICA -->
+  <path
+    id="na"
+    class="country active"
+    d="M140 150 L260 120 L380 140 L520 110 L600 140 L700 140 L760 200 L720 260 L640 300 L560 300 L480 260 L420 240 L360 260 L280 250 L200 220 Z"
+  />
+
+  <!-- SOUTH AMERICA -->
+  <path
+    id="sa"
+    class="country active"
+    d="M520 420 L600 420 L700 480 L720 560 L680 660 L620 760 L560 740 L520 660 L480 580 L460 520 L460 480 Z"
+  />
+
+  <!-- EUROPE + ASIA (grande, simplificada) -->
+  <path
+    id="eurasia"
+    class="country active"
+    d="M820 120 L920 100 L1020 120 L1120 140 L1220 160 L1320 180 L1420 220 L1480 300 L1460 380 L1380 420 L1300 440 L1220 420 L1140 400 L1080 380 L1000 360 L940 340 L900 320 L860 260 L820 200 Z"
+  />
+
+  <!-- AFRICA -->
+  <path
+    id="africa"
+    class="country active"
+    d="M980 420 L1040 440 L1100 520 L1120 620 L1080 700 L1020 750 L960 740 L920 700 L900 620 L920 540 Z"
+  />
+
+  <!-- AUSTRALIA -->
+  <path
+    id="aus"
+    class="country active"
+    d="M1540 620 L1620 640 L1680 720 L1640 780 L1560 760 L1500 700 Z"
+  />
+
+  <!-- GREENLAND / ICELAND small shapes for balance -->
+  <path
+    id="ice"
+    class="country"
+    d="M1000 80 L1040 70 L1080 80 L1060 100 L1020 100 Z"
+  />
+  <path
+    id="grn"
+    class="country"
+    d="M160 60 L200 50 L220 70 L180 90 Z"
+  />
+
+  <!-- Small islands (representative dots) -->
+  <g id="islands" fill="#ffffff" opacity="0.9">
+    <circle class="country active" cx="1700" cy="420" r="6" />
+    <circle class="country active" cx="1760" cy="360" r="6" />
+    <circle class="country active" cx="1360" cy="520" r="6" />
+    <circle class="country active" cx="430" cy="700" r="6" />
+  </g>
+
+  <!-- Inline CSS for basic default appearance (can be overridden desde .scss) -->
+  <style>
+    .country {
+      fill: rgba(255, 255, 255, 0.12);
+      stroke: rgba(255,255,255,0.14);
+      stroke-width: 1;
+      transition: fill 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+      vector-effect: non-scaling-stroke;
+    }
+    .country.active {
+      fill: rgba(255, 255, 255, 0.28);
+      stroke: rgba(255,255,255,0.28);
+    }
+    .country:hover {
+      fill: rgba(255, 255, 255, 0.60);
+      transform: translateY(-4px);
+      cursor: pointer;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.25));
+    }
+    /* small responsive tweak when svg scaled */
+    svg { width: 100%; height: auto; }
+  </style>
+</svg>

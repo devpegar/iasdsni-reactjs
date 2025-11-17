@@ -1,0 +1,126 @@
+@use "../../../../styles/variables" as *;
+@use "sass:color";
+
+.mvs-section {
+  background: linear-gradient(135deg, #003366 0%, #0072ce 100%);
+  color: #fff;
+  padding: 6rem 2rem;
+  display: flex;
+  justify-content: center;
+
+  .mvs-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    width: min(1200px, 100%);
+  }
+
+  .mvs-box {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    text-align: center;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+
+    /* Brillo animado del borde */
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      padding: 2px; // grosor del borde
+      border-radius: inherit;
+      background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.5),
+        rgba(0, 114, 206, 0.5),
+        rgba(255, 255, 255, 0.5)
+      );
+      background-size: 200% 200%;
+      animation: borderGlow 6s linear infinite;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      z-index: 0;
+    }
+
+    h3,
+    p,
+    a {
+      position: relative;
+      z-index: 1; // asegura que el contenido esté sobre el borde
+    }
+
+    h3 {
+      font-family: "Advent Sans", sans-serif;
+      color: #fff;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-family: "Noto Sans", sans-serif;
+      color: #f0f4f9;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      border: 2px solid #fff;
+      color: #fff;
+      padding: 0.6rem 1.2rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: #fff;
+        color: $primary-color;
+      }
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  /* ✨ Animación al hacer scroll */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+
+    &.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes borderGlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 4rem 1.5rem;
+
+    .mvs-box {
+      padding: 2rem;
+    }
+  }
+}

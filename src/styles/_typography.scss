@@ -57,7 +57,7 @@ p,
 li,
 span,
 small {
-  font-family: "Noto Sans", sans-serif;
+  font-family: $font-secondary;
   color: $gray-100;
   font-size: 1rem;
   line-height: 1.6;
@@ -71,7 +71,7 @@ strong {
 
 // ---------- CITAS Y DESTACADOS ----------
 blockquote {
-  font-family: "Noto Serif", serif;
+  font-family: $font-third;
   font-style: italic;
   font-size: 1.1rem;
   color: $gray-500;
@@ -94,7 +94,7 @@ a {
 // ---------- BOTONES ----------
 button,
 .btn {
-  font-family: "Noto Sans", sans-serif;
+  font-family: $font-secondary;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
