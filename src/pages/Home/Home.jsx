@@ -6,6 +6,7 @@ import MissionVisionService from "./components/MissionVisionService/MissionVisio
 import AdventistsWorld from "./components/AdventistsWorld/AdventistsWorld";
 import Gallery from "./components/Gallery/Gallery";
 import ContactMap from "./components/ContactMap/ContactMap";
+import Footer from "./components/Footer/Footer";
 
 export default function Home() {
   return (
@@ -17,13 +18,7 @@ export default function Home() {
       <AdventistsWorld />
       <Gallery />
       <ContactMap />
-
-      <section className="home__intro">
-        <h1>Bienvenidos a la Iglesia Adventista de San Nicolás Centro</h1>
-        <p>
-          Estamos preparando un espacio para compartir esperanza, fe y servicio.
-        </p>
-      </section>
+      <Footer />
     </main>
   );
 }

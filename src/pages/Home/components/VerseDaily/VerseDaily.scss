@@ -10,8 +10,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-top: 2px solid color.adjust($primary-color, $lightness: 20%);
-  border-bottom: 2px solid color.adjust($primary-color, $lightness: 20%);
+  // border-top: 2px solid color.adjust($primary-color, $lightness: 20%);
+  // border-bottom: 2px solid color.adjust($primary-color, $lightness: 20%);
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 1s ease-out, transform 1s ease-out;

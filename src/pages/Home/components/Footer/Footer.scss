@@ -1,0 +1,161 @@
+@use "../../../../styles/variables" as *;
+@use "sass:color";
+
+.footer {
+  background: $primary-color;
+  padding: 0 2rem 2rem;
+  color: #fff;
+  width: 100%;
+
+  .footer__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // 🔹 Fuerza 3 columnas en desktop
+    gap: 3rem;
+    width: min(1200px, 100%);
+    margin: 0 auto;
+  }
+
+  /* Columna */
+  .footer__col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h3 {
+      color: $gray-100;
+      font-family: $font-secondary;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    p {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: $gray-100;
+      margin: 0.5rem 0;
+
+      svg {
+        color: $primary-color;
+      }
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 0.4rem;
+
+        a {
+          color: $gray-100;
+          text-decoration: none;
+          transition: color 0.2s;
+
+          &:hover {
+            color: $primary-color;
+          }
+        }
+      }
+    }
+  }
+
+  .footer__nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    color: $gray-100;
+    width: 80%;
+    margin: 0 auto;
+
+    ul {
+      li {
+        text-align: left;
+      }
+    }
+  }
+
+  /* Logo */
+  .footer__logo {
+    width: 100px;
+    margin-bottom: 1rem;
+    margin: 0 auto;
+  }
+
+  .footer__desc {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.4;
+    max-width: 300px;
+
+    .footer__frase {
+      font-style: italic;
+      margin-top: 1rem;
+    }
+
+    & p {
+      margin: 0.2rem 0;
+    }
+  }
+
+  /* Redes sociales */
+  .footer__social {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+
+    a {
+      color: $primary-color;
+      font-size: 1.3rem;
+      transition: 0.2s;
+
+      &:hover {
+        color: color.adjust($primary-color, $lightness: -10%);
+      }
+    }
+  }
+
+  /* Línea inferior */
+  .footer__bottom {
+    margin-top: 3rem;
+    text-align: center;
+    color: $gray-200;
+    font-size: 0.9rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* 📌 RESPONSIVE */
+
+@media (max-width: 999px) {
+  .footer {
+    .footer__container {
+      grid-template-columns: repeat(2, 1fr); // 🔹 2 columnas
+    }
+
+    .footer__desc {
+      max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .footer {
+    text-align: center;
+
+    .footer__container {
+      grid-template-columns: 1fr; // 🔹 1 columna
+    }
+
+    .footer__col p,
+    .footer__col ul,
+    .footer__social {
+      justify-content: center;
+    }
+
+    .footer__desc {
+      margin: 0 auto;
+    }
+  }
+}

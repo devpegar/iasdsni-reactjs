@@ -1,0 +1,39 @@
+@use "../../styles/variables" as *;
+
+.scroll-top-btn {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 2rem;
+  width: 48px;
+  height: 48px;
+
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  color: #fff;
+  font-size: 1.3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.6);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease,
+    box-shadow 0.3s ease;
+
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    transform: scale(1.1);
+  }
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+}

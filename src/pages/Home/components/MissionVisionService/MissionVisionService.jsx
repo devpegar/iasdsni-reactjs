@@ -1,5 +1,6 @@
 import useInViewAnimation from "../../../../hooks/useInViewAnimation";
 import "./MissionVisionService.scss";
+import { FaBullseye, FaEye, FaHandsHelping } from "react-icons/fa";
 
 export default function MissionVisionService() {
   const mission = useInViewAnimation(0.2);
@@ -14,6 +15,7 @@ export default function MissionVisionService() {
           className={`mvs-box fade-in ${mission.isVisible ? "visible" : ""}`}
           ref={mission.ref}
         >
+          <FaBullseye className="icon" />
           <h3>Misión</h3>
           <p>
             Llevar el mensaje de esperanza y salvación al mundo, guiando a las
@@ -29,6 +31,7 @@ export default function MissionVisionService() {
           className={`mvs-box fade-in ${vision.isVisible ? "visible" : ""}`}
           ref={vision.ref}
         >
+          <FaEye className="icon" />
           <h3>Visión</h3>
           <p>
             Ser una comunidad transformadora que refleja el carácter de Jesús y
@@ -44,6 +47,7 @@ export default function MissionVisionService() {
           className={`mvs-box fade-in ${service.isVisible ? "visible" : ""}`}
           ref={service.ref}
         >
+          <FaHandsHelping className="icon" />
           <h3>Servicio</h3>
           <p>
             Comprometidos en ayudar a quienes lo necesitan a través de acciones
