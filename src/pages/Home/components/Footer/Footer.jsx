@@ -21,48 +21,21 @@ export default function Footer() {
             alt="Logo IASD San Nicolás"
             className="footer__logo"
           />
+
           <div className="footer__desc">
             <p>Iglesia Adventista del Séptimo Día</p>
             <p>San Nicolás Centro</p>
             <p className="footer__frase">
-              "Una comunidad que anuncia esperanza y prepara para la segunda
+              "Una comunidad que anuncia esperanza y se prepara para la segunda
               venida de Jesús."
             </p>
           </div>
         </div>
 
-        {/* Columna 2 - Navegación */}
-        <div className="footer__col ">
-          <h3>Navegación</h3>
-          <div className="footer__nav">
-            <ul>
-              <li>
-                <a href="/">Inicio</a>
-              </li>
-              <li>
-                <a href="/quienes-somos">Quiénes somos</a>
-              </li>
-              <li>
-                <a href="/doctrina">Doctrina</a>
-              </li>
-            </ul>
-            <ul>
-              <li>
-                <a href="/eventos">Eventos</a>
-              </li>
-              <li>
-                <a href="/galeria">Galería</a>
-              </li>
-              <li>
-                <a href="/descargas">Descargas</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Columna 3 - Contacto + Redes */}
+        {/* Columna 2 - Contacto + Redes */}
         <div className="footer__col">
           <h3>Contacto</h3>
+
           <p>
             <FaLocationDot /> Rivadavia 161, San Nicolás de los Arroyos
           </p>

@@ -22,37 +22,38 @@ export default function Header() {
           <a
             href="https://instagram.com/iasdsni"
             target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
+            className="instagram"
           >
             <FaInstagram />
+            <span>Instagram</span>
           </a>
+
           <a
             href="https://facebook.com/iasdsni"
             target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Facebook"
+            className="facebook"
           >
             <FaFacebookF />
+            <span>Facebook</span>
           </a>
-          <a
-            href="https://x.com/iasdsni"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="X"
-          >
+
+          <a href="https://x.com/iasdsni" target="_blank" className="x">
             <FaXTwitter />
+            <span>X</span>
           </a>
+
           <a
             href="https://www.whatsapp.com/channel/0029VabVP3G6BIEgIpDuz126"
             target="_blank"
-            rel="noopener noreferrer"
-            aria-label="WhatsApp"
+            className="whatsapp"
           >
             <FaWhatsapp />
+            <span>WhatsApp</span>
           </a>
-          <a href="mailto:info@iasdsni.com.ar" aria-label="Email">
+
+          <a href="mailto:info@iasdsni.com.ar" className="email">
             <FaEnvelope />
+            <span>Email</span>
           </a>
         </div>
       </div>

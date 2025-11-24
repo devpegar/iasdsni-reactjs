@@ -1,26 +1,182 @@
 [
   {
-    "text": "Tu palabra es una lámpara a mis pies y una luz en mi camino.",
-    "ref": "Salmo 119:105"
+    "id": 1,
+    "versiculo": "Juan 14:1-3",
+    "texto": "No se turbe vuestro corazón... vendré otra vez, y os tomaré a mí mismo.",
+    "eop": "Cristo vendrá con poder y gran gloria para recoger a Sus hijos fieles. — El Conflicto de los Siglos, p. 640"
   },
   {
-    "text": "El Señor es mi pastor; nada me faltará.",
-    "ref": "Salmo 23:1"
+    "id": 2,
+    "versiculo": "Hechos 1:10-11",
+    "texto": "Este mismo Jesús... así vendrá como le habéis visto ir al cielo.",
+    "eop": "La ascensión de Cristo asegura Su regreso personal y visible. — Hijos e Hijas de Dios, p. 357"
   },
   {
-    "text": "Dios es nuestro amparo y fortaleza, nuestro pronto auxilio en las tribulaciones.",
-    "ref": "Salmo 46:1"
+    "id": 3,
+    "versiculo": "1 Tesalonicenses 4:16-17",
+    "texto": "El Señor mismo... descenderá del cielo... y así estaremos siempre con el Señor.",
+    "eop": "La resurrección de los justos será el triunfo final de Dios sobre la muerte. — Maranata, p. 306"
   },
   {
-    "text": "El corazón alegre hermosea el rostro.",
-    "ref": "Proverbios 15:13"
+    "id": 4,
+    "versiculo": "Mateo 24:30",
+    "texto": "Verán al Hijo del Hombre viniendo sobre las nubes del cielo, con poder y gran gloria.",
+    "eop": "La venida de Cristo será un acontecimiento glorioso que todo ojo verá. — El Deseado de Todas las Gentes, p. 632"
   },
   {
-    "text": "Cristo en vosotros, la esperanza de gloria.",
-    "ref": "Colosenses 1:27"
+    "id": 5,
+    "versiculo": "Apocalipsis 1:7",
+    "texto": "He aquí que viene con las nubes, y todo ojo le verá.",
+    "eop": "La segunda venida no será secreta; será visible para todos. — El Conflicto de los Siglos, p. 640"
   },
   {
-    "text": "La oración es el abrir del corazón a Dios como a un amigo.",
-    "ref": "El Camino a Cristo, p. 93"
+    "id": 6,
+    "versiculo": "Tito 2:13",
+    "texto": "Aguardando la esperanza bienaventurada y la manifestación gloriosa de nuestro gran Dios y Salvador Jesucristo.",
+    "eop": "La esperanza del regreso de Cristo ilumina la vida del creyente. — Maranata, p. 14"
+  },
+  {
+    "id": 7,
+    "versiculo": "Mateo 16:27",
+    "texto": "El Hijo del Hombre vendrá en la gloria de su Padre con sus ángeles.",
+    "eop": "La venida de Cristo será acompañada de majestad celestial. — Primeros Escritos, p. 16"
+  },
+  {
+    "id": 8,
+    "versiculo": "Hebreos 9:28",
+    "texto": "Aparecerá por segunda vez... para salvar a los que le esperan.",
+    "eop": "Cristo vendrá como Redentor para los fieles que le esperan. — Maranata, p. 286"
+  },
+  {
+    "id": 9,
+    "versiculo": "Salmo 50:3",
+    "texto": "Vendrá nuestro Dios, y no callará.",
+    "eop": "El regreso de Cristo será acompañado por poder y gloria irresistible. — El Conflicto de los Siglos, p. 640"
+  },
+  {
+    "id": 10,
+    "versiculo": "Isaías 25:9",
+    "texto": "Este es nuestro Dios... nos gozaremos y nos alegraremos en su salvación.",
+    "eop": "Los redimidos celebrarán la liberación eterna al ver a Cristo regresar. — Profetas y Reyes, p. 515"
+  },
+  {
+    "id": 11,
+    "versiculo": "1 Corintios 15:51-52",
+    "texto": "En un momento... los muertos serán resucitados incorruptibles.",
+    "eop": "La transformación final del creyente ocurrirá al regreso del Señor. — Maranata, p. 300"
+  },
+  {
+    "id": 12,
+    "versiculo": "Filipenses 3:20-21",
+    "texto": "Esperamos al Salvador... el cual transformará nuestro cuerpo.",
+    "eop": "Cristo devolverá al creyente la perfección perdida. — La Maravillosa Gracia de Dios, p. 351"
+  },
+  {
+    "id": 13,
+    "versiculo": "Lucas 21:27-28",
+    "texto": "Entonces verán al Hijo del Hombre venir... erguíos y levantad vuestra cabeza.",
+    "eop": "El pueblo de Dios verá la liberación cuando Cristo regrese. — Maranata, p. 159"
+  },
+  {
+    "id": 14,
+    "versiculo": "Mateo 24:27",
+    "texto": "Como el relámpago... así será la venida del Hijo del Hombre.",
+    "eop": "La venida de Cristo será rápida, gloriosa y universalmente visible. — El Conflicto de los Siglos, p. 640"
+  },
+  {
+    "id": 15,
+    "versiculo": "2 Timoteo 4:8",
+    "texto": "El Señor... me dará la corona... y no solo a mí, sino a todos los que aman su venida.",
+    "eop": "El amor por la venida de Cristo caracteriza al cristiano fiel. — Maranata, p. 324"
+  },
+  {
+    "id": 16,
+    "versiculo": "Colosenses 3:4",
+    "texto": "Cuando Cristo, vuestra vida, se manifieste, entonces vosotros también seréis manifestados con él en gloria.",
+    "eop": "La gloria final del creyente será revelada al regreso de Cristo. — Maranata, p. 305"
+  },
+  {
+    "id": 17,
+    "versiculo": "Sofonías 3:17",
+    "texto": "Jehová estará en medio de ti... se gozará sobre ti con alegría.",
+    "eop": "La venida de Cristo es la restauración de la relación perfecta con Dios. — Palabras de Vida del Gran Maestro, p. 301"
+  },
+  {
+    "id": 18,
+    "versiculo": "Apocalipsis 22:12",
+    "texto": "He aquí yo vengo pronto, y mi galardón conmigo.",
+    "eop": "Cristo viene pronto con recompensa para cada uno. — Maranata, p. 13"
+  },
+  {
+    "id": 19,
+    "versiculo": "1 Juan 3:2-3",
+    "texto": "Cuando él se manifieste, seremos semejantes a él... y todo aquel que tiene esta esperanza se purifica.",
+    "eop": "La esperanza del retorno de Cristo impulsa a una vida pura. — Reflejemos a Jesús, p. 25"
+  },
+  {
+    "id": 20,
+    "versiculo": "Isaías 40:10",
+    "texto": "He aquí que Jehová el Señor vendrá con poder.",
+    "eop": "Cristo viene como soberano para establecer Su Reino eterno. — El Deseado de Todas las Gentes, p. 633"
+  },
+  {
+    "id": 21,
+    "versiculo": "Mateo 25:31",
+    "texto": "Cuando el Hijo del Hombre venga en su gloria... se sentará en su trono.",
+    "eop": "El juicio final se manifestará plenamente en el retorno de Cristo. — El Conflicto de los Siglos, p. 640"
+  },
+  {
+    "id": 22,
+    "versiculo": "2 Pedro 3:10",
+    "texto": "El día del Señor vendrá como ladrón en la noche.",
+    "eop": "Aunque inesperada para el mundo, la venida no sorprenderá a los fieles. — Maranata, p. 98"
+  },
+  {
+    "id": 23,
+    "versiculo": "Nahúm 1:5",
+    "texto": "Los montes tiemblan delante de él.",
+    "eop": "El regreso de Cristo conmoverá toda la creación. — Maranata, p. 282"
+  },
+  {
+    "id": 24,
+    "versiculo": "Salmo 96:13",
+    "texto": "Delante de Jehová que vino a juzgar la tierra.",
+    "eop": "La segunda venida es el inicio del juicio final sobre el mundo. — Primeros Escritos, p. 52"
+  },
+  {
+    "id": 25,
+    "versiculo": "Apocalipsis 6:14-17",
+    "texto": "Porque el gran día de su ira ha llegado.",
+    "eop": "Los impíos huirán ante la gloria de Cristo al regresar. — El Conflicto de los Siglos, p. 641"
+  },
+  {
+    "id": 26,
+    "versiculo": "Isaías 66:15",
+    "texto": "Porque he aquí que Jehová vendrá con fuego.",
+    "eop": "La purificación final de la tierra ocurre cuando Cristo regrese. — Profetas y Reyes, p. 548"
+  },
+  {
+    "id": 27,
+    "versiculo": "1 Tesalonicenses 1:10",
+    "texto": "Esperar de los cielos a su Hijo.",
+    "eop": "Los cristianos viven en una actitud constante de expectación. — Maranata, p. 6"
+  },
+  {
+    "id": 28,
+    "versiculo": "Job 19:25-27",
+    "texto": "Yo sé que mi Redentor vive... y en mi carne he de ver a Dios.",
+    "eop": "La esperanza de la resurrección está ligada al regreso de Cristo. — Patriarcas y Profetas, p. 163"
+  },
+  {
+    "id": 29,
+    "versiculo": "Apocalipsis 14:14",
+    "texto": "He aquí una nube blanca, y sobre la nube uno sentado semejante al Hijo del Hombre.",
+    "eop": "Juan vio en visión el regreso majestuoso del Salvador. — El Conflicto de los Siglos, p. 641"
+  },
+  {
+    "id": 30,
+    "versiculo": "2 Pedro 3:12-13",
+    "texto": "Esperando y apresurándoos para la venida del día de Dios.",
+    "eop": "Los fieles esperan cielos nuevos y tierra nueva al regresar Cristo. — Maranata, p. 352"
   }
 ]

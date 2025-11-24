@@ -55,7 +55,7 @@
       margin-bottom: 1.2rem;
       z-index: 1;
       position: relative;
-      color: $primary-color;
+      color: $icon-color;
       opacity: 0.9;
       filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.12));
     }
@@ -82,7 +82,7 @@
 
     .btn-outline {
       display: inline-block;
-      border: 2px solid $primary-color;
+      border: 2px solid $butom-color;
       color: $primary-color;
       padding: 0.6rem 1.2rem;
       border-radius: 5px;
@@ -93,7 +93,7 @@
       position: relative;
 
       &:hover {
-        background-color: $primary-color;
+        background-color: $butom-color;
         color: #fff;
       }
     }

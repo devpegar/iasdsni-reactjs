@@ -55,7 +55,7 @@
 
       .btn-primary {
         display: inline-block;
-        background-color: #fff;
+        background-color: $butom-color;
         color: $primary-color;
         padding: 0.75rem 1.5rem;
         border-radius: 5px;
@@ -64,8 +64,8 @@
         transition: all 0.2s ease;
 
         &:hover {
-          background-color: color.adjust(#fff, $lightness: -10%);
-          color: color.adjust($primary-color, $lightness: -10%);
+          background-color: color.adjust($butom-color, $lightness: 10%);
+          color: color.adjust($primary-color, $lightness: 10%);
         }
       }
     }

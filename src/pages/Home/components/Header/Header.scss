@@ -22,16 +22,71 @@
 
   .header__social {
     display: flex;
-    gap: 1.2rem;
+    gap: 1rem;
 
     a {
-      color: $primary-color;
-      font-size: 1.25rem;
-      transition: color 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
 
-      &:hover {
-        color: color.adjust($primary-color, $lightness: -10%);
+      color: $icon-color;
+      font-size: 1.4rem;
+      text-decoration: none;
+
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      transition: color 0.3s ease;
+
+      /* El texto inicia oculto */
+      span {
+        max-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        opacity: 0;
+
+        font-size: 0.95rem;
+        transition: max-width 0.35s ease, opacity 0.3s ease,
+          transform 0.5s ease-in-out;
+
+        transform: translateX(-8px);
       }
+
+      /* Ícono con transición */
+      svg {
+        transition: transform 0.5s ease-in-out;
+      }
+
+      /* Hover solo sobre este link */
+      &:hover {
+        svg {
+          transform: translateX(-6px);
+        }
+
+        span {
+          max-width: 120px; /* espacio para la etiqueta */
+          opacity: 1;
+          transform: translateX(0);
+          color: $primary-color;
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    /* Colores oficiales */
+    a.instagram:hover {
+      color: #e4405f;
+    }
+    a.facebook:hover {
+      color: #1877f2;
+    }
+    a.x:hover {
+      color: #000000;
+    }
+    a.whatsapp:hover {
+      color: #25d366;
+    }
+    a.email:hover {
+      color: #dd4b39;
     }
   }
 

@@ -43,9 +43,22 @@
     }
   }
 
+  /* ----------------------------------------------------- */
+  /* ANIMACIONES DE ENTRADA AL HACER SCROLL                */
+  /* ----------------------------------------------------- */
+
   &__item {
+    /* Estado inicial oculto */
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(8px);
+
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out,
+      filter 0.8s ease-out;
+
+    /* Estilos originales */
     width: 100%;
-    aspect-ratio: 1 / 1; // cuadrado perfecto
+    aspect-ratio: 1 / 1;
     overflow: hidden;
     position: relative;
     border-radius: 10px;
@@ -62,5 +75,12 @@
     &:hover img {
       transform: scale(1.05);
     }
+  }
+
+  /* Estado visible cuando entra al viewport */
+  &__item.visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
   }
 }

@@ -2,7 +2,9 @@ import { useState } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
+import GalleryItem from "./GalleryItem";
 import galleryData from "../../data/galleryData.json";
+
 import "./Gallery.scss";
 
 export default function Gallery() {
@@ -19,13 +21,12 @@ export default function Gallery() {
 
         <div className="gallery__grid">
           {galleryData.map((img, i) => (
-            <div
+            <GalleryItem
               key={img.id}
-              className="gallery__item"
+              img={img}
+              index={i}
               onClick={() => setIndex(i)}
-            >
-              <img src={img.thumbnail} alt={img.description} loading="lazy" />
-            </div>
+            />
           ))}
         </div>
 

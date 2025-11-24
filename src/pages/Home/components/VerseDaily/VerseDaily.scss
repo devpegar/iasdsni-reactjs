@@ -3,45 +3,102 @@
 
 .verse-daily {
   width: 100%;
-  background-color: #fff;
-  color: $primary-color;
-  text-align: center;
-  padding: 5rem 2rem;
+  padding: 3rem 1.5rem;
   display: flex;
   justify-content: center;
-  align-items: center;
-  // border-top: 2px solid color.adjust($primary-color, $lightness: 20%);
-  // border-bottom: 2px solid color.adjust($primary-color, $lightness: 20%);
+  background: #ffffff; // Fondo blanco sólido
+
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
+  transform: translateY(25px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 
   &.visible {
     opacity: 1;
     transform: translateY(0);
   }
 
+  blockquote {
+    width: 100%;
+    max-width: 900px;
+    background: #fff;
+    padding: 2.5rem 2.5rem;
+    border-radius: 1rem;
+    position: relative;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    color: #1d1d1d;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+
+    /* Comilla grande decorativa */
+    &::before {
+      content: "“";
+      position: absolute;
+      top: -25px;
+      left: 15px;
+      font-size: 4rem;
+      opacity: 0.15;
+      color: #2d72d9; // Azul adventista
+      line-height: 1;
+    }
+  }
+
+  /* Estilo del versículo bíblico */
   .verse-daily__text {
-    font-family: "Noto Serif", serif;
-    font-size: 1.6rem;
+    font-size: 1.35rem;
     font-style: italic;
-    line-height: 1.5;
-    max-width: 800px;
-    margin: 0 auto;
+    line-height: 1.7;
+    font-weight: 500;
+    color: $text-color-verses;
   }
 
+  /* Referencia bíblica */
   .verse-daily__ref {
-    margin-top: 1rem;
-    font-family: "Noto Sans", sans-serif;
-    font-size: 1.1rem;
-    color: color.adjust($primary-color, $lightness: -10%);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: right;
+    color: $primary-color;
   }
 
-  @media (max-width: 768px) {
-    padding: 3rem 1.5rem;
+  /* Cita del Espíritu de Profecía — Diferente estilo */
+  .verse-daily__eop {
+    margin-top: 0.5rem;
+    padding: 1rem 1.2rem;
+    background: #f7f9fc;
+    border-left: 4px solid #2d72d9;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    color: $text-color-verses;
+    line-height: 1.5;
+  }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .verse-daily {
+    padding: 2rem 1rem;
+
+    blockquote {
+      padding: 1.8rem 1.5rem;
+
+      &::before {
+        font-size: 3rem;
+        top: -20px;
+      }
+    }
 
     .verse-daily__text {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
+    }
+
+    .verse-daily__ref {
+      font-size: 0.9rem;
+    }
+
+    .verse-daily__eop {
+      font-size: 0.9rem;
+      padding: 0.8rem 1rem;
     }
   }
 }
