@@ -1,0 +1,17 @@
+# --- Redirección de errores al index para que React maneje las rutas ---
+
+ErrorDocument 404 /404.html
+
+# --- Reescritura estándar para aplicaciones SPA ---
+
+RewriteEngine On
+RewriteBase /
+
+# Si el archivo o directorio existe, lo sirve
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Si no existe, manda todo a index.html
+
+RewriteRule ^ index.html [L]
