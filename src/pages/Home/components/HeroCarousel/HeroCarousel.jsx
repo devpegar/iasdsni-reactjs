@@ -56,7 +56,7 @@ export default function HeroCarousel() {
                 bíblicos temáticos. ¡Pedí el tuyo!
               </p>
               <a
-                href="https://wa.me/5493361234567?text=Hola!%20Quisiera%20recibir%20un%20estudio%20bíblico."
+                href="https://wa.me/5493364683017?text=Hola!%20Quisiera%20recibir%20un%20estudio%20bíblico."
                 className="btn-primary"
                 target="_blank"
               >
