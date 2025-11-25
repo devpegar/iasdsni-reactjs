@@ -1,0 +1,71 @@
+@use "../../styles/variables" as *;
+
+.iasd-logo {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+
+  // -------------------------
+  //  SÍMBOLO
+  // -------------------------
+  &__symbol {
+    width: 60px;
+    height: auto;
+    margin-top: 0.15rem;
+
+    @media (max-width: $breakpoint-sm) {
+      width: 55px;
+    }
+  }
+
+  // -------------------------
+  //  TEXTOS
+  // -------------------------
+  &__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.05;
+    margin-top: 0.6rem;
+  }
+
+  // Líneas principales
+  &__line {
+    font-family: $font-advent-sans;
+    color: $primary-color; // Gris institucional de identitarios IASD
+    font-weight: 400;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+    margin-bottom: 0;
+  }
+
+  &__line--1,
+  &__line--2 {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  // -------------------------
+  //  IDENTIFICADOR LOCAL
+  // -------------------------
+  &__subline {
+    // margin-top: 0.35rem;
+    font-family: $font-advent-sans;
+    color: $primary-color;
+    font-size: 0.9rem;
+    letter-spacing: 0.12rem;
+    font-weight: 600;
+    white-space: nowrap;
+    line-height: 2;
+
+    @media (max-width: $breakpoint-sm) {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    &__line--1,
+    &__line--2 {
+      font-size: 1.4rem;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import "./Header.scss";
-import logo from "/assets/logo.png";
+// import logo from "/assets/logo.png";
+import Logo from "../../../../components/logo/Logo";
 import {
   FaFacebookF,
   FaInstagram,
@@ -13,8 +14,8 @@ export default function Header() {
     <header className="header">
       <div className="header__container">
         {/* Logo */}
-        <div className="header__logo">
-          <img src={logo} alt="Logo Iglesia Adventista San Nicolás Centro" />
+        <div>
+          <Logo />
         </div>
 
         {/* Redes sociales */}
