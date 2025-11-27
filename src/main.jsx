@@ -1,16 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { siteConfig } from "./config/siteConfig";
-import App from "./app/App.jsx";
-import MaintenancePage from "./maintenance/MaintenancePage.jsx";
+import Root from "./Root.jsx"; // ⬅ importar el componente
 import "./styles/main.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {siteConfig.maintenance ? (
-      <MaintenancePage launchDate={siteConfig.launchDate} />
-    ) : (
-      <App />
-    )}
+    <Root />
   </React.StrictMode>
 );
