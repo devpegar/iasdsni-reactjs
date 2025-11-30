@@ -15,6 +15,7 @@
   &.visible {
     opacity: 1;
     transform: translateY(0);
+    width: inherit;
   }
 
   blockquote {
@@ -38,8 +39,8 @@
       top: -25px;
       left: 15px;
       font-size: 4rem;
-      opacity: 0.15;
-      color: #2d72d9; // Azul adventista
+      opacity: 0.3;
+      color: $secondary-color; // Azul adventista
       line-height: 1;
     }
   }
@@ -65,8 +66,8 @@
   .verse-daily__eop {
     margin-top: 0.5rem;
     padding: 1rem 1.2rem;
-    background: #f7f9fc;
-    border-left: 4px solid #2d72d9;
+    background: $gray-100;
+    border-left: 4px solid $secondary-color;
     border-radius: 0.5rem;
     font-size: 1rem;
     color: $text-color-verses;

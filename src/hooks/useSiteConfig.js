@@ -8,7 +8,7 @@ export function useSiteConfig() {
   });
 
   useEffect(() => {
-    fetch("http://localhost/iasdsni-api/settings/get.php")
+    fetch("http://localhost/iasdsni-api/maintenance/get.php")
       .then((res) => res.json())
       .then((data) => {
         setConfig({
