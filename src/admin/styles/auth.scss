@@ -1,0 +1,154 @@
+@use "../../styles/variables" as *;
+@use "sass:color";
+
+// ============================
+// CONTENEDOR PRINCIPAL
+// ============================
+
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $gray-100;
+  padding: $spacing-md;
+  position: relative;
+  font-family: $font-advent-sans;
+}
+
+// ============================
+// BOTÓN VOLVER
+// ============================
+
+.back-button {
+  position: absolute;
+  top: $spacing-md;
+  left: $spacing-md;
+  color: $primary-color;
+  background: rgba($primary-color, 0.1);
+  padding: $spacing-sm;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s ease;
+
+  &:hover {
+    background: rgba($primary-color, 0.2);
+  }
+}
+
+// ============================
+// CAJA PRINCIPAL LOGIN
+// ============================
+
+.auth-box {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  padding: $spacing-lg;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  animation: fadeIn 0.4s ease-out;
+
+  &.login {
+    border-top: 4px solid $primary-color;
+  }
+}
+
+// ============================
+// FORMULARIO LOGIN
+// ============================
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+
+  h2 {
+    text-align: center;
+    margin-bottom: $spacing-md;
+    color: $primary-color;
+    font-size: 1.7rem;
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+
+  label {
+    font-size: 0.95rem;
+    color: $text-color;
+    font-weight: 600;
+  }
+
+  input {
+    padding: $spacing-sm $spacing-md;
+    border-radius: 8px;
+    border: 1px solid $gray-300;
+    font-size: 1rem;
+    background: $gray-100;
+    transition: 0.25s ease;
+
+    &:focus {
+      border-color: $secondary-color;
+      box-shadow: 0 0 0 3px rgba($secondary-color, 0.25);
+      outline: none;
+      background: #fff;
+    }
+  }
+}
+
+// ============================
+// BOTÓN PRINCIPAL
+// ============================
+
+.auth-btn {
+  width: 100%;
+  padding: $spacing-sm;
+  margin-top: $spacing-sm;
+  font-size: 1.1rem;
+  background: $butom-color;
+  border: none;
+  border-radius: 8px;
+  color: $text-inverse;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s ease;
+
+  &:hover {
+    background: color.adjust($butom-color, $lightness: -7%);
+  }
+
+  &:active {
+    background: color.adjust($butom-color, $lightness: -12%);
+  }
+}
+
+// ============================
+// MENSAJES
+// ============================
+
+.auth-error {
+  color: #d9534f;
+  background: rgba(#d9534f, 0.12);
+  padding: $spacing-sm;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+// ============================
+// ANIMACIONES
+// ============================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+  }
+}

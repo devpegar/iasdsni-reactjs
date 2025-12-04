@@ -3,10 +3,11 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Root from "./Root";
-import Login from "./admin/Login";
+import AuthLayout from "./admin/auth/AuthLayout";
 import Dashboard from "./admin/Dashboard";
 import AdminLayout from "./admin/AdminLayout";
 import SettingsPage from "./admin/SettingsPage";
+import CreateUser from "./admin/users/CreateUser";
 import ProtectedRoute from "./admin/ProtectedRoute";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -17,7 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/" element={<Root />} />
 
         {/* --- LOGIN ADMIN --- */}
-        <Route path="/admin/login" element={<Login />} />
+        <Route path="/admin/login" element={<AuthLayout />} />
 
         {/* --- PANEL ADMIN PROTEGIDO --- */}
         <Route
@@ -30,7 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         >
           <Route index element={<Dashboard />} />
           <Route path="settings" element={<SettingsPage />} />
-          {/* <Route path="posts" element={<PostsPage />} /> */}
+          <Route path="users/create" element={<CreateUser />} />
         </Route>
       </Routes>
     </BrowserRouter>
