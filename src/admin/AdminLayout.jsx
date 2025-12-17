@@ -1,23 +1,10 @@
-import { useEffect, useState } from "react";
-import { apiGet } from "../services/api";
-import { Link, NavLink, useNavigate, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
+import { useAuth } from "../hooks/AuthContext";
 
 import "./styles/admin.scss";
 
 export default function AdminLayout() {
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    apiGet("/auth/check.php").then((res) => {
-      if (res.success) setUser(res.user);
-    });
-  }, []);
-
-  const logout = async () => {
-    await apiGet("/auth/logout.php");
-    navigate("/admin/login");
-  };
+  const { user, logout } = useAuth();
 
   return (
     <div className="admin-layout">
@@ -39,6 +26,8 @@ export default function AdminLayout() {
             </NavLink>
 
             <NavLink to="/admin/settings">Configuración</NavLink>
+
+            <NavLink to="/admin/users">Usuarios</NavLink>
 
             <NavLink to="/admin/posts">Noticias</NavLink>
           </nav>

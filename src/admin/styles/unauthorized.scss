@@ -1,0 +1,38 @@
+.unauthorized-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f4f4;
+
+  .unauthorized-card {
+    background: white;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+
+    h1 {
+      margin-bottom: 1rem;
+      color: #c53030;
+      font-size: 2rem;
+    }
+
+    p {
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+
+    .back-btn {
+      padding: 0.7rem 1.2rem;
+      background: #2c3e50;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+
+      &:hover {
+        background: #1a242f;
+      }
+    }
+  }
+}

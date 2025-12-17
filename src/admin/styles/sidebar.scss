@@ -62,3 +62,56 @@
     }
   }
 }
+
+/* ============================
+   Submenús para Administración
+   ============================ */
+
+.menu-title {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #bbb;
+  padding-left: 0.5rem;
+  text-transform: uppercase;
+}
+
+.menu-group {
+  margin-bottom: 1rem;
+
+  span {
+    display: block;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1rem;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin-top: 0.3rem;
+    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    li a {
+      padding: 0.5rem 0.8rem !important;
+      font-size: 0.9rem;
+      border-radius: 6px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      &.active {
+        background: rgba(255, 255, 255, 0.35);
+      }
+    }
+  }
+}

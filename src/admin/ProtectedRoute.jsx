@@ -1,19 +1,20 @@
-import { useEffect, useState } from "react";
-import { apiGet } from "../services/api";
 import { Navigate } from "react-router-dom";
-
+import { useAuth } from "../hooks/AuthContext";
 import Loading from "../components/loading/Loading.jsx";
 
-export default function ProtectedRoute({ children }) {
-  const [auth, setAuth] = useState(null);
+export default function ProtectedRoute({ children, roles = null }) {
+  const { user, loading } = useAuth();
 
-  useEffect(() => {
-    apiGet("/auth/check.php").then((res) => {
-      setAuth(res.success);
-    });
-  }, []);
+  // Aún cargando datos del backend
+  if (loading) return <Loading />;
 
-  if (auth === null) return <Loading />;
+  // No autenticado
+  if (!user) return <Navigate to="/admin/login" />;
 
-  return auth ? children : <Navigate to="/admin/login" />;
+  // Verificación de roles
+  if (roles && !roles.includes(user.role)) {
+    return <Navigate to="/admin/unauthorized" />;
+  }
+
+  return children;
 }

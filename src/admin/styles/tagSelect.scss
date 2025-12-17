@@ -1,0 +1,68 @@
+.tag-select {
+  position: relative;
+  width: 100%;
+}
+
+.tag-select-input {
+  min-height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  cursor: pointer;
+  background: #fff;
+
+  .placeholder {
+    color: #777;
+    font-size: 14px;
+  }
+
+  .tag {
+    background: #1a73e8;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+
+    .remove {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+    }
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-height: 180px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  z-index: 10;
+
+  .item {
+    padding: 8px 10px;
+    cursor: pointer;
+
+    &:hover {
+      background: #eee;
+    }
+
+    &.selected {
+      background: #1a73e8;
+      color: white;
+    }
+  }
+}
