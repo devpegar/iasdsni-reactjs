@@ -2,14 +2,13 @@
 // ARCHIVO PRINCIPAL DE ESTILOS
 // ======================================
 
-@use "fonts";
-@forward "variables";
-@forward "mixins";
-@forward "reset";
-@forward "typography";
-@forward "global";
-
-@use "variables" as *;
+@use "./fonts";
+@use "./variables";
+@use "./mixins";
+@use "./reset";
+@use "./typography";
+@use "./global";
+@use "./variables" as *;
 
 body {
   background-color: #fff;

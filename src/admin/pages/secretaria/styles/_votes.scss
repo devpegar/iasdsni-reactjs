@@ -1,0 +1,106 @@
+/* secretaria/votes.scss */
+@use "../../../styles/core/variables" as *;
+@use "../../../styles/core/mixins" as *;
+
+.votes {
+  @include card;
+  max-width: 950px;
+  padding: 18px 20px;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-lg;
+  background: #fff;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* =======================
+   TABLA DE VOTOS
+======================= */
+
+.votes-table {
+  .data-table__header,
+  .data-table__row {
+    @include grid(
+      $template: 80px auto 100px 130px 120px,
+      $gap: 8px,
+      $align: center
+    );
+    .full-span {
+      @include grid-span(5);
+    }
+  }
+}
+
+/* Enlace tipo texto */
+.link-button {
+  background: none;
+  border: none;
+  color: $primary-color;
+  font-size: 0.8rem;
+  margin-left: 6px;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal {
+  background: #fff;
+  border-radius: $border-radius-lg;
+  padding: 20px 24px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: $shadow-md;
+
+  h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: $primary-color;
+  }
+}
+
+.modal-text {
+  font-size: 0.95rem;
+  color: $text-color;
+  white-space: pre-wrap;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+
+  .btn-primary {
+    @include button-base;
+  }
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: $primary-color;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

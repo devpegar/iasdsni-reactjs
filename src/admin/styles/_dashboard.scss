@@ -1,3 +1,4 @@
+@use "./core/variables" as *;
 // ============================
 // Dashboard Page Styles
 // ============================
@@ -12,10 +13,10 @@
 .maintenance-card {
   margin-top: 20px;
   padding: 15px;
-  background: #f8f8f8;
+  background: $gray-100;
   border-radius: 8px;
   width: 320px;
-  border: 1px solid #ddd;
+  border: 1px solid $border-color;
 
   h3 {
     margin-bottom: 10px;
@@ -24,6 +25,7 @@
   p {
     margin: 10px 0 20px 0;
     font-size: 1rem;
+    color: $text-color;
   }
 
   .btn-toggle {

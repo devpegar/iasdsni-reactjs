@@ -1,0 +1,117 @@
+/* core/_mixins.scss */
+@use "./variables" as *;
+
+@mixin card($radius: $border-radius-md, $shadow: $shadow-md, $bg: #fff) {
+  background: $bg;
+  border-radius: $radius;
+  box-shadow: $shadow;
+}
+
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin grid($columns: null, $template: null, $gap: 1rem, $align: stretch) {
+  display: grid;
+
+  @if $template {
+    grid-template-columns: $template;
+  } @else if $columns {
+    grid-template-columns: repeat($columns, 1fr);
+  }
+
+  gap: $gap;
+  align-items: $align;
+}
+
+@mixin grid-span($cols) {
+  grid-column: span $cols;
+}
+
+@mixin button-base {
+  padding: 0.7rem 1rem;
+  border-radius: $border-radius-md;
+  border: none;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s, color 0.2s;
+}
+
+@mixin switch-base(
+  $width: 44px,
+  $height: 24px,
+  $bg-off: $gray-300,
+  $bg-on: $primary-color
+) {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+
+  input {
+    display: none;
+  }
+
+  .switch-slider {
+    position: relative;
+    width: $width;
+    height: $height;
+    background: $bg-off;
+    border-radius: 999px;
+    transition: background 0.2s ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: calc(#{$height} - 6px);
+      height: calc(#{$height} - 6px);
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  input:checked + .switch-slider {
+    background: $bg-on;
+
+    &::before {
+      transform: translateX(calc(#{$width} - #{$height}));
+    }
+  }
+
+  .switch-label {
+    font-weight: 500;
+    color: $text-color;
+  }
+}
+
+/* core/_mixins.scss */
+// Uso interno: no aplicar directamente en páginas
+@mixin form-layout(
+  $columns,
+  $gap: 0.75rem,
+  $responsive: true,
+  $breakpoint: 768px
+) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+
+  @if $responsive == true {
+    @media (max-width: $breakpoint) {
+      grid-template-columns: 1fr;
+    }
+  }
+}

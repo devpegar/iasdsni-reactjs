@@ -1,0 +1,44 @@
+@use "../../../styles/core/variables" as *;
+@use "../../../styles/core/mixins" as *;
+
+.boards {
+  max-width: 1200px;
+}
+
+.board-form {
+  max-width: 950px;
+}
+
+.boards-table {
+  .data-table__header,
+  .data-table__row {
+    @include grid($template: 120px auto 100px, $gap: 8px, $align: center);
+  }
+}
+
+.board-detail--page {
+  display: flex;
+  flex-direction: column;
+  .board-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+
+    &__title,
+    &__description {
+      color: $primary-color;
+    }
+  }
+  .board-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    &__text {
+      color: $gray-700;
+    }
+    &__strong {
+      font-weight: 600;
+      color: $primary-color;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { apiGet } from "../services/api";
-import { AuthContext } from "../hooks/AuthContext";
+import { AuthContext } from "../admin/hooks/AuthContext";
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);

@@ -1,0 +1,68 @@
+@use "./core/variables" as *;
+@use "./core/mixins" as *;
+
+.settings-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  //   max-width: 720px;
+}
+
+.settings-card {
+  @include card();
+  padding: 24px;
+
+  h2,
+  h3 {
+    font-size: $text-lg;
+    margin-bottom: 12px;
+    color: $text-color;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: $gray-500;
+  }
+
+  &--danger {
+    border-left: 4px solid $error-color;
+
+    h3 {
+      color: $error-color;
+    }
+  }
+}
+
+.settings-switch {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+
+  input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  span {
+    font-weight: 500;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+
+  .btn-primary {
+    @include button-base();
+    font-size: $text-sm;
+  }
+  .btn-danger {
+    @include button-base();
+    background: $error-color;
+    font-size: $text-sm;
+  }
+}

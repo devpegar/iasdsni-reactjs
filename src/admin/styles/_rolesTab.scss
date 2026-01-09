@@ -1,0 +1,14 @@
+@use "../styles/core/variables" as *;
+@use "../styles/core/mixins" as *;
+
+.rolesTab {
+  max-width: 750px;
+  //   margin: 0 auto;
+}
+
+.roles-table {
+  .data-table__header,
+  .data-table__row {
+    @include grid($template: 50px 150px auto 150px, $gap: 8px, $align: center);
+  }
+}

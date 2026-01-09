@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { apiGet, apiPost } from "../services/api";
+import { apiGet, apiPost } from "../../services/api";
 
 export default function useCrud(basePath) {
   const [list, setList] = useState([]);

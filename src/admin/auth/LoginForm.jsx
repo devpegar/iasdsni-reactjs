@@ -2,7 +2,10 @@ import { useState } from "react";
 import { apiPost } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
-import { useAuth } from "../../hooks/AuthContext";
+import { useAuth } from "../hooks/AuthContext";
+
+import FormLayout from "../layout/FormLayout";
+import Field from "../components/form/Field";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
@@ -29,32 +32,28 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleLogin} className="auth-form">
+    <FormLayout columns="1" onSubmit={handleLogin} className="auth-form">
       {error && <p className="auth-error">{error}</p>}
 
-      <div className="input-group">
-        <label>Usuario</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-      </div>
+      <Field
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Nombre de Usuario"
+        required
+      />
 
-      <div className="input-group">
-        <label>Contraseña</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </div>
+      <Field
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Contraseña"
+        required
+      />
 
-      <button type="submit" className="auth-btn">
+      <button type="submit" className="btn btn-primary">
         Ingresar
       </button>
-    </form>
+    </FormLayout>
   );
 }

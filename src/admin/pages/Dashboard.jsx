@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { apiGet } from "../services/api";
+import { apiGet } from "../../services/api";
 
 import useMinimumLoader from "../hooks/useMinimumLoader";
-import Loading from "../components/loading/Loading";
-
-import "./styles/admin.scss";
+import Loading from "../../components/loading/Loading";
 
 export default function Dashboard() {
   const [maintenance, setMaintenance] = useState(null);

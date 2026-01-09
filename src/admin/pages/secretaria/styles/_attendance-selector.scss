@@ -1,0 +1,57 @@
+@use "../../../styles/core/variables" as *;
+@use "../../../styles/core/mixins" as *;
+
+.attendance-selector {
+  margin-top: 20px;
+
+  h4 {
+    margin-bottom: 12px;
+    font-size: 1rem;
+    color: $primary-color;
+  }
+}
+
+/* Contenedor de lista */
+
+.attendance-selector-list {
+  @include card;
+  @include grid($columns: 4, $gap: 8px, $align: center);
+  padding: 12px;
+  border: 1px solid $border-color;
+}
+
+/* Item */
+
+.attendance-selector-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 6px 8px;
+  border-radius: 6px;
+
+  font-size: 0.9rem;
+  color: $gray-800;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: $gray-100;
+  }
+
+  &.selected {
+    background-color: rgba($primary-color, 0.08);
+  }
+
+  input[type="checkbox"] {
+    accent-color: $primary-color;
+    cursor: pointer;
+  }
+}
+
+/* Estado vacío */
+
+.attendance-selector-empty {
+  font-size: 0.85rem;
+  color: $gray-500;
+}

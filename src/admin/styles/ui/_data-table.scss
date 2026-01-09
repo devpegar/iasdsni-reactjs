@@ -1,0 +1,45 @@
+/* ui/_data-table.scss */
+@use "../core/variables" as *;
+@use "../core/mixins" as *;
+
+.data-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-x: auto;
+
+  &__header,
+  &__row {
+    @include grid($gap: 12px, $align: center); // ← USAMOS TU MIXIN
+    padding: 10px 12px;
+    border-radius: $border-radius-sm;
+    min-width: max-content;
+  }
+
+  &__header {
+    font-weight: 600;
+    color: $gray-700;
+    background: $gray-100;
+  }
+
+  &__row {
+    background: #fff;
+    border: 1px solid $gray-200;
+
+    &:hover {
+      background: $gray-100;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+  }
+}
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

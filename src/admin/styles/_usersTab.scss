@@ -1,0 +1,96 @@
+@use "../styles/core/variables" as *;
+@use "../styles/core/mixins" as *;
+
+.users-tab {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.users-form {
+  max-width: 900px;
+}
+/* ======================
+   DATA TABLE
+====================== */
+.users-table {
+  .data-table__header,
+  .data-table__row {
+    @include grid(
+      $template: 150px 220px 120px 1fr 110px 120px,
+      $gap: 8px,
+      $align: center
+    );
+  }
+}
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  font-weight: 500;
+}
+.badge-success {
+  background: rgba($success-color, 0.15);
+  color: $success-color;
+}
+.badge-muted {
+  background: $gray-200;
+  color: $gray-600;
+}
+
+/* ======================
+   UTILIDADES
+====================== */
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 900px) {
+  .data-table {
+    &__header,
+    &__row {
+      grid-template-columns: 140px 1fr 100px 100px;
+    }
+
+    /* ocultamos columnas */
+    &__header > :nth-child(4),
+    &__row > :nth-child(4) {
+      display: none; // departamentos
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .data-table {
+    gap: 12px;
+
+    &__header {
+      display: none;
+    }
+
+    &__row {
+      @include grid($columns: 1, $gap: 6px);
+      padding: 12px;
+    }
+
+    &__row > div {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 0.85rem;
+
+      &::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: $gray-600;
+      }
+    }
+
+    &__actions {
+      justify-content: flex-start;
+      margin-top: 6px;
+    }
+  }
+}

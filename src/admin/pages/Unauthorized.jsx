@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./styles/unauthorized.scss";
+// import "./styles/unauthorized.scss";
 
 export default function Unauthorized() {
   return (

@@ -1,0 +1,19 @@
+/* ui/_cards.scss */
+@use "../core/mixins" as *;
+@use "../core/variables" as *;
+
+.card {
+  @include card;
+  padding: 16px;
+  border: 1px solid $border-color;
+}
+
+.card-header {
+  @include flex-between;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.card-body {
+  font-size: 0.9rem;
+}

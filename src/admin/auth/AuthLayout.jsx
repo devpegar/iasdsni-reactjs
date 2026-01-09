@@ -1,7 +1,7 @@
 import LoginForm from "./LoginForm";
 import { Link } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
-import "../styles/auth.scss";
+import "../styles/admin.scss";
 
 export default function AuthLayout() {
   return (

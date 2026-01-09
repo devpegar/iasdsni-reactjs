@@ -1,0 +1,13 @@
+@use "../styles/core/variables" as *;
+@use "../styles/core/mixins" as *;
+
+.departmentsTab {
+  max-width: 950px;
+}
+
+.departaments-table {
+  .data-table__header,
+  .data-table__row {
+    @include grid($template: 50px 250px auto 150px, $gap: 8px, $align: center);
+  }
+}

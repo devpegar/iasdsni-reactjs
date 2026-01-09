@@ -1,0 +1,58 @@
+@use "../../../styles/core/mixins" as *;
+@use "../../../styles/core/variables" as *;
+
+/* Contenedor general */
+.secretaria-layout {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Sección estándar */
+.secretaria-section {
+  @include card;
+  padding: 18px 20px;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-lg;
+  background: #fff;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Header de sección */
+.secretaria-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $primary-color;
+  }
+}
+.secretaria-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: $primary-color;
+}
+
+/* Estados */
+.secretaria-loading,
+.secretaria-empty,
+.secretaria-error {
+  font-size: 0.9rem;
+}
+
+.secretaria-loading,
+.secretaria-empty {
+  color: $gray-500;
+}
+
+.secretaria-error {
+  color: $error-color;
+}

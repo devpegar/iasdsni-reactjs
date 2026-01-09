@@ -1,5 +1,22 @@
-// src/admin/styles/admin.scss
+@use "./core/variables";
+@use "./core/mixins";
+
+@use "./ui/buttons";
+@use "./ui/controls";
+@use "./ui/cards";
+@use "./ui/data-table";
+@use "./ui/description-preview";
+@use "./ui/forms";
 
 @use "./layout";
 @use "./sidebar";
 @use "./dashboard";
+@use "./auth";
+@use "./create-user";
+@use "./setting-page";
+@use "./tagSelect";
+@use "./unauthorized";
+@use "./usersPanel";
+@use "./usersTab";
+@use "./rolesTab";
+@use "./departmentsTab";

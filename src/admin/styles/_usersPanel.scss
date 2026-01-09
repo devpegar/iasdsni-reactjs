@@ -1,0 +1,51 @@
+@use "../styles/core/variables" as *;
+@use "../styles/core/mixins" as *;
+
+.users-panel {
+  h2 {
+    margin-bottom: 1.5rem;
+  }
+}
+
+// Contenedor de botones
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  .tab-button {
+    @include button-base;
+    color: $gray-100;
+    background: $gray-400;
+    &.is-active {
+      background: $primary-color;
+    }
+  }
+}
+
+.tab-content {
+  margin-top: 1rem;
+}
+
+.no-permission {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  text-align: center;
+  color: #e74c3c;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+
+.access-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  span,
+  small {
+    color: $gray-500;
+    font-size: 0.75rem;
+  }
+}

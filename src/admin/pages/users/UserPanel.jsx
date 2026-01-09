@@ -2,10 +2,9 @@ import { useState } from "react";
 import UsersTab from "./tabs/UsersTab";
 import RolesTab from "./tabs/RolesTab";
 import DepartmentsTab from "./tabs/DepartmentsTab";
-import { useAuth } from "../../../hooks/AuthContext";
+import { useAuth } from "../../hooks/AuthContext";
 import PermissionGuard from "../../components/PermissionGuard";
 import hasPermission from "../../helper/hasPermision";
-import "../../styles/usersPanel.scss";
 
 export default function UsersPanel() {
   const [active, setActive] = useState("users");
@@ -24,21 +23,23 @@ export default function UsersPanel() {
       {/* TABS */}
       <div className="tabs">
         <button
-          className={active === "users" ? "active" : ""}
+          className={`tab-button ${active === "users" ? "is-active" : ""}`}
           onClick={() => setActive("users")}
         >
           Usuarios
         </button>
 
         <button
-          className={active === "roles" ? "active" : ""}
+          className={`tab-button ${active === "roles" ? "is-active" : ""}`}
           onClick={() => setActive("roles")}
         >
           Roles
         </button>
 
         <button
-          className={active === "departments" ? "active" : ""}
+          className={`tab-button ${
+            active === "departments" ? "is-active" : ""
+          }`}
           onClick={() => setActive("departments")}
         >
           Departamentos

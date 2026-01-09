@@ -1,7 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import "../styles/tagSelect.scss";
+// import "../styles/tagSelect.scss";
 
-export default function TagMultiSelect({ options, value, onChange }) {
+export default function TagMultiSelect({
+  options,
+  value,
+  placeholder,
+  onChange,
+}) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef(null);
 
@@ -27,7 +32,9 @@ export default function TagMultiSelect({ options, value, onChange }) {
   return (
     <div className="tag-select" ref={containerRef}>
       <div className="tag-select-input" onClick={() => setOpen(!open)}>
-        {value.length === 0 && <span className="placeholder">Seleccione</span>}
+        {value.length === 0 && (
+          <span className="placeholder">{placeholder}</span>
+        )}
 
         {value.map((id) => {
           const item = options.find((opt) => opt.id === id);

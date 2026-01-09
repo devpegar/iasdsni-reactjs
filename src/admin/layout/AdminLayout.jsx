@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { useAuth } from "../hooks/AuthContext";
-
-import "./styles/admin.scss";
+import formatUsername from "../utils/formatUsername";
+import "../styles/admin.scss";
 
 export default function AdminLayout() {
   const { user, logout } = useAuth();
@@ -11,11 +11,11 @@ export default function AdminLayout() {
       {/* SIDEBAR */}
       <aside className="sidebar">
         <div>
-          <h2 style={{ marginBottom: "20px" }}>Panel Admin</h2>
+          <h2 className="menu-title">Panel Admin</h2>
 
           {user && (
             <div className="user-info">
-              <div className="name">{user.username}</div>
+              <div className="name">{formatUsername(user.username)}</div>
               <div className="role">{user.role}</div>
             </div>
           )}
@@ -29,11 +29,15 @@ export default function AdminLayout() {
 
             <NavLink to="/admin/users">Usuarios</NavLink>
 
-            <NavLink to="/admin/posts">Noticias</NavLink>
+            <NavLink to="/admin/posts" className="nav-link disabled">
+              Noticias
+            </NavLink>
+
+            <NavLink to="/admin/secretaria">Secretaría</NavLink>
           </nav>
         </div>
 
-        <button className="logout-btn" onClick={logout}>
+        <button className="btn btn-primary" onClick={logout}>
           Salir
         </button>
       </aside>

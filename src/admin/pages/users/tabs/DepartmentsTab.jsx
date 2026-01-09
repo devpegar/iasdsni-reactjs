@@ -1,5 +1,8 @@
-import useCrud from "../../../../hooks/useCrud";
-import useFormEdit from "../../../../hooks/useFormEdit";
+import useCrud from "../../../hooks/useCrud";
+import useFormEdit from "../../../hooks/useFormEdit";
+import FormLayout from "../../../layout/FormLayout";
+import TableLayout from "../../../layout/TableLayout";
+import Field from "../../../components/form/Field";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 export default function DepartmentsTab() {
@@ -33,71 +36,77 @@ export default function DepartmentsTab() {
   };
 
   return (
-    <div className="tab-section">
+    <div className="departmentsTab">
       <h2>{editingId ? "Editar Departamento" : "Crear Departamento"}</h2>
+      <div className="departmentsTab">
+        <FormLayout inline compact onSubmit={handleSubmit}>
+          <Field
+            type="text"
+            name="name"
+            placeholder="Nombre del departamento"
+            value={form.name}
+            onChange={handleChange}
+          />
+          <Field
+            type="text"
+            name="description"
+            placeholder="Descripción"
+            value={form.description}
+            onChange={handleChange}
+          />
 
-      <form onSubmit={handleSubmit} className="form">
-        <input
-          type="text"
-          name="name"
-          placeholder="Nombre del departamento"
-          value={form.name}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="description"
-          placeholder="Descripción"
-          value={form.description}
-          onChange={handleChange}
-        />
-
-        <div style={{ display: "flex", gap: "1rem" }}>
-          <button type="submit">
-            {editingId ? "Guardar Cambios" : "Crear Departamento"}
-          </button>
-
-          {editingId && (
-            <button type="button" onClick={resetForm}>
-              Cancelar edición
+          <div className="form-actions">
+            <button type="submit" className="btn btn-primary">
+              {editingId ? "Guardar Cambios" : "Crear Departamento"}
             </button>
-          )}
-        </div>
-      </form>
+
+            {editingId && (
+              <button
+                type="button"
+                onClick={resetForm}
+                className="btn btn-secondary"
+              >
+                Cancelar edición
+              </button>
+            )}
+          </div>
+        </FormLayout>
+      </div>
 
       <h3>Lista de departamentos</h3>
 
       {loading ? (
         <p>Cargando...</p>
       ) : (
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Departamento</th>
-              <th>Descripción</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {departments.map((d) => (
-              <tr key={d.id}>
-                <td>{d.id}</td>
-                <td>{d.name}</td>
-                <td>{d.description}</td>
-                <td className="actions">
-                  <button onClick={() => startEdit(d)}>
-                    <FaEdit className="edit" />
-                  </button>
-                  <button onClick={() => deleteItem(d.id)}>
-                    <FaTrash className="delete" />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <TableLayout
+          columns={[
+            { key: "id", label: "ID", width: "80px" },
+            { key: "name", label: "Departamento", width: "180px" },
+            { key: "description", label: "Descripción", width: "360px" },
+            { key: "actions", label: "Acciones", type: "actions" },
+          ]}
+          data={departments}
+          loading={loading}
+          emptyText="No hay roles registrados"
+          renderActions={(d) => (
+            <>
+              <button
+                className="btn-icon"
+                title="Editar"
+                onClick={() => startEdit(d)}
+              >
+                <FaEdit />
+              </button>
+              <button
+                className="btn-icon btn-danger"
+                title="Eliminar"
+                onClick={() => deleteItem(d)}
+              >
+                <FaTrash />
+              </button>
+            </>
+          )}
+        />
       )}
     </div>
   );
