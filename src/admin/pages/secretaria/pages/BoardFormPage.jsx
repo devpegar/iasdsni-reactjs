@@ -44,7 +44,7 @@ export default function BoardFormPage() {
         // 👇 Adaptamos asistencia al formato del selector
         setAttendance(
           (board.attendance || []).map((a) => ({
-            user_id: a.id,
+            user_id: a.user_id,
             present: Boolean(a.present),
           }))
         );
@@ -64,8 +64,8 @@ export default function BoardFormPage() {
       return;
     }
 
-    if (!attendance.length) {
-      alert("Debés seleccionar al menos un asistente");
+    if (!attendance.some((a) => a.present)) {
+      alert("Debe haber al menos un asistente presente");
       return;
     }
 

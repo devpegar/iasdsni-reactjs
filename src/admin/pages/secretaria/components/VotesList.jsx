@@ -7,7 +7,7 @@ import TableSelectField from "../../../components/form/TableSelectField";
 import DescriptionPreview from "../../../components/ui/DescriptionPreview";
 import formatUsername from "../../../utils/formatUsername";
 
-export default function VotesList({ boardId }) {
+export default function VotesList({ boardId, attendance = [] }) {
   const [votes, setVotes] = useState([]);
   const [description, setDescription] = useState("");
 
@@ -144,7 +144,7 @@ export default function VotesList({ boardId }) {
      FULFILL
   ======================= */
   const fulfillVote = async (voteId) => {
-    await apiPost("/secretaria/boards/votes/fulfill.php", {
+    await apiPost("/secretaria/boards/votes/mark_fulfilled.php", {
       vote_id: voteId,
     });
     loadVotes();
@@ -378,7 +378,7 @@ export default function VotesList({ boardId }) {
       </section>
 
       {/* ASISTENCIA */}
-      <AttendanceList boardId={boardId} />
+      <AttendanceList attendance={attendance} />
     </div>
   );
 }

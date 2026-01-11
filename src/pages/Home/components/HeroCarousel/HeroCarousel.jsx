@@ -15,7 +15,7 @@ export default function HeroCarousel() {
       <Swiper
         modules={[Pagination, Autoplay]}
         pagination={{ clickable: true }}
-        // autoplay={{ delay: 7000 }}
+        autoplay={{ delay: 7000 }}
         loop
         className="hero-swiper"
       >

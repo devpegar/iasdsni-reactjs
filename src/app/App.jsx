@@ -7,6 +7,7 @@ import { useAuth } from "../admin/hooks/AuthContext";
 import MainLayout from "../components/layout/MainLayout";
 import Home from "../pages/Home/Home";
 import ScrollTopButton from "../components/ScrollToTop/ScrollTopButton";
+import Loading from "../components/loading/Loading";
 
 import AdminLayout from "../admin/layout/AdminLayout";
 import AuthLayout from "../admin/auth/AuthLayout";
@@ -24,7 +25,7 @@ export default function App() {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return <div>Cargando...</div>;
+    return <Loading />;
   }
 
   const role = user?.role;

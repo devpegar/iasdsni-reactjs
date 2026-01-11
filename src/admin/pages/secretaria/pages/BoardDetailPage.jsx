@@ -36,7 +36,7 @@ export default function BoardDetailPage() {
       <BoardHeader board={board} />
 
       <div className="board-detail-content">
-        <VotesList boardId={board.id} />
+        <VotesList boardId={board.id} attendance={board.attendance} />
       </div>
     </div>
   );

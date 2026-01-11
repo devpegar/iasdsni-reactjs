@@ -4,49 +4,55 @@ import formatUsername from "../../../utils/formatUsername";
 
 const ALLOWED_ROLES = ["secretaria", "miembro"];
 
-export default function AttendanceSelector({ value, onChange }) {
+export default function AttendanceSelector({ value = [], onChange }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     apiGet("/admin/users/list.php").then((res) => {
       if (!res?.success) return;
 
-      // Filtramos solo los roles permitidos
-      const filteredUsers = res.users.filter((u) =>
-        ALLOWED_ROLES.includes(u.role)
-      );
+      const eligible = res.users.filter((u) => ALLOWED_ROLES.includes(u.role));
 
-      setUsers(filteredUsers);
+      setUsers(eligible);
+
+      // 🔑 Inicializar snapshot completo si está vacío
+      if (value.length === 0) {
+        onChange(
+          eligible.map((u) => ({
+            user_id: u.id,
+            present: false,
+          }))
+        );
+      }
     });
   }, []);
 
-  const toggle = (id) => {
+  const toggle = (userId) => {
     onChange(
-      value.includes(id) ? value.filter((v) => v !== id) : [...value, id]
+      value.map((a) =>
+        a.user_id === userId ? { ...a, present: !a.present } : a
+      )
     );
   };
+
+  const isPresent = (userId) =>
+    value.find((a) => a.user_id === userId)?.present;
 
   return (
     <div className="attendance-selector">
       <h4>Asistencia</h4>
 
       <div className="attendance-selector-list">
-        {users.length === 0 && (
-          <div className="attendance-selector-empty">
-            No hay usuarios disponibles
-          </div>
-        )}
-
         {users.map((u) => (
           <label
             key={u.id}
             className={`attendance-selector-item ${
-              value.includes(u.id) ? "selected" : ""
+              isPresent(u.id) ? "selected" : ""
             }`}
           >
             <input
               type="checkbox"
-              checked={value.includes(u.id)}
+              checked={Boolean(isPresent(u.id))}
               onChange={() => toggle(u.id)}
             />
             {formatUsername(u.username)}
