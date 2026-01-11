@@ -83,8 +83,6 @@ export default function VotesList({ boardId, attendance = [] }) {
 
     await apiPost("/secretaria/boards/votes/create.php", {
       board_id: boardId,
-      vote_number: votes.length + 1,
-      vote_year: new Date().getFullYear(),
       description,
     });
 
