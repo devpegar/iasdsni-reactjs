@@ -1,3 +1,4 @@
+import { APP_VERSION } from "../../../../version";
 import "./Footer.scss";
 import logo from "/assets/logo-white.png";
 import {
@@ -69,6 +70,7 @@ export default function Footer() {
       <div className="footer__bottom">
         © {new Date().getFullYear()} IASD San Nicolás Centro – Diseñado por{" "}
         <a href="https://github.com/devpegar">DevpegAr</a>
+        <p className="app-version">IASDSNI v{APP_VERSION}</p>
       </div>
     </footer>
   );
