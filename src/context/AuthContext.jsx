@@ -26,7 +26,7 @@ export default function AuthProvider({ children }) {
     setUser(null);
 
     // Y recargar estado desde backend en caso de dudas
-    refresh();
+    setLoading(false);
   };
 
   useEffect(() => {
