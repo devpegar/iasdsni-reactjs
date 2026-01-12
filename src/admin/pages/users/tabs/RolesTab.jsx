@@ -84,8 +84,8 @@ export default function RolesTab() {
         <TableLayout
           columns={[
             {
-              key: "id",
-              label: "ID",
+              type: "index",
+              label: "#",
               width: "80px",
             },
             {
