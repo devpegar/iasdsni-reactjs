@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { apiGet } from "../../../../services/api";
 import formatUsername from "../../../utils/formatUsername";
 
-const ALLOWED_ROLES = ["secretaria", "miembro"];
+const ALLOWED_ROLES = ["secretaria", "miembro", "pastor", "ancianos"];
 
 export default function AttendanceSelector({ value = [], onChange }) {
   const [users, setUsers] = useState([]);

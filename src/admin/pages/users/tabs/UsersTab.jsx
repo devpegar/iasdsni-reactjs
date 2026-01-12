@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import useCrud from "../../../hooks/useCrud";
 import useFormEdit from "../../../hooks/useFormEdit";
 import FormLayout from "../../../layout/FormLayout";
@@ -23,16 +23,20 @@ export default function UsersTab() {
   const { list: departments } = useCrud("/admin/departments");
   const { list: roles } = useCrud("/admin/roles");
 
-  const { form, handleChange, startEdit, setForm, resetForm, editingId } =
-    useFormEdit({
-      username: "",
-      email: "",
-      password: "",
-      role_id: "",
-      departments: [],
-      has_access: false,
-    });
+  const formRef = useRef(null);
 
+  const { form, handleChange, startEdit, setForm, resetForm, editingId } =
+    useFormEdit(
+      {
+        username: "",
+        email: "",
+        password: "",
+        role_id: "",
+        departments: [],
+        has_access: false,
+      },
+      { formRef }
+    );
   /* ==========================
      ESTADO ACTIVAR ACCESO
   ========================== */
@@ -110,7 +114,7 @@ export default function UsersTab() {
   };
 
   return (
-    <div>
+    <div ref={formRef}>
       {/* ==========================
           FORMULARIO PRINCIPAL
       ========================== */}
@@ -243,7 +247,12 @@ export default function UsersTab() {
         loading={loading}
         renderActions={(u) => (
           <>
-            <button className="btn-icon" onClick={() => startEdit(u)}>
+            <button
+              className="btn-icon"
+              onClick={() => {
+                startEdit(u);
+              }}
+            >
               <FaEdit />
             </button>
 

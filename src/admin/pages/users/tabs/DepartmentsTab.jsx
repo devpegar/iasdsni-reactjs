@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import useCrud from "../../../hooks/useCrud";
 import useFormEdit from "../../../hooks/useFormEdit";
 import FormLayout from "../../../layout/FormLayout";
@@ -14,10 +15,15 @@ export default function DepartmentsTab() {
     loading,
   } = useCrud("/admin/departments");
 
-  const { form, handleChange, startEdit, resetForm, editingId } = useFormEdit({
-    name: "",
-    description: "",
-  });
+  const formRef = useRef(null);
+
+  const { form, handleChange, startEdit, resetForm, editingId } = useFormEdit(
+    {
+      name: "",
+      description: "",
+    },
+    { formRef }
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +42,7 @@ export default function DepartmentsTab() {
   };
 
   return (
-    <div className="departmentsTab">
+    <div ref={formRef} className="departmentsTab">
       <h2>{editingId ? "Editar Departamento" : "Crear Departamento"}</h2>
       <div className="departmentsTab">
         <FormLayout inline compact onSubmit={handleSubmit}>
