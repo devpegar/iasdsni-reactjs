@@ -1,16 +1,31 @@
 import { useState } from "react";
 
-export default function useFormEdit(initialState = {}) {
+export default function useFormEdit(initialState = {}, options = {}) {
+  const { formRef, scrollBehavior = "smooth" } = options;
+
   const [form, setForm] = useState(initialState);
   const [editingId, setEditingId] = useState(null);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const startEdit = (item) => {
     setEditingId(item.id);
-    setForm({ ...initialState, ...item });
+
+    setForm({
+      ...initialState,
+      ...item,
+      has_access: Boolean(item.has_access),
+    });
+
+    if (formRef?.current) {
+      formRef.current.scrollIntoView({
+        behavior: scrollBehavior,
+        block: "start",
+      });
+    }
   };
 
   const resetForm = () => {
