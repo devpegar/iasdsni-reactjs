@@ -114,12 +114,12 @@ export default function UsersTab() {
   };
 
   return (
-    <div>
+    <div ref={formRef}>
       {/* ==========================
           FORMULARIO PRINCIPAL
       ========================== */}
       <h2>{editingId ? "Editar Usuario" : "Crear Usuario"}</h2>
-      <div ref={formRef} className="users-tab">
+      <div className="users-tab">
         <FormLayout columns={2} onSubmit={handleSubmit} className="users-form">
           <Field
             type="text"
