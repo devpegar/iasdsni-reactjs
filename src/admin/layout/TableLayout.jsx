@@ -9,7 +9,11 @@ export default function TableLayout({
   if (!data.length) return <p>{emptyText}</p>;
 
   const gridTemplate = columns
-    .map((col) => (col.type === "actions" ? "auto" : col.width || "200px"))
+    .map((col) => {
+      if (col.type === "actions") return "auto";
+      if (col.type === "index") return col.width || "60px";
+      return col.width || "200px";
+    })
     .join(" ");
 
   return (
@@ -21,7 +25,7 @@ export default function TableLayout({
       >
         {columns.map((col) => (
           <div
-            key={col.key}
+            key={col.key || col.type}
             className={col.type === "actions" ? "data-table__actions" : ""}
           >
             {col.label}
@@ -30,13 +34,19 @@ export default function TableLayout({
       </div>
 
       {/* ROWS */}
-      {data.map((row) => (
+      {data.map((row, index) => (
         <div
-          key={row.id}
+          key={row.id ?? index}
           className="data-table__row"
           style={{ gridTemplateColumns: gridTemplate }}
         >
           {columns.map((col) => {
+            // Columna índice visual
+            if (col.type === "index") {
+              return <div key={col.key || "index"}>{index + 1}</div>;
+            }
+
+            // Acciones
             if (col.type === "actions") {
               return (
                 <div key={col.key} className="data-table__actions">
@@ -45,9 +55,10 @@ export default function TableLayout({
               );
             }
 
+            // Columna normal
             return (
               <div key={col.key} className={col.truncate ? "truncate" : ""}>
-                {col.render ? col.render(row) : row[col.key] || "—"}
+                {col.render ? col.render(row) : row[col.key] ?? "—"}
               </div>
             );
           })}

@@ -80,7 +80,7 @@ export default function DepartmentsTab() {
       ) : (
         <TableLayout
           columns={[
-            { key: "id", label: "ID", width: "80px" },
+            { type: "index", label: "#", width: "80px" },
             { key: "name", label: "Departamento", width: "180px" },
             { key: "description", label: "Descripción", width: "360px" },
             { key: "actions", label: "Acciones", type: "actions" },
