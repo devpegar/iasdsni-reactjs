@@ -32,6 +32,21 @@ export default function BoardPrintPage() {
   }, [readyToPrint]);
 
   useEffect(() => {
+    const handleAfterPrint = () => {
+      // Delay mínimo para evitar glitches visuales
+      setTimeout(() => {
+        window.close();
+      }, 300);
+    };
+
+    window.addEventListener("afterprint", handleAfterPrint);
+
+    return () => {
+      window.removeEventListener("afterprint", handleAfterPrint);
+    };
+  }, []);
+
+  useEffect(() => {
     if (!readyToPrint) return;
 
     window.opener?.postMessage({ action: "ready-to-print" }, "*");
@@ -103,9 +118,9 @@ export default function BoardPrintPage() {
       <section className="print-votes">
         {votes.map((v) => (
           <article key={v.id} className="print-vote">
-            <h3>
+            <div className="print-vote__title">
               Nro de voto: {v.vote_number}/{v.vote_year}
-            </h3>
+            </div>
 
             <p className="vote-description">
               <strong>Descripción:</strong>
