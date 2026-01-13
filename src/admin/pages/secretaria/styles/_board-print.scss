@@ -1,0 +1,145 @@
+@use "../../../styles/core/variables" as *;
+
+@page {
+  size: A4;
+  margin: 15mm 10mm 22mm 20mm;
+
+  @bottom-center {
+    content: "Página " counter(page) " de " counter(pages);
+    font-size: 9pt;
+    color: $gray-700;
+  }
+}
+
+@media print {
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+    background: transparent !important;
+  }
+}
+
+.no-print {
+  @media print {
+    display: none !important;
+  }
+}
+
+.board-print {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 11pt;
+  line-height: 1.35;
+  color: #000;
+
+  * {
+    font-family: inherit;
+  }
+  span,
+  p {
+    color: $gray-700;
+  }
+  .print-header {
+    text-align: center;
+    border-bottom: 1px solid #000;
+    padding-bottom: 4mm;
+    margin-bottom: 5mm;
+
+    h1 {
+      font-family: inherit;
+      font-size: 13pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 4mm;
+    }
+    &__meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6mm;
+    }
+    .print-description {
+      display: flex;
+      align-items: center;
+      text-align: justify;
+      font-size: inherit;
+    }
+
+    .print-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2mm;
+      gap: 6mm;
+      span,
+      strong {
+        font-size: 10pt;
+      }
+      strong {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.print-divider {
+  border-top: 1px solid #000;
+  margin: 4mm 0;
+}
+
+.print-attendance {
+  margin-bottom: 6mm;
+
+  p {
+    margin: 2mm 0;
+  }
+}
+
+.print-votes {
+  margin-top: 6mm;
+}
+
+.print-vote {
+  margin-bottom: 5mm;
+  page-break-inside: avoid;
+
+  h3 {
+    font-size: 11pt;
+    margin-bottom: 2mm;
+  }
+  p {
+    margin: 1.5mm 0;
+  }
+
+  .vote-description {
+    text-align: justify;
+    margin-bottom: 2mm;
+  }
+}
+
+.signature-section {
+  page-break-inside: avoid;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18mm;
+}
+
+.signature-block {
+  width: 40%;
+  text-align: center;
+}
+
+.signature-line {
+  border-top: 1px solid #000;
+  margin-bottom: 3mm;
+}
+
+.signature-name {
+  font-size: 11pt;
+  font-weight: bold;
+  margin: 0;
+}
+
+.signature-role {
+  font-size: 9pt;
+  margin: 0;
+}

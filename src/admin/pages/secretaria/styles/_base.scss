@@ -41,6 +41,23 @@
   color: $primary-color;
 }
 
+.secretary-header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 /* Estados */
 .secretaria-loading,
 .secretaria-empty,

@@ -1,13 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiGet, apiPost } from "../../../../services/api";
+import { FaPrint, FaFilePdf, FaArrowLeft } from "react-icons/fa";
 import AttendanceList from "./AttendanceList";
 import TableLayout from "../../../layout/TableLayout";
 import TableSelectField from "../../../components/form/TableSelectField";
 import DescriptionPreview from "../../../components/ui/DescriptionPreview";
 import formatUsername from "../../../utils/formatUsername";
+import { getDayMonthYear, formatDateDMY } from "../../../../utils/date";
 
-export default function VotesList({ boardId, attendance = [] }) {
+export default function VotesList({
+  boardId,
+  boardMeetingDate,
+  attendance = [],
+}) {
   const [votes, setVotes] = useState([]);
   const [description, setDescription] = useState("");
 
@@ -162,6 +168,17 @@ export default function VotesList({ boardId, attendance = [] }) {
     loadVotes();
   };
 
+  /* =======================
+     FILENAME PDF
+  ======================= */
+
+  const filenamePdf = () => {
+    const monthName = getDayMonthYear(boardMeetingDate)?.monthName;
+    const year = getDayMonthYear(boardMeetingDate)?.year;
+    const dateBoard = formatDateDMY(boardMeetingDate).replace(/\//g, "-");
+    return `Acta_Junta_${monthName}_${year}_${dateBoard}`;
+  };
+
   const truncateText = (text, max = 120) =>
     text && text.length > max ? text.slice(0, max) + "…" : text;
 
@@ -171,13 +188,52 @@ export default function VotesList({ boardId, attendance = [] }) {
           NUEVO VOTO
       ======================= */}
       <section className="secretaria-section">
-        <div className="secretaria-section__header">
-          <button
-            className="btn-link"
-            onClick={() => navigate("/admin/secretaria")}
-          >
-            ← Volver a juntas
-          </button>
+        <div className="secretaria-section__header secretary-header-actions">
+          <div className="header-left">
+            <button
+              className="btn-icon"
+              onClick={() => navigate("/admin/secretaria")}
+            >
+              <FaArrowLeft /> Volver a listado de juntas
+            </button>
+          </div>
+
+          <div className="header-right">
+            <button
+              className="btn-icon"
+              onClick={() =>
+                window.open(
+                  `/admin/secretaria/boards/${boardId}/print`,
+                  "_blank"
+                )
+              }
+            >
+              <FaPrint />
+            </button>
+
+            <button
+              className="btn-icon"
+              onClick={() => {
+                const win = window.open(
+                  `/admin/secretaria/boards/${boardId}/print?pdf=1&filename=${encodeURIComponent(
+                    filenamePdf()
+                  )}`,
+                  "_blank"
+                );
+                if (!win) return;
+
+                const handleReady = (event) => {
+                  if (event.data?.action === "ready-to-print") {
+                    win.postMessage({ action: "print" }, "*");
+                    window.removeEventListener("message", handleReady);
+                  }
+                };
+                window.addEventListener("message", handleReady);
+              }}
+            >
+              <FaFilePdf />
+            </button>
+          </div>
         </div>
 
         <form className="form-group">

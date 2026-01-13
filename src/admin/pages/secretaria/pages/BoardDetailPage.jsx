@@ -36,7 +36,11 @@ export default function BoardDetailPage() {
       <BoardHeader board={board} />
 
       <div className="board-detail-content">
-        <VotesList boardId={board.id} attendance={board.attendance} />
+        <VotesList
+          boardId={board.id}
+          boardMeetingDate={board.meeting_date}
+          attendance={board.attendance}
+        />
       </div>
     </div>
   );

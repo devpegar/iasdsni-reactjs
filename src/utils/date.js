@@ -54,3 +54,19 @@ export function sortByDateAsc(array, key) {
 export function sortByDateDesc(array, key) {
   return [...array].sort((a, b) => new Date(b[key]) - new Date(a[key]));
 }
+
+export function getDayMonthYear(dateString) {
+  if (!dateString) return null;
+  const date = new Date(dateString);
+  if (isNaN(date)) return null;
+
+  const namedMonth = date.toLocaleString("default", { month: "long" });
+  const namedDay = date.toLocaleString("default", { day: "numeric" });
+  return {
+    day: date.getDate(),
+    dayName: namedDay,
+    month: date.getMonth() + 1,
+    monthName: namedMonth.charAt(0).toUpperCase() + namedMonth.slice(1),
+    year: date.getFullYear(),
+  };
+}

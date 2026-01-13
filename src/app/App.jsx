@@ -20,6 +20,7 @@ import SecretariaLayout from "../admin/pages/secretaria/SecretariaLayout";
 import BoardListPage from "../admin/pages/secretaria/pages/BoardListPage";
 import BoardFormPage from "../admin/pages/secretaria/pages/BoardFormPage";
 import BoardDetailPage from "../admin/pages/secretaria/pages/BoardDetailPage";
+import BoardPrintPage from "../admin/pages/secretaria/pages/BoardPrintPage";
 
 export default function App() {
   const { user, loading } = useAuth();
@@ -47,6 +48,17 @@ export default function App() {
       <Route path="/admin/login" element={<AuthLayout />} />
 
       {/* RUTAS ADMIN CON PROTECCIÓN */}
+      <Route
+        path="/admin/secretaria/boards/:id/print"
+        element={
+          <ProtectedRoute>
+            <PermissionGuard can={hasPermission(role, ["admin", "secretaria"])}>
+              <BoardPrintPage />
+            </PermissionGuard>
+          </ProtectedRoute>
+        }
+      />
+
       <Route
         path="/admin"
         element={
