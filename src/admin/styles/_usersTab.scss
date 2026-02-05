@@ -1,6 +1,10 @@
 @use "../styles/core/variables" as *;
 @use "../styles/core/mixins" as *;
 
+/* ======================
+   CONTENEDORES PRINCIPALES
+====================== */
+
 .users-tab {
   max-width: 1000px;
   margin: 0 auto;
@@ -13,15 +17,113 @@
 /* ======================
    UTILIDADES
 ====================== */
+
 .truncate {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+/* ======================
+   ESTADO DE USUARIO (LISTADO)
+====================== */
+
+.user-inactive {
+  opacity: 0.55;
+}
+
+.user-inactive td {
+  color: $gray-600;
+}
+
+/* ======================
+   BADGES
+====================== */
+
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.badge-success {
+  background-color: $green-100;
+  color: $green-800;
+}
+
+.badge-warning {
+  background-color: $yellow-100;
+  color: $yellow-800;
+}
+
+.badge-muted {
+  background-color: $gray-200;
+  color: $gray-700;
+}
+
+/* ======================
+   SWITCHES (ACCESO / ACTIVO)
+====================== */
+
+.users-form .switch-field {
+  margin-top: 6px;
+}
+
+.users-form .switch-field + .switch-field {
+  margin-top: 12px;
+}
+
+/* ======================
+   EDICIÓN DE USUARIO INACTIVO
+====================== */
+
+.users-form.is-inactive {
+  border-left: 4px solid $yellow-400;
+  padding-left: 16px;
+}
+
+.users-form.is-inactive::before {
+  content: "Usuario inactivo";
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: $yellow-700;
+  margin-bottom: 8px;
+}
+
+/* ======================
+   ACCIONES
+====================== */
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.btn-icon.btn-danger {
+  color: $red-600;
+}
+
+.btn-icon.btn-danger:hover {
+  background-color: $red-100;
+  border-radius: 4px;
+}
+
+/* ======================
+   MODAL ACTIVAR ACCESO
+====================== */
+
 .modal-backdrop {
   position: fixed;
-  inset: 0; // top:0 right:0 bottom:0 left:0
+  inset: 0;
   background: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
@@ -38,9 +140,57 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
+.modal h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.modal input {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
 .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
   margin-top: 16px;
+}
+
+/* ======================
+   SWITCH GROUP
+====================== */
+
+.form-switch-group {
+  grid-column: 1 / -1; // ocupa todo el ancho del form
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.form-switch-group .switch-field {
+  margin-top: 0;
+}
+
+/* ======================
+   DEPARTMENT CHIPS (VERTICAL)
+====================== */
+
+.departments-chips-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.department-chip {
+  background-color: $gray-200;
+  color: $gray-800;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  line-height: 1.4;
+  width: fit-content;
+  max-width: 100%;
+  white-space: nowrap;
 }

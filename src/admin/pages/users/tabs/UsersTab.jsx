@@ -15,7 +15,7 @@ export default function UsersTab() {
     list: users,
     createItem,
     updateItem,
-    deleteItem,
+    // deleteItem,
     loading,
     refresh,
   } = useCrud("/admin/users");
@@ -34,8 +34,9 @@ export default function UsersTab() {
         role_id: "",
         departments: [],
         has_access: false,
+        active: true,
       },
-      { formRef }
+      { formRef },
     );
   /* ==========================
      ESTADO ACTIVAR ACCESO
@@ -56,6 +57,7 @@ export default function UsersTab() {
       role_id: form.role_id,
       departments: form.departments,
       has_access: form.has_access,
+      active: form.active,
     };
 
     if (form.has_access) {
@@ -177,21 +179,38 @@ export default function UsersTab() {
             }
           />
 
-          {/* Switch acceso */}
-          <SwitchField
-            span
-            label="Permitir acceso al sistema"
-            hint={!form.has_access ? "(no podrá iniciar sesión)" : null}
-            checked={form.has_access}
-            onChange={(checked) =>
-              setForm((f) => ({
-                ...f,
-                has_access: checked,
-                email: checked ? f.email : "",
-                password: "",
-              }))
-            }
-          />
+          {/* SWITCHES */}
+          <div className="form-switch-group">
+            <SwitchField
+              label="Permitir acceso al sistema"
+              hint={!form.has_access ? "(no podrá iniciar sesión)" : null}
+              checked={form.has_access}
+              onChange={(checked) =>
+                setForm((f) => ({
+                  ...f,
+                  has_access: checked,
+                  email: checked ? f.email : "",
+                  password: "",
+                }))
+              }
+            />
+
+            <SwitchField
+              label="Usuario activo"
+              hint={
+                !form.active
+                  ? "(no aparecerá en nuevas juntas)"
+                  : "(usuario vigente)"
+              }
+              checked={form.active}
+              onChange={(checked) =>
+                setForm((f) => ({
+                  ...f,
+                  active: checked,
+                }))
+              }
+            />
+          </div>
 
           <div className="form-actions">
             <button type="submit" className="btn btn-primary">
@@ -218,27 +237,52 @@ export default function UsersTab() {
           {
             key: "email",
             label: "Email",
-            width: "220px",
+            width: "200px",
             truncate: true,
             render: (u) => u.email || "—",
           },
           { key: "role", label: "Rol", width: "100px" },
           {
             key: "departments",
-            label: "Departamentos.",
-            width: "200px",
-            truncate: true,
-            render: (u) => u.departments_names,
+            label: "Departamentos",
+            width: "170px",
+            render: (u) => {
+              if (!u.departments_names) return "—";
+
+              const deps = u.departments_names.split(",").map((d) => d.trim());
+
+              return (
+                <div className="departments-chips-vertical">
+                  {deps.map((dep, idx) => (
+                    <span key={idx} className="department-chip">
+                      {dep}
+                    </span>
+                  ))}
+                </div>
+              );
+            },
           },
+
           {
             key: "has_access",
             label: "Acceso",
-            width: "100px",
+            width: "90px",
             render: (u) =>
               u.has_access ? (
                 <span className="badge badge-success">Con acceso</span>
               ) : (
                 <span className="badge badge-muted">Sin acceso</span>
+              ),
+          },
+          {
+            key: "active",
+            label: "Estado",
+            width: "75px",
+            render: (u) =>
+              u.active ? (
+                <span className="badge badge-success">Activo</span>
+              ) : (
+                <span className="badge badge-warning">Inactivo</span>
               ),
           },
           { key: "actions", label: "Acciones", type: "actions" },
@@ -261,13 +305,6 @@ export default function UsersTab() {
                 <FaKey />
               </button>
             )}
-
-            <button
-              className="btn-icon btn-danger"
-              onClick={() => deleteItem(u.id)}
-            >
-              <FaTrash />
-            </button>
           </>
         )}
       />
