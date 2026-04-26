@@ -29,6 +29,8 @@ export default function AdminLayout() {
 
             <NavLink to="/admin/users">Usuarios</NavLink>
 
+            <NavLink to="/admin/hero-slides">Hero Slides</NavLink>
+
             <NavLink to="/admin/posts" className="nav-link disabled">
               Noticias
             </NavLink>

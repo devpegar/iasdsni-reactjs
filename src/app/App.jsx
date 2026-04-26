@@ -15,6 +15,7 @@ import Dashboard from "../admin/pages/Dashboard";
 import UsersPanel from "../admin/pages/users/UserPanel";
 import SettingsPage from "../admin/pages/SettingsPage";
 import Unauthorized from "../admin/pages/Unauthorized";
+import HeroSlidesPage from "../admin/pages/HeroSlidesPage";
 
 import SecretariaLayout from "../admin/pages/secretaria/SecretariaLayout";
 import BoardListPage from "../admin/pages/secretaria/pages/BoardListPage";
@@ -83,6 +84,15 @@ export default function App() {
           element={
             <PermissionGuard can={hasPermission(role, ["admin", "secretaria"])}>
               <UsersPanel />
+            </PermissionGuard>
+          }
+        />
+
+        <Route
+          path="hero-slides"
+          element={
+            <PermissionGuard can={hasPermission(role, ["admin"])}>
+              <HeroSlidesPage />
             </PermissionGuard>
           }
         />
