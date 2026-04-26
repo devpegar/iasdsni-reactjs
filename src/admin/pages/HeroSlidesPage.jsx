@@ -1,11 +1,23 @@
-import { useRef } from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { useMemo, useRef, useState } from "react";
+import {
+  FaArrowDown,
+  FaArrowUp,
+  FaEdit,
+  FaToggleOff,
+  FaToggleOn,
+  FaTrash,
+  FaUpload,
+} from "react-icons/fa";
 import useCrud from "../hooks/useCrud";
 import useFormEdit from "../hooks/useFormEdit";
 import FormLayout from "../layout/FormLayout";
 import TableLayout from "../layout/TableLayout";
 import Field from "../components/form/Field";
 import SwitchField from "../components/form/SwitchField";
+import { apiPost, apiPostForm } from "../../services/api";
+import { toastBus } from "../../services/toastBus";
+
+const BASE_PATH = "/admin/hero_slides";
 
 const initialForm = {
   title: "",
@@ -30,19 +42,60 @@ function normalizeSlide(slide) {
   };
 }
 
+function getImageValue(data) {
+  return (
+    data.image_path ||
+    data.path ||
+    data.url ||
+    data.image_url ||
+    data.file_path ||
+    data.file ||
+    ""
+  );
+}
+
+function getPreviewUrl(path) {
+  if (!path) return "";
+
+  if (/^(https?:|data:|blob:)/i.test(path)) {
+    return path;
+  }
+
+  const apiUrl = import.meta.env.VITE_API_URL || "";
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+
+  return `${apiUrl}${normalizedPath}`;
+}
+
 export default function HeroSlidesPage() {
   const {
     list: slides,
     createItem,
     updateItem,
     deleteItem,
+    refresh,
     loading,
-  } = useCrud("/admin/hero_slides");
+  } = useCrud(BASE_PATH);
 
   const formRef = useRef(null);
+  const fileInputRef = useRef(null);
+  const [uploading, setUploading] = useState(false);
+  const [actionLoading, setActionLoading] = useState(null);
 
   const { form, setForm, handleChange, resetForm, editingId, setEditingId } =
     useFormEdit(initialForm, { formRef });
+
+  const orderedSlides = useMemo(
+    () =>
+      [...slides].sort((a, b) => {
+        const positionA = Number(a.position ?? 0);
+        const positionB = Number(b.position ?? 0);
+
+        if (positionA !== positionB) return positionA - positionB;
+        return Number(a.id ?? 0) - Number(b.id ?? 0);
+      }),
+    [slides],
+  );
 
   const startEdit = (slide) => {
     setEditingId(slide.id);
@@ -74,6 +127,105 @@ export default function HeroSlidesPage() {
 
     resetForm();
   };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const data = new FormData();
+    data.append("image", file);
+
+    if (editingId) {
+      data.append("id", editingId);
+    }
+
+    try {
+      setUploading(true);
+      const res = await apiPostForm(`${BASE_PATH}/upload_image.php`, data);
+      const imagePath = getImageValue(res);
+
+      if (!imagePath) {
+        toastBus.error("No se recibio la ruta de la imagen");
+        return;
+      }
+
+      setForm((prev) => ({ ...prev, image_path: imagePath }));
+      toastBus.success("Imagen subida");
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  const handleToggleActive = async (slide) => {
+    const nextValue = !toBoolean(slide.is_active ?? slide.active ?? true);
+
+    try {
+      setActionLoading(`toggle-${slide.id}`);
+      await apiPost(`${BASE_PATH}/toggle_active.php`, {
+        id: slide.id,
+        slide_id: slide.id,
+        is_active: nextValue ? 1 : 0,
+      });
+      await refresh();
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleReorder = async (slide, direction) => {
+    const currentIndex = orderedSlides.findIndex((item) => item.id === slide.id);
+    const targetIndex = direction === "up" ? currentIndex - 1 : currentIndex + 1;
+
+    if (
+      currentIndex < 0 ||
+      targetIndex < 0 ||
+      targetIndex >= orderedSlides.length
+    ) {
+      return;
+    }
+
+    const nextSlides = [...orderedSlides];
+    [nextSlides[currentIndex], nextSlides[targetIndex]] = [
+      nextSlides[targetIndex],
+      nextSlides[currentIndex],
+    ];
+
+    const order = nextSlides.map((item, index) => ({
+      id: item.id,
+      position: index + 1,
+    }));
+
+    try {
+      setActionLoading(`reorder-${slide.id}-${direction}`);
+      await apiPost(`${BASE_PATH}/reorder.php`, {
+        slides: order,
+        order,
+      });
+      await refresh();
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const handleDelete = async (slide) => {
+    if (!window.confirm(`Eliminar el slide "${slide.title}"?`)) return;
+
+    try {
+      setActionLoading(`delete-${slide.id}`);
+      await deleteItem(slide.id);
+
+      if (editingId === slide.id) {
+        resetForm();
+      }
+    } finally {
+      setActionLoading(null);
+    }
+  };
+
+  const imagePreviewUrl = getPreviewUrl(form.image_path);
 
   return (
     <div className="hero-slides-page" ref={formRef}>
@@ -132,6 +284,38 @@ export default function HeroSlidesPage() {
           span
         />
 
+        <div className="hero-slide-image-field full-span">
+          <label className="label">
+            Imagen
+            <div className="hero-slide-image-field__controls">
+              <input
+                ref={fileInputRef}
+                className="input"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                disabled={uploading}
+              />
+
+              <button
+                type="button"
+                className="btn btn-secondary"
+                disabled={uploading}
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <FaUpload />
+                {uploading ? "Subiendo..." : "Subir imagen"}
+              </button>
+            </div>
+          </label>
+
+          {imagePreviewUrl && (
+            <div className="hero-slide-image-preview">
+              <img src={imagePreviewUrl} alt={form.title || "Hero slide"} />
+            </div>
+          )}
+        </div>
+
         <SwitchField
           label="Activo"
           checked={form.is_active}
@@ -162,6 +346,24 @@ export default function HeroSlidesPage() {
       <TableLayout
         columns={[
           { type: "index", label: "#", width: "60px" },
+          {
+            key: "image",
+            label: "Imagen",
+            width: "96px",
+            render: (slide) => {
+              const src = getPreviewUrl(slide.image_url || slide.image_path);
+
+              return src ? (
+                <img
+                  className="hero-slide-thumb"
+                  src={src}
+                  alt={slide.title || "Hero slide"}
+                />
+              ) : (
+                "-"
+              );
+            },
+          },
           { key: "title", label: "Titulo", width: "220px", truncate: true },
           {
             key: "description",
@@ -192,28 +394,64 @@ export default function HeroSlidesPage() {
           },
           { key: "actions", label: "Acciones", type: "actions" },
         ]}
-        data={slides}
+        data={orderedSlides}
         loading={loading}
         emptyText="No hay hero slides registrados"
-        renderActions={(slide) => (
-          <>
-            <button
-              className="btn-icon"
-              title="Editar"
-              onClick={() => startEdit(slide)}
-            >
-              <FaEdit />
-            </button>
+        renderActions={(slide) => {
+          const index = orderedSlides.findIndex((item) => item.id === slide.id);
+          const isActive = toBoolean(slide.is_active ?? slide.active ?? true);
 
-            <button
-              className="btn-icon btn-danger"
-              title="Eliminar"
-              onClick={() => deleteItem(slide.id)}
-            >
-              <FaTrash />
-            </button>
-          </>
-        )}
+          return (
+            <>
+              <button
+                className="btn-icon"
+                title="Mover arriba"
+                disabled={index <= 0 || actionLoading === `reorder-${slide.id}-up`}
+                onClick={() => handleReorder(slide, "up")}
+              >
+                <FaArrowUp />
+              </button>
+
+              <button
+                className="btn-icon"
+                title="Mover abajo"
+                disabled={
+                  index === orderedSlides.length - 1 ||
+                  actionLoading === `reorder-${slide.id}-down`
+                }
+                onClick={() => handleReorder(slide, "down")}
+              >
+                <FaArrowDown />
+              </button>
+
+              <button
+                className="btn-icon"
+                title={isActive ? "Desactivar" : "Activar"}
+                disabled={actionLoading === `toggle-${slide.id}`}
+                onClick={() => handleToggleActive(slide)}
+              >
+                {isActive ? <FaToggleOn /> : <FaToggleOff />}
+              </button>
+
+              <button
+                className="btn-icon"
+                title="Editar"
+                onClick={() => startEdit(slide)}
+              >
+                <FaEdit />
+              </button>
+
+              <button
+                className="btn-icon btn-danger"
+                title="Eliminar"
+                disabled={actionLoading === `delete-${slide.id}`}
+                onClick={() => handleDelete(slide)}
+              >
+                <FaTrash />
+              </button>
+            </>
+          );
+        }}
       />
     </div>
   );

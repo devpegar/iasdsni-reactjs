@@ -1,14 +1,72 @@
-import { NavLink, Outlet } from "react-router-dom";
-import { useAuth } from "../hooks/AuthContext";
+import { useEffect, useMemo, useState } from "react";
+import { FaChevronDown, FaChevronRight } from "react-icons/fa";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import formatUsername from "../utils/formatUsername";
 import "../styles/admin.scss";
 
+const navGroups = [
+  {
+    key: "system",
+    label: "Sistema",
+    paths: ["/admin", "/admin/settings", "/admin/users", "/admin/secretaria"],
+    items: [
+      { label: "Dashboard", to: "/admin", end: true },
+      { label: "Configuracion", to: "/admin/settings" },
+      { label: "Usuarios", to: "/admin/users" },
+      { label: "Secretaria", to: "/admin/secretaria" },
+    ],
+  },
+  {
+    key: "website",
+    label: "Sitio Web",
+    paths: ["/admin/web", "/admin/hero-slides", "/admin/posts"],
+    items: [
+      { label: "Dashboard CMS", to: "/admin/web" },
+      { label: "Hero Slides", to: "/admin/hero-slides" },
+      { label: "Noticias", to: "/admin/posts", disabled: true },
+    ],
+  },
+];
+
+function isGroupActive(pathname, group) {
+  return group.paths.some((path) => {
+    if (path === "/admin") return pathname === "/admin";
+    return pathname === path || pathname.startsWith(`${path}/`);
+  });
+}
+
 export default function AdminLayout() {
   const { user, logout } = useAuth();
+  const location = useLocation();
+
+  const defaultOpenGroups = useMemo(
+    () =>
+      navGroups.reduce((acc, group) => {
+        acc[group.key] = isGroupActive(location.pathname, group);
+        return acc;
+      }, {}),
+    [location.pathname],
+  );
+
+  const [openGroups, setOpenGroups] = useState(defaultOpenGroups);
+
+  useEffect(() => {
+    setOpenGroups((prev) => ({
+      ...prev,
+      ...defaultOpenGroups,
+    }));
+  }, [defaultOpenGroups]);
+
+  const toggleGroup = (key) => {
+    setOpenGroups((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
 
   return (
     <div className="admin-layout">
-      {/* SIDEBAR */}
       <aside className="sidebar">
         <div>
           <h2 className="menu-title">Panel Admin</h2>
@@ -21,21 +79,43 @@ export default function AdminLayout() {
           )}
 
           <nav>
-            <NavLink to="/admin" end>
-              Dashboard
-            </NavLink>
+            {navGroups.map((group) => {
+              const isOpen = openGroups[group.key];
+              const active = isGroupActive(location.pathname, group);
 
-            <NavLink to="/admin/settings">Configuración</NavLink>
+              return (
+                <div
+                  key={group.key}
+                  className={`menu-group${active ? " is-active" : ""}`}
+                >
+                  <button
+                    type="button"
+                    className="menu-group__toggle"
+                    onClick={() => toggleGroup(group.key)}
+                    aria-expanded={isOpen}
+                  >
+                    <span>{group.label}</span>
+                    {isOpen ? <FaChevronDown /> : <FaChevronRight />}
+                  </button>
 
-            <NavLink to="/admin/users">Usuarios</NavLink>
-
-            <NavLink to="/admin/hero-slides">Hero Slides</NavLink>
-
-            <NavLink to="/admin/posts" className="nav-link disabled">
-              Noticias
-            </NavLink>
-
-            <NavLink to="/admin/secretaria">Secretaría</NavLink>
+                  {isOpen && (
+                    <ul>
+                      {group.items.map((item) => (
+                        <li key={item.to}>
+                          <NavLink
+                            to={item.to}
+                            end={item.end}
+                            className={item.disabled ? "disabled" : undefined}
+                          >
+                            {item.label}
+                          </NavLink>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              );
+            })}
           </nav>
         </div>
 
@@ -44,7 +124,6 @@ export default function AdminLayout() {
         </button>
       </aside>
 
-      {/* CONTENIDO */}
       <main className="content">
         <Outlet />
       </main>

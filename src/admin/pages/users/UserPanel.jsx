@@ -2,7 +2,7 @@ import { useState } from "react";
 import UsersTab from "./tabs/UsersTab";
 import RolesTab from "./tabs/RolesTab";
 import DepartmentsTab from "./tabs/DepartmentsTab";
-import { useAuth } from "../../hooks/AuthContext";
+import { useAuth } from "../../../context/AuthContext";
 import PermissionGuard from "../../components/PermissionGuard";
 import hasPermission from "../../helper/hasPermision";
 

@@ -1,21 +1,103 @@
 @use "./core/variables" as *;
-// ============================
-// Dashboard Page Styles
-// ============================
 
 .dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
   h2 {
     font-size: 1.8rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.35rem;
+  }
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+
+  p {
+    color: $gray-500;
+    margin: 0;
+  }
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.dashboard-card {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 1rem;
+  min-height: 150px;
+  padding: 18px;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  background: #fff;
+  color: $text-color;
+  text-decoration: none;
+  box-shadow: $shadow-sm;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    border-color: $secondary-color;
+    box-shadow: $shadow-md;
+    transform: translateY(-1px);
+  }
+
+  h3 {
+    margin: 0 0 0.45rem;
+    color: $gray-800;
+    font-size: 1.15rem;
+  }
+
+  p {
+    margin: 0 0 1rem;
+    color: $gray-500;
+    line-height: 1.45;
+  }
+
+  span {
+    display: inline-flex;
+    color: $primary-color;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    background: $gray-100;
+    color: $primary-color;
+    font-size: 1.1rem;
+  }
+
+  &--disabled {
+    opacity: 0.65;
+
+    &:hover {
+      border-color: $border-color;
+      box-shadow: $shadow-sm;
+      transform: none;
+    }
   }
 }
 
 .maintenance-card {
-  margin-top: 20px;
+  width: min(100%, 360px);
   padding: 15px;
   background: $gray-100;
   border-radius: 8px;
-  width: 320px;
   border: 1px solid $border-color;
 
   h3 {
@@ -23,28 +105,22 @@
   }
 
   p {
-    margin: 10px 0 20px 0;
+    margin: 10px 0 18px;
     font-size: 1rem;
     color: $text-color;
   }
+}
 
-  .btn-toggle {
-    background: #2c3e50;
-    color: white;
-    padding: 10px 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.95rem;
-    transition: background 0.2s ease;
+.dashboard-inline-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: $primary-color;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
 
-    &:hover:not(:disabled) {
-      background: #1a252f;
-    }
-
-    &:disabled {
-      opacity: 0.6;
-      cursor: default;
-    }
+  &:hover {
+    text-decoration: underline;
   }
 }

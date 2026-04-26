@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "../admin/routes/ProtectedRoute";
 import PermissionGuard from "../admin/components/PermissionGuard";
 import hasPermission from "../admin/helper/hasPermision";
-import { useAuth } from "../admin/hooks/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 import MainLayout from "../components/layout/MainLayout";
 import Home from "../pages/Home/Home";
@@ -12,6 +12,7 @@ import Loading from "../components/loading/Loading";
 import AdminLayout from "../admin/layout/AdminLayout";
 import AuthLayout from "../admin/auth/AuthLayout";
 import Dashboard from "../admin/pages/Dashboard";
+import WebDashboard from "../admin/pages/WebDashboard";
 import UsersPanel from "../admin/pages/users/UserPanel";
 import SettingsPage from "../admin/pages/SettingsPage";
 import Unauthorized from "../admin/pages/Unauthorized";
@@ -69,6 +70,15 @@ export default function App() {
         }
       >
         <Route index element={<Dashboard />} />
+
+        <Route
+          path="web"
+          element={
+            <PermissionGuard can={hasPermission(role, ["admin"])}>
+              <WebDashboard />
+            </PermissionGuard>
+          }
+        />
 
         <Route
           path="settings"

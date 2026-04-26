@@ -2,7 +2,7 @@ import { useState } from "react";
 import { apiPost } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
-import { useAuth } from "../hooks/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 import FormLayout from "../layout/FormLayout";
 import Field from "../components/form/Field";

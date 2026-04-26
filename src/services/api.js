@@ -41,3 +41,13 @@ export async function apiPost(path, data) {
 
   return handleResponse(res);
 }
+
+export async function apiPostForm(path, data) {
+  const res = await fetch(`${API_URL}${path}`, {
+    method: "POST",
+    credentials: "include",
+    body: data,
+  });
+
+  return handleResponse(res);
+}
