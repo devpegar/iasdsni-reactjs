@@ -20,10 +20,16 @@ const navGroups = [
   {
     key: "website",
     label: "Sitio Web",
-    paths: ["/admin/web", "/admin/hero-slides", "/admin/posts"],
+    paths: [
+      "/admin/web",
+      "/admin/hero-slides",
+      "/admin/daily-verses",
+      "/admin/posts",
+    ],
     items: [
       { label: "Dashboard CMS", to: "/admin/web" },
       { label: "Hero Slides", to: "/admin/hero-slides" },
+      { label: "Versiculo Diario", to: "/admin/daily-verses" },
       { label: "Noticias", to: "/admin/posts", disabled: true },
     ],
   },

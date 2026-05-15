@@ -17,6 +17,7 @@ import UsersPanel from "../admin/pages/users/UserPanel";
 import SettingsPage from "../admin/pages/SettingsPage";
 import Unauthorized from "../admin/pages/Unauthorized";
 import HeroSlidesPage from "../admin/pages/HeroSlidesPage";
+import DailyVersesPage from "../admin/pages/DailyVersesPage";
 
 import SecretariaLayout from "../admin/pages/secretaria/SecretariaLayout";
 import BoardListPage from "../admin/pages/secretaria/pages/BoardListPage";
@@ -103,6 +104,15 @@ export default function App() {
           element={
             <PermissionGuard can={hasPermission(role, ["admin"])}>
               <HeroSlidesPage />
+            </PermissionGuard>
+          }
+        />
+
+        <Route
+          path="daily-verses"
+          element={
+            <PermissionGuard can={hasPermission(role, ["admin"])}>
+              <DailyVersesPage />
             </PermissionGuard>
           }
         />
