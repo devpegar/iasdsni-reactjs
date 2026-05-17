@@ -50,3 +50,13 @@ En esta fase, `content` se renderiza como texto simple para evitar inyectar HTML
 - `public/verses/random.php` conserva por ahora su respuesta exitosa como objeto plano.
 
 Los dos últimos ya usan helpers para método HTTP y errores sanitizados, pero no se envolvieron en `json_success()` para no romper a los componentes públicos que hoy consumen esos contratos directamente.
+
+## Administrar páginas desde el dashboard
+
+1. Ingresar como administrador.
+2. Abrir **Sitio Web → Páginas**.
+3. Crear una página completando `slug`, `título`, `meta descripción`, `contenido` y estado.
+4. Usar el enlace de vista pública para abrir `/pagina/{slug}`.
+5. La acción de desactivar conserva el registro y oculta la página pública; no hace borrado físico.
+
+Por ahora `content` sigue mostrándose como texto simple. Un pendiente futuro razonable es incorporar un editor enriquecido seguro, acompañado de sanitización explícita antes de permitir HTML renderizado.

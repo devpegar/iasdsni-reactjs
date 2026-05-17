@@ -18,6 +18,7 @@ import SettingsPage from "../admin/pages/SettingsPage";
 import Unauthorized from "../admin/pages/Unauthorized";
 import HeroSlidesPage from "../admin/pages/HeroSlidesPage";
 import DailyVersesPage from "../admin/pages/DailyVersesPage";
+import DynamicPagesPage from "../admin/pages/DynamicPagesPage";
 import PublicPage from "../features/public-pages/pages/PublicPage";
 
 import SecretariaLayout from "../admin/pages/secretaria/SecretariaLayout";
@@ -124,6 +125,15 @@ export default function App() {
           element={
             <PermissionGuard can={hasPermission(role, ["admin"])}>
               <DailyVersesPage />
+            </PermissionGuard>
+          }
+        />
+
+        <Route
+          path="pages"
+          element={
+            <PermissionGuard can={hasPermission(role, ["admin"])}>
+              <DynamicPagesPage />
             </PermissionGuard>
           }
         />
