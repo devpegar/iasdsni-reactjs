@@ -60,3 +60,58 @@ Los dos últimos ya usan helpers para método HTTP y errores sanitizados, pero n
 5. La acción de desactivar conserva el registro y oculta la página pública; no hace borrado físico.
 
 Por ahora `content` sigue mostrándose como texto simple. Un pendiente futuro razonable es incorporar un editor enriquecido seguro, acompañado de sanitización explícita antes de permitir HTML renderizado.
+
+## Tipos de contenido
+
+La tabla `pages` ahora puede clasificar registros con `page_type`:
+
+- `page`: página institucional común.
+- `news`: noticia.
+- `announcement`: anuncio.
+- `event`: evento.
+
+La migración manual que agrega estos campos es:
+
+```text
+../iasdsni-api/database/migrations/2026_05_17_extend_pages_for_content_types.sql
+```
+
+## Ejemplo de noticia
+
+```sql
+INSERT INTO pages (
+  slug, title, page_type, meta_description, excerpt, content,
+  featured_image, is_active, published_at
+)
+VALUES (
+  'semana-de-oracion-2026',
+  'Semana de oración 2026',
+  'news',
+  'Comienza una nueva semana de oración.',
+  'La iglesia inicia una semana especial de encuentros y reflexión.',
+  'Contenido completo de la noticia.',
+  NULL,
+  1,
+  '2026-05-17 10:00:00'
+);
+```
+
+## Administrar noticias
+
+Desde **Sitio Web → Páginas**, elegir el tipo **Noticia**, completar resumen, imagen destacada opcional y fecha de publicación. Las noticias activas y ya publicadas aparecen en:
+
+```text
+/noticias
+```
+
+Cada noticia enlaza al detalle reutilizando:
+
+```text
+/pagina/{slug}
+```
+
+`content` sigue mostrándose como texto simple; el editor enriquecido seguro continúa como pendiente futuro.
+
+## Orden recomendado de despliegue
+
+Aplicar primero la migración de extensión de `pages` y luego publicar el backend/admin nuevo. El endpoint `/pagina/:slug` se mantiene compatible con la estructura anterior para no interrumpir páginas públicas durante esa transición; `/noticias` y los nuevos campos del admin requieren que la migración extendida ya exista.

@@ -16,7 +16,11 @@ import { toastBus } from "../../services/toastBus";
 const initialForm = {
   slug: "",
   title: "",
+  page_type: "page",
   meta_description: "",
+  excerpt: "",
+  featured_image: "",
+  published_at: "",
   content: "",
   is_active: true,
 };
@@ -29,7 +33,11 @@ function normalizePage(page) {
   return {
     ...initialForm,
     ...page,
+    page_type: page.page_type ?? "page",
     meta_description: page.meta_description ?? "",
+    excerpt: page.excerpt ?? "",
+    featured_image: page.featured_image ?? "",
+    published_at: page.published_at ? page.published_at.replace(" ", "T").slice(0, 16) : "",
     content: page.content ?? "",
     is_active: toBoolean(page.is_active ?? true),
   };
@@ -39,7 +47,11 @@ function getPayload(page) {
   return {
     slug: page.slug,
     title: page.title,
+    page_type: page.page_type,
     meta_description: page.meta_description,
+    excerpt: page.excerpt,
+    featured_image: page.featured_image,
+    published_at: page.published_at ? page.published_at.replace("T", " ") : "",
     content: page.content,
     is_active: page.is_active ? 1 : 0,
   };
@@ -159,12 +171,53 @@ export default function DynamicPagesPage() {
         />
 
         <Field
+          label="Tipo de contenido"
+          type="select"
+          name="page_type"
+          value={form.page_type}
+          onChange={handleChange}
+        >
+          <option value="page">Página</option>
+          <option value="news">Noticia</option>
+          <option value="announcement">Anuncio</option>
+          <option value="event">Evento</option>
+        </Field>
+
+        <Field
+          label="Fecha de publicación"
+          type="datetime-local"
+          name="published_at"
+          value={form.published_at}
+          onChange={handleChange}
+        />
+
+        <Field
           label="Meta descripción"
           type="textarea"
           name="meta_description"
           value={form.meta_description}
           onChange={handleChange}
           rows={3}
+          span
+        />
+
+        <Field
+          label="Resumen"
+          type="textarea"
+          name="excerpt"
+          value={form.excerpt}
+          onChange={handleChange}
+          rows={3}
+          span
+        />
+
+        <Field
+          label="Imagen destacada"
+          type="text"
+          name="featured_image"
+          value={form.featured_image}
+          onChange={handleChange}
+          placeholder="/uploads/... o https://..."
           span
         />
 
@@ -222,6 +275,12 @@ export default function DynamicPagesPage() {
           { type: "index", label: "#", width: "60px" },
           { key: "title", label: "Título", width: "220px" },
           { key: "slug", label: "Slug", width: "180px" },
+          {
+            key: "page_type",
+            label: "Tipo",
+            width: "120px",
+            render: (page) => page.page_type || "page",
+          },
           {
             key: "meta_description",
             label: "Meta descripción",

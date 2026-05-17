@@ -20,6 +20,7 @@ import HeroSlidesPage from "../admin/pages/HeroSlidesPage";
 import DailyVersesPage from "../admin/pages/DailyVersesPage";
 import DynamicPagesPage from "../admin/pages/DynamicPagesPage";
 import PublicPage from "../features/public-pages/pages/PublicPage";
+import NewsListPage from "../features/news/pages/NewsListPage";
 
 import SecretariaLayout from "../admin/pages/secretaria/SecretariaLayout";
 import BoardListPage from "../admin/pages/secretaria/pages/BoardListPage";
@@ -54,6 +55,16 @@ export default function App() {
         element={
           <MainLayout>
             <PublicPage />
+            <ScrollTopButton />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/noticias"
+        element={
+          <MainLayout>
+            <NewsListPage />
             <ScrollTopButton />
           </MainLayout>
         }
