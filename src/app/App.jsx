@@ -18,6 +18,7 @@ import SettingsPage from "../admin/pages/SettingsPage";
 import Unauthorized from "../admin/pages/Unauthorized";
 import HeroSlidesPage from "../admin/pages/HeroSlidesPage";
 import DailyVersesPage from "../admin/pages/DailyVersesPage";
+import PublicPage from "../features/public-pages/pages/PublicPage";
 
 import SecretariaLayout from "../admin/pages/secretaria/SecretariaLayout";
 import BoardListPage from "../admin/pages/secretaria/pages/BoardListPage";
@@ -42,6 +43,16 @@ export default function App() {
         element={
           <MainLayout>
             <Home />
+            <ScrollTopButton />
+          </MainLayout>
+        }
+      />
+
+      <Route
+        path="/pagina/:slug"
+        element={
+          <MainLayout>
+            <PublicPage />
             <ScrollTopButton />
           </MainLayout>
         }
