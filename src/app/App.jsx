@@ -6,8 +6,8 @@ import { useAuth } from "../context/AuthContext";
 
 import MainLayout from "../components/layout/MainLayout";
 import Home from "../pages/Home/Home";
-import ScrollTopButton from "../components/ScrollToTop/ScrollTopButton";
 import Loading from "../components/loading/Loading";
+import ContentLayout from "../layouts/ContentLayout/ContentLayout";
 
 import AdminLayout from "../admin/layout/AdminLayout";
 import AuthLayout from "../admin/auth/AuthLayout";
@@ -19,6 +19,7 @@ import Unauthorized from "../admin/pages/Unauthorized";
 import HeroSlidesPage from "../admin/pages/HeroSlidesPage";
 import DailyVersesPage from "../admin/pages/DailyVersesPage";
 import DynamicPagesPage from "../admin/pages/DynamicPagesPage";
+import NavigationPage from "../admin/pages/NavigationPage";
 import PublicPage from "../features/public-pages/pages/PublicPage";
 import NewsListPage from "../features/news/pages/NewsListPage";
 
@@ -40,35 +41,25 @@ export default function App() {
   return (
     <Routes>
       {/* RUTAS PÚBLICAS */}
-      <Route
-        path="/"
-        element={
-          <MainLayout>
-            <Home />
-            <ScrollTopButton />
-          </MainLayout>
-        }
-      />
-
-      <Route
-        path="/pagina/:slug"
-        element={
-          <MainLayout>
-            <PublicPage />
-            <ScrollTopButton />
-          </MainLayout>
-        }
-      />
-
-      <Route
-        path="/noticias"
-        element={
-          <MainLayout>
-            <NewsListPage />
-            <ScrollTopButton />
-          </MainLayout>
-        }
-      />
+      <Route element={<MainLayout />}>
+        <Route index element={<Home />} />
+        <Route
+          path="pagina/:slug"
+          element={
+            <ContentLayout>
+              <PublicPage />
+            </ContentLayout>
+          }
+        />
+        <Route
+          path="noticias"
+          element={
+            <ContentLayout>
+              <NewsListPage />
+            </ContentLayout>
+          }
+        />
+      </Route>
 
       {/* LOGIN ADMIN */}
       <Route path="/admin/login" element={<AuthLayout />} />
@@ -145,6 +136,15 @@ export default function App() {
           element={
             <PermissionGuard can={hasPermission(role, ["admin"])}>
               <DynamicPagesPage />
+            </PermissionGuard>
+          }
+        />
+
+        <Route
+          path="navigation"
+          element={
+            <PermissionGuard can={hasPermission(role, ["admin"])}>
+              <NavigationPage />
             </PermissionGuard>
           }
         />

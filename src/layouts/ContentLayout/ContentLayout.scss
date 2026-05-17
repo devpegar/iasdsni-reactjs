@@ -1,0 +1,29 @@
+@use "../../styles/variables" as *;
+
+.content-layout {
+  width: min(900px, calc(100% - 3rem));
+  flex: 1;
+  margin: 0 auto;
+  padding: 3rem 0 4rem;
+  color: $text-color;
+  text-align: left;
+
+  h1 {
+    margin-bottom: 1rem;
+    color: $primary-color;
+  }
+
+  article,
+  section {
+    width: 100%;
+  }
+
+  p {
+    line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    width: calc(100% - 2rem);
+    padding: 2rem 0 3rem;
+  }
+}

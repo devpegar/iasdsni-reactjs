@@ -25,6 +25,7 @@ const navGroups = [
       "/admin/hero-slides",
       "/admin/daily-verses",
       "/admin/pages",
+      "/admin/navigation",
       "/admin/posts",
     ],
     items: [
@@ -32,6 +33,7 @@ const navGroups = [
       { label: "Hero Slides", to: "/admin/hero-slides" },
       { label: "Versiculo Diario", to: "/admin/daily-verses" },
       { label: "Páginas", to: "/admin/pages" },
+      { label: "Menú", to: "/admin/navigation" },
       { label: "Noticias", to: "/admin/posts", disabled: true },
     ],
   },
