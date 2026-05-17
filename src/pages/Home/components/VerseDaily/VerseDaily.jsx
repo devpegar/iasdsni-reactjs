@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useInViewAnimation from "../../../../hooks/useInViewAnimation";
+import { getJson } from "../../../../services/httpClient";
 import "./VerseDaily.scss";
 
 function normalizeVerse(data) {
@@ -22,13 +23,9 @@ export default function VerseDaily() {
 
     const fetchVerse = async () => {
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/public/verses/random.php`,
-        );
+        const { response, data } = await getJson("/public/verses/random.php");
 
         if (!response.ok) return;
-
-        const data = await response.json();
         const nextVerse = normalizeVerse(data);
 
         if (!ignore) {

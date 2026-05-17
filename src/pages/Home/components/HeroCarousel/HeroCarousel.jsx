@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
+import { getJson } from "../../../../services/httpClient";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -14,11 +15,7 @@ export default function HeroCarousel() {
   useEffect(() => {
     const fetchSlides = async () => {
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/public/hero/slides.php`,
-        );
-
-        const data = await response.json();
+        const { data } = await getJson("/public/hero/slides.php");
         setSlides(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error cargando slides:", error);

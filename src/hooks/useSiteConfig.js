@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getJson } from "../services/httpClient";
 
 export function useSiteConfig() {
   const [config, setConfig] = useState({
@@ -8,9 +9,8 @@ export function useSiteConfig() {
   });
 
   useEffect(() => {
-    fetch("http://localhost/iasdsni-api/maintenance/get.php")
-      .then((res) => res.json())
-      .then((data) => {
+    getJson("/maintenance/get.php")
+      .then(({ data }) => {
         setConfig({
           loading: false,
           maintenance: data.maintenance,

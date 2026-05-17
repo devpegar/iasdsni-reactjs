@@ -1,16 +1,55 @@
-# React + Vite
+# IASDSNI local
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Estructura
 
-Currently, two official plugins are available:
+- `../iasdsni-api`: API PHP compatible con hosting compartido/cPanel.
+- `.`: frontend React + Vite.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Backend PHP local
 
-## React Compiler
+1. Crear `../iasdsni-api/.env` a partir de `../iasdsni-api/.env.example`.
+2. Completar las credenciales de la única base MySQL/MariaDB local.
+3. Desde `../iasdsni-api`, iniciar PHP:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+php -S localhost:8000
+```
 
-## Expanding the ESLint configuration
+Variables esperadas del backend:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```env
+APP_ENV=development
+APP_URL=http://localhost:8000
+DB_HOST=localhost
+DB_NAME=iasdsni
+DB_USER=root
+DB_PASS=
+JWT_SECRET=change-me
+```
+
+## Frontend Vite local
+
+1. Usar `.env.development` o crear un `.env.local`.
+2. Configurar la API:
+
+```env
+VITE_API_URL=http://localhost:8000
+VITE_APP_ENV=development
+```
+
+3. Instalar dependencias si hace falta y levantar Vite:
+
+```bash
+npm install
+npm run dev
+```
+
+Para validar build de producción:
+
+```bash
+npm run build
+```
+
+## Compatibilidad con cPanel
+
+La API sigue siendo PHP plano, sin Docker ni dependencias de servidor adicionales. En hosting compartido, mantener las variables reales en `.env`, apuntar `APP_URL` al dominio público y configurar `VITE_API_URL` con la URL pública de la API antes de compilar el frontend.

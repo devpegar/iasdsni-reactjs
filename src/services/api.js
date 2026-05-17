@@ -1,17 +1,14 @@
+import { requestJson } from "./httpClient";
 import { toastBus } from "./toastBus";
 
-const API_URL = import.meta.env.VITE_API_URL;
+async function handleResponse(path, options) {
+  const { response, data } = await requestJson(path, options);
 
-async function handleResponse(res) {
-  const data = await res.json();
-
-  // Error HTTP (400, 401, 409, 500, etc)
-  if (!res.ok) {
+  if (!response.ok) {
     const message = data.message || "Error del servidor";
     toastBus.error(message);
   }
 
-  // Error lógico del backend
   if (data.success === false) {
     const message = data.message || "Error desconocido";
     toastBus.error(message);
@@ -21,33 +18,24 @@ async function handleResponse(res) {
 }
 
 export async function apiGet(path) {
-  const res = await fetch(`${API_URL}${path}`, {
+  return handleResponse(path, {
     method: "GET",
-    credentials: "include",
   });
-
-  return handleResponse(res);
 }
 
 export async function apiPost(path, data) {
-  const res = await fetch(`${API_URL}${path}`, {
+  return handleResponse(path, {
     method: "POST",
-    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
-
-  return handleResponse(res);
 }
 
 export async function apiPostForm(path, data) {
-  const res = await fetch(`${API_URL}${path}`, {
+  return handleResponse(path, {
     method: "POST",
-    credentials: "include",
     body: data,
   });
-
-  return handleResponse(res);
 }
