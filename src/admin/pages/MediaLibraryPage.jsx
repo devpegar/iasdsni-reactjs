@@ -12,6 +12,7 @@ import {
   createMediaFolder,
   listMediaFolders,
 } from "../services/mediaFoldersService";
+import { resolveMediaUrl } from "../../utils/mediaUrl";
 import { toastBus } from "../../services/toastBus";
 
 function formatSize(bytes) {
@@ -22,19 +23,6 @@ function formatSize(bytes) {
   }
 
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-function getPreviewUrl(path) {
-  if (!path) return "";
-
-  if (/^(https?:|data:|blob:)/i.test(path)) {
-    return path;
-  }
-
-  const apiUrl = import.meta.env.VITE_API_URL || "";
-  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-
-  return `${apiUrl}${normalizedPath}`;
 }
 
 export default function MediaLibraryPage() {
@@ -298,7 +286,7 @@ export default function MediaLibraryPage() {
       ) : (
         <div className="media-grid">
           {filteredFiles.map((file) => {
-            const previewUrl = getPreviewUrl(file.public_url);
+            const previewUrl = resolveMediaUrl(file.public_url);
 
             return (
               <article className="media-card" key={file.id}>

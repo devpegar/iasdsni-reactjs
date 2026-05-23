@@ -1,20 +1,8 @@
 import { useEffect, useState } from "react";
 import { listMediaFiles } from "../../services/mediaService";
 import { listMediaFolders } from "../../services/mediaFoldersService";
+import { resolveMediaUrl } from "../../../utils/mediaUrl";
 import "./MediaPickerModal.scss";
-
-export function getMediaPreviewUrl(path) {
-  if (!path) return "";
-
-  if (/^(https?:|data:|blob:)/i.test(path)) {
-    return path;
-  }
-
-  const apiUrl = import.meta.env.VITE_API_URL || "";
-  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-
-  return `${apiUrl}${normalizedPath}`;
-}
 
 export default function MediaPickerModal({ open, onClose, onSelect }) {
   const [files, setFiles] = useState([]);
@@ -127,7 +115,7 @@ export default function MediaPickerModal({ open, onClose, onSelect }) {
               <article className="media-picker__item" key={file.id}>
                 <div className="media-picker__preview">
                   <img
-                    src={getMediaPreviewUrl(file.public_url)}
+                    src={resolveMediaUrl(file.public_url)}
                     alt={file.alt_text || file.original_name}
                   />
                 </div>

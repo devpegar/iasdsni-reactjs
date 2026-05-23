@@ -15,6 +15,7 @@ import TableLayout from "../layout/TableLayout";
 import Field from "../components/form/Field";
 import SwitchField from "../components/form/SwitchField";
 import { apiPost, apiPostForm } from "../../services/api";
+import { resolveMediaUrl } from "../../utils/mediaUrl";
 import { toastBus } from "../../services/toastBus";
 
 const BASE_PATH = "/admin/hero_slides";
@@ -52,19 +53,6 @@ function getImageValue(data) {
     data.file ||
     ""
   );
-}
-
-function getPreviewUrl(path) {
-  if (!path) return "";
-
-  if (/^(https?:|data:|blob:)/i.test(path)) {
-    return path;
-  }
-
-  const apiUrl = import.meta.env.VITE_API_URL || "";
-  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-
-  return `${apiUrl}${normalizedPath}`;
 }
 
 export default function HeroSlidesPage() {
@@ -225,7 +213,7 @@ export default function HeroSlidesPage() {
     }
   };
 
-  const imagePreviewUrl = getPreviewUrl(form.image_path);
+  const imagePreviewUrl = resolveMediaUrl(form.image_path);
 
   return (
     <div className="hero-slides-page" ref={formRef}>
@@ -351,7 +339,7 @@ export default function HeroSlidesPage() {
             label: "Imagen",
             width: "96px",
             render: (slide) => {
-              const src = getPreviewUrl(slide.image_url || slide.image_path);
+              const src = resolveMediaUrl(slide.image_url || slide.image_path);
 
               return src ? (
                 <img

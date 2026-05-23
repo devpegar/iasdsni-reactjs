@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import useSiteSettings from "../site-settings/hooks/useSiteSettings";
+import { resolveMediaUrl } from "../../utils/mediaUrl";
 
 function getBaseUrl(siteUrl) {
   if (siteUrl) {
@@ -33,7 +34,10 @@ export default function Seo({
     settings.site_subtitle || "Iglesia Adventista del Séptimo Día";
   const metaTitle = title ? `${title} | ${siteName}` : siteName;
   const metaDescription = description || fallbackDescription;
-  const metaImage = getAbsoluteUrl(image || settings.logo_url, settings.site_url);
+  const metaImage = getAbsoluteUrl(
+    resolveMediaUrl(image || settings.logo_url),
+    settings.site_url,
+  );
   const canonicalUrl = getAbsoluteUrl(canonical, settings.site_url);
 
   return (

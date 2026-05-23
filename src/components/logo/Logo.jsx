@@ -1,9 +1,10 @@
 import "./Logo.scss";
 import logoSymbol from "/assets/logo-simple.png";
+import { resolveMediaUrl } from "../../utils/mediaUrl";
 
 export default function Logo({ logoUrl = "", siteName = "", siteSubtitle = "" }) {
   const hasCustomText = Boolean(siteName || siteSubtitle);
-  const symbolSrc = logoUrl || logoSymbol;
+  const symbolSrc = logoUrl ? resolveMediaUrl(logoUrl) : logoSymbol;
 
   return (
     <div className="iasd-logo">

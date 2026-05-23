@@ -30,6 +30,7 @@ export default function Header() {
   const emailUrl = settings.contact_email
     ? `mailto:${settings.contact_email}`
     : "mailto:info@iasdsni.com.ar";
+  const logoUrl = settings.logo_header_url || settings.logo_url;
 
   return (
     <header className="header">
@@ -37,7 +38,7 @@ export default function Header() {
         {/* Logo */}
         <div>
           <Logo
-            logoUrl={settings.logo_url}
+            logoUrl={logoUrl}
             siteName={settings.site_name}
             siteSubtitle={settings.site_subtitle}
           />

@@ -32,7 +32,17 @@ function shouldUseTextarea(setting) {
 }
 
 function shouldUseImagePicker(setting) {
-  return ["logo_url", "favicon_url"].includes(setting.setting_key);
+  return ["logo_header_url", "logo_footer_url", "logo_url", "favicon_url"].includes(setting.setting_key);
+}
+
+function getSettingLabel(setting) {
+  const labels = {
+    logo_header_url: "Logo header",
+    logo_footer_url: "Logo footer / columna sábado",
+    logo_url: "Logo general legacy",
+  };
+
+  return labels[setting.setting_key] || setting.label || setting.setting_key;
 }
 
 function buildInitialValues(groups) {
@@ -158,7 +168,7 @@ export default function SiteSettingsPage() {
                   shouldUseImagePicker(setting) ? (
                     <ImageUrlField
                       key={setting.setting_key}
-                      label={setting.label || setting.setting_key}
+                      label={getSettingLabel(setting)}
                       name={setting.setting_key}
                       value={values[setting.setting_key] ?? ""}
                       onChange={handleChange}
@@ -168,7 +178,7 @@ export default function SiteSettingsPage() {
                   ) : (
                     <Field
                       key={setting.setting_key}
-                      label={setting.label || setting.setting_key}
+                      label={getSettingLabel(setting)}
                       name={setting.setting_key}
                       type={shouldUseTextarea(setting) ? "textarea" : getInputType(setting)}
                       value={values[setting.setting_key] ?? ""}

@@ -12,6 +12,7 @@ import {
   FaYoutube,
 } from "react-icons/fa6";
 import useSiteSettings from "../../../../features/site-settings/hooks/useSiteSettings";
+import { resolveMediaUrl } from "../../../../utils/mediaUrl";
 
 function getWhatsappUrl(value, fallback) {
   if (!value) return fallback;
@@ -35,6 +36,7 @@ export default function Footer() {
     settings.whatsapp_number,
     "https://www.whatsapp.com/channel/0029VabVP3G6BIEgIpDuz126",
   );
+  const footerLogoUrl = settings.logo_footer_url || settings.logo_url;
 
   return (
     <footer className="footer">
@@ -42,7 +44,7 @@ export default function Footer() {
         {/* Columna 1 - Logo + descripción */}
         <div className="footer__col">
           <img
-            src={settings.logo_url || logo}
+            src={footerLogoUrl ? resolveMediaUrl(footerLogoUrl) : logo}
             alt="Logo IASD San Nicolás"
             className="footer__logo"
           />

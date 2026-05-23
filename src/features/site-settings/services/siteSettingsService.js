@@ -4,6 +4,8 @@ export const DEFAULT_SITE_SETTINGS = {
   site_url: "https://iasdsni.com.ar",
   site_name: "IASD San Nicolás Centro",
   site_subtitle: "Iglesia Adventista del Séptimo Día",
+  logo_header_url: "",
+  logo_footer_url: "",
   logo_url: "",
   favicon_url: "",
   facebook_url: "https://facebook.com/iasdsni",

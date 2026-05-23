@@ -1,5 +1,6 @@
 import { useState } from "react";
-import MediaPickerModal, { getMediaPreviewUrl } from "./MediaPickerModal";
+import { resolveMediaUrl } from "../../../utils/mediaUrl";
+import MediaPickerModal from "./MediaPickerModal";
 
 export default function ImageUrlField({
   label,
@@ -45,7 +46,7 @@ export default function ImageUrlField({
 
       {value && (
         <div className="image-url-field__preview">
-          <img src={getMediaPreviewUrl(value)} alt={label} />
+          <img src={resolveMediaUrl(value)} alt={label} />
         </div>
       )}
 
