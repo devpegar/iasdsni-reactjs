@@ -1,6 +1,7 @@
 import { getJson } from "../../../services/httpClient";
 
 export const DEFAULT_SITE_SETTINGS = {
+  site_url: "https://iasdsni.com.ar",
   site_name: "IASD San Nicolás Centro",
   site_subtitle: "Iglesia Adventista del Séptimo Día",
   logo_url: "",

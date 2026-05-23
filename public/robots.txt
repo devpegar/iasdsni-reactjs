@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin
+Disallow: /api/admin
+
+Sitemap: https://iasdsni.com.ar/public/seo/sitemap.php
