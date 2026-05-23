@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FaEdit, FaExternalLinkAlt, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import Field from "../components/form/Field";
+import ImageUrlField from "../components/media/ImageUrlField";
 import SwitchField from "../components/form/SwitchField";
 import useFormEdit from "../hooks/useFormEdit";
 import FormLayout from "../layout/FormLayout";
@@ -223,16 +224,14 @@ export default function DynamicPagesPage() {
           span
         />
 
-        <Field
+        <ImageUrlField
           label="Imagen destacada"
-          type="text"
           name="featured_image"
           value={form.featured_image}
           onChange={handleChange}
           placeholder="/uploads/... o https://..."
           span
         />
-        <p className="form-help full-span">Podés copiar una URL desde Multimedia.</p>
 
         <Field
           label="Contenido"
@@ -259,15 +258,14 @@ export default function DynamicPagesPage() {
               placeholder="Si queda vacío usa el título"
             />
 
-            <Field
+            <ImageUrlField
               label="Imagen Open Graph"
-              type="text"
               name="og_image"
               value={form.og_image}
               onChange={handleChange}
               placeholder="/uploads/... o https://..."
+              span
             />
-            <p className="form-help full-span">Podés copiar una URL desde Multimedia.</p>
 
             <Field
               label="URL canónica"

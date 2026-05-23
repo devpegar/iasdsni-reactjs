@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import Field from "../components/form/Field";
+import ImageUrlField from "../components/media/ImageUrlField";
 import FormLayout from "../layout/FormLayout";
 import {
   listSiteSettings,
@@ -28,6 +29,10 @@ function shouldUseTextarea(setting) {
     setting.setting_type === "textarea" ||
     (setting.setting_value || "").length > 120
   );
+}
+
+function shouldUseImagePicker(setting) {
+  return ["logo_url", "favicon_url"].includes(setting.setting_key);
 }
 
 function buildInitialValues(groups) {
@@ -149,18 +154,30 @@ export default function SiteSettingsPage() {
               </div>
 
               <div className="site-settings-group__grid">
-                {settings.map((setting) => (
-                  <Field
-                    key={setting.setting_key}
-                    label={setting.label || setting.setting_key}
-                    name={setting.setting_key}
-                    type={shouldUseTextarea(setting) ? "textarea" : getInputType(setting)}
-                    value={values[setting.setting_key] ?? ""}
-                    onChange={handleChange}
-                    rows={setting.setting_type === "longtext" ? 4 : 3}
-                    span={shouldUseTextarea(setting)}
-                  />
-                ))}
+                {settings.map((setting) =>
+                  shouldUseImagePicker(setting) ? (
+                    <ImageUrlField
+                      key={setting.setting_key}
+                      label={setting.label || setting.setting_key}
+                      name={setting.setting_key}
+                      value={values[setting.setting_key] ?? ""}
+                      onChange={handleChange}
+                      placeholder="/uploads/... o https://..."
+                      span
+                    />
+                  ) : (
+                    <Field
+                      key={setting.setting_key}
+                      label={setting.label || setting.setting_key}
+                      name={setting.setting_key}
+                      type={shouldUseTextarea(setting) ? "textarea" : getInputType(setting)}
+                      value={values[setting.setting_key] ?? ""}
+                      onChange={handleChange}
+                      rows={setting.setting_type === "longtext" ? 4 : 3}
+                      span={shouldUseTextarea(setting)}
+                    />
+                  ),
+                )}
               </div>
             </section>
           ))}
