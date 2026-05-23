@@ -22,6 +22,10 @@ const initialForm = {
   featured_image: "",
   published_at: "",
   content: "",
+  seo_title: "",
+  og_image: "",
+  canonical_url: "",
+  noindex: false,
   is_active: true,
 };
 
@@ -39,6 +43,10 @@ function normalizePage(page) {
     featured_image: page.featured_image ?? "",
     published_at: page.published_at ? page.published_at.replace(" ", "T").slice(0, 16) : "",
     content: page.content ?? "",
+    seo_title: page.seo_title ?? "",
+    og_image: page.og_image ?? "",
+    canonical_url: page.canonical_url ?? "",
+    noindex: toBoolean(page.noindex ?? false),
     is_active: toBoolean(page.is_active ?? true),
   };
 }
@@ -53,6 +61,10 @@ function getPayload(page) {
     featured_image: page.featured_image,
     published_at: page.published_at ? page.published_at.replace("T", " ") : "",
     content: page.content,
+    seo_title: page.seo_title,
+    og_image: page.og_image,
+    canonical_url: page.canonical_url,
+    noindex: page.noindex ? 1 : 0,
     is_active: page.is_active ? 1 : 0,
   };
 }
@@ -230,6 +242,50 @@ export default function DynamicPagesPage() {
           rows={8}
           span
         />
+
+        <div className="card full-span dynamic-pages-page__seo">
+          <div className="card-header">
+            <h3>SEO</h3>
+          </div>
+
+          <div className="dynamic-pages-page__seo-grid">
+            <Field
+              label="Título SEO"
+              type="text"
+              name="seo_title"
+              value={form.seo_title}
+              onChange={handleChange}
+              placeholder="Si queda vacío usa el título"
+            />
+
+            <Field
+              label="Imagen Open Graph"
+              type="text"
+              name="og_image"
+              value={form.og_image}
+              onChange={handleChange}
+              placeholder="/uploads/... o https://..."
+            />
+
+            <Field
+              label="URL canónica"
+              type="text"
+              name="canonical_url"
+              value={form.canonical_url}
+              onChange={handleChange}
+              placeholder="/pagina/historia o https://..."
+              span
+            />
+
+            <SwitchField
+              label="No indexar"
+              checked={form.noindex}
+              onChange={(checked) =>
+                setForm((prev) => ({ ...prev, noindex: checked }))
+              }
+            />
+          </div>
+        </div>
 
         <SwitchField
           label="Activa"

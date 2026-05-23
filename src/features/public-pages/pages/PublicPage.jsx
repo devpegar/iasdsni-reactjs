@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPublicPage } from "../services/publicPagesService";
+import Seo from "../../seo/Seo";
 
 export default function PublicPage() {
   const { slug = "" } = useParams();
@@ -50,19 +51,39 @@ export default function PublicPage() {
   }, [slug]);
 
   if (state.loading) {
-    return <section><p>Cargando página...</p></section>;
+    return (
+      <section>
+        <p>Cargando página...</p>
+      </section>
+    );
   }
 
   if (state.error) {
-    return <section><p>{state.error}</p></section>;
+    return (
+      <section>
+        <p>{state.error}</p>
+      </section>
+    );
   }
 
   if (!state.page) {
-    return <section><p>No hay contenido disponible.</p></section>;
+    return (
+      <section>
+        <p>No hay contenido disponible.</p>
+      </section>
+    );
   }
 
   return (
     <article>
+      <Seo
+        title={state.page.seo_title || state.page.title}
+        description={state.page.meta_description}
+        image={state.page.og_image}
+        canonical={state.page.canonical_url || `/pagina/${state.page.slug}`}
+        noindex={Boolean(Number(state.page.noindex || 0))}
+        type="article"
+      />
       <h1>{state.page.title}</h1>
       {state.page.meta_description && <p>{state.page.meta_description}</p>}
       {state.page.content ? (

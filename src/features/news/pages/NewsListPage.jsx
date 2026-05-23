@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { listNews } from "../services/newsService";
+import Seo from "../../seo/Seo";
 
 function formatDate(value) {
   if (!value) return null;
@@ -56,19 +57,55 @@ export default function NewsListPage() {
   }, []);
 
   if (state.loading) {
-    return <section><p>Cargando noticias...</p></section>;
+    return (
+      <section>
+        <Seo
+          title="Noticias"
+          description="Noticias y novedades de IASD San Nicolás Centro."
+          canonical="/noticias"
+          type="website"
+        />
+        <p>Cargando noticias...</p>
+      </section>
+    );
   }
 
   if (state.error) {
-    return <section><p>{state.error}</p></section>;
+    return (
+      <section>
+        <Seo
+          title="Noticias"
+          description="Noticias y novedades de IASD San Nicolás Centro."
+          canonical="/noticias"
+          type="website"
+        />
+        <p>{state.error}</p>
+      </section>
+    );
   }
 
   if (!state.items.length) {
-    return <section><p>No hay noticias publicadas.</p></section>;
+    return (
+      <section>
+        <Seo
+          title="Noticias"
+          description="Noticias y novedades de IASD San Nicolás Centro."
+          canonical="/noticias"
+          type="website"
+        />
+        <p>No hay noticias publicadas.</p>
+      </section>
+    );
   }
 
   return (
     <section>
+      <Seo
+        title="Noticias"
+        description="Noticias y novedades de IASD San Nicolás Centro."
+        canonical="/noticias"
+        type="website"
+      />
       <h1>Noticias</h1>
 
       {state.items.map((item) => {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./Home.scss";
 import HomeSectionRenderer from "./components/HomeSectionRenderer/HomeSectionRenderer";
 import { listHomeSections } from "../../features/home/services/homeSectionsService";
+import Seo from "../../features/seo/Seo";
 
 const FALLBACK_SECTIONS = [
   { id: "fallback-hero", section_key: "hero_carousel", sort_order: 1 },
@@ -42,6 +43,10 @@ export default function Home() {
 
   return (
     <main className="home">
+      <Seo
+        description="Iglesia Adventista del Séptimo Día San Nicolás Centro."
+        canonical="/"
+      />
       {sections.map((section) => (
         <HomeSectionRenderer key={section.id} section={section} />
       ))}
