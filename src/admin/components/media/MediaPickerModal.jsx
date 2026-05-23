@@ -115,7 +115,7 @@ export default function MediaPickerModal({ open, onClose, onSelect }) {
               <article className="media-picker__item" key={file.id}>
                 <div className="media-picker__preview">
                   <img
-                    src={resolveMediaUrl(file.public_url)}
+                    src={resolveMediaUrl(file.thumbnail_url || file.public_url)}
                     alt={file.alt_text || file.original_name}
                   />
                 </div>

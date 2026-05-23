@@ -25,6 +25,18 @@ function formatSize(bytes) {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
+const OPTIMIZATION_LABELS = {
+  optimized: "Optimizada",
+  legacy: "Legacy",
+  skipped: "Omitida",
+  failed: "Falló",
+};
+
+function formatDimensions(width, height) {
+  if (!width || !height) return null;
+  return `${width} x ${height}px`;
+}
+
 export default function MediaLibraryPage() {
   const fileInputRef = useRef(null);
   const [files, setFiles] = useState([]);
@@ -181,6 +193,7 @@ export default function MediaLibraryPage() {
         <div>
           <h2>Multimedia</h2>
           <p>Subí imágenes y copiá sus URLs para reutilizarlas en páginas, SEO y configuración.</p>
+          <p>Se sirven imágenes optimizadas cuando están disponibles.</p>
         </div>
       </div>
 
@@ -286,7 +299,13 @@ export default function MediaLibraryPage() {
       ) : (
         <div className="media-grid">
           {filteredFiles.map((file) => {
-            const previewUrl = resolveMediaUrl(file.public_url);
+            const previewUrl = resolveMediaUrl(file.thumbnail_url || file.public_url);
+            const originalDimensions = formatDimensions(file.width, file.height);
+            const optimizedDimensions = formatDimensions(
+              file.optimized_width,
+              file.optimized_height,
+            );
+            const optimizationStatus = file.optimization_status || "legacy";
 
             return (
               <article className="media-card" key={file.id}>
@@ -296,7 +315,12 @@ export default function MediaLibraryPage() {
 
                 <div className="media-card__body">
                   <h3 title={file.original_name}>{file.original_name}</h3>
-                  <p>{file.mime_type} · {formatSize(file.size_bytes)}</p>
+                  <p>{file.mime_type} · original {formatSize(file.size_bytes)}</p>
+                  {originalDimensions && <p>Original: {originalDimensions}</p>}
+                  {optimizedDimensions && <p>Optimizada: {optimizedDimensions}</p>}
+                  <span className={`media-card__status media-card__status--${optimizationStatus}`}>
+                    {OPTIMIZATION_LABELS[optimizationStatus] || optimizationStatus}
+                  </span>
                   <span className="media-card__folder">
                     {file.folder_name || "Sin carpeta / General"}
                   </span>

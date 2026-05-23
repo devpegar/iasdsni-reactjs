@@ -29,6 +29,7 @@ const navGroups = [
       "/admin/home-sections",
       "/admin/site-settings",
       "/admin/media",
+      "/admin/gallery",
       "/admin/posts",
     ],
     items: [
@@ -40,6 +41,7 @@ const navGroups = [
       { label: "Home", to: "/admin/home-sections" },
       { label: "Configuración del sitio", to: "/admin/site-settings" },
       { label: "Multimedia", to: "/admin/media" },
+      { label: "Galería", to: "/admin/gallery" },
       { label: "Noticias", to: "/admin/posts", disabled: true },
     ],
   },

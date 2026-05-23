@@ -23,8 +23,11 @@ import NavigationPage from "../admin/pages/NavigationPage";
 import HomeSectionsPage from "../admin/pages/HomeSectionsPage";
 import SiteSettingsPage from "../admin/pages/SiteSettingsPage";
 import MediaLibraryPage from "../admin/pages/MediaLibraryPage";
+import GalleryAdminPage from "../admin/pages/GalleryAdminPage";
 import PublicPage from "../features/public-pages/pages/PublicPage";
 import NewsListPage from "../features/news/pages/NewsListPage";
+import GalleryAlbumsPage from "../features/gallery/pages/GalleryAlbumsPage";
+import GalleryAlbumPage from "../features/gallery/pages/GalleryAlbumPage";
 
 import SecretariaLayout from "../admin/pages/secretaria/SecretariaLayout";
 import BoardListPage from "../admin/pages/secretaria/pages/BoardListPage";
@@ -59,6 +62,22 @@ export default function App() {
           element={
             <ContentLayout>
               <NewsListPage />
+            </ContentLayout>
+          }
+        />
+        <Route
+          path="galeria"
+          element={
+            <ContentLayout>
+              <GalleryAlbumsPage />
+            </ContentLayout>
+          }
+        />
+        <Route
+          path="galeria/:slug"
+          element={
+            <ContentLayout>
+              <GalleryAlbumPage />
             </ContentLayout>
           }
         />
@@ -175,6 +194,15 @@ export default function App() {
           element={
             <PermissionGuard can={hasPermission(role, ["admin"])}>
               <MediaLibraryPage />
+            </PermissionGuard>
+          }
+        />
+
+        <Route
+          path="gallery"
+          element={
+            <PermissionGuard can={hasPermission(role, ["admin"])}>
+              <GalleryAdminPage />
             </PermissionGuard>
           }
         />
