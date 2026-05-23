@@ -232,6 +232,7 @@ export default function DynamicPagesPage() {
           placeholder="/uploads/... o https://..."
           span
         />
+        <p className="form-help full-span">Podés copiar una URL desde Multimedia.</p>
 
         <Field
           label="Contenido"
@@ -266,6 +267,7 @@ export default function DynamicPagesPage() {
               onChange={handleChange}
               placeholder="/uploads/... o https://..."
             />
+            <p className="form-help full-span">Podés copiar una URL desde Multimedia.</p>
 
             <Field
               label="URL canónica"

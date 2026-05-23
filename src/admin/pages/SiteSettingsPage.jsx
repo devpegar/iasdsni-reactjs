@@ -130,7 +130,7 @@ export default function SiteSettingsPage() {
       <div className="site-settings-page__header">
         <div>
           <h2>Configuración del sitio</h2>
-          <p>Datos globales usados por Header, Footer y Contacto.</p>
+          <p>Datos globales usados por Header, Footer y Contacto. Para imágenes, podés copiar una URL desde Multimedia.</p>
         </div>
       </div>
 
