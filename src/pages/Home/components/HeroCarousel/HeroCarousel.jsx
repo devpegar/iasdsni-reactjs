@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import { getJson } from "../../../../services/httpClient";
+import { resolveMediaUrl } from "../../../../utils/mediaUrl";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -58,7 +59,11 @@ export default function HeroCarousel() {
               </div>
 
               <div className="slide-image">
-                <img src={slide.image_url} alt={slide.title} loading="lazy" />
+                <img
+                  src={resolveMediaUrl(slide.image_url || slide.image_path)}
+                  alt={slide.title}
+                  loading="lazy"
+                />
               </div>
             </div>
           </SwiperSlide>

@@ -13,6 +13,7 @@ import useFormEdit from "../hooks/useFormEdit";
 import FormLayout from "../layout/FormLayout";
 import TableLayout from "../layout/TableLayout";
 import Field from "../components/form/Field";
+import ImageUrlField from "../components/media/ImageUrlField";
 import SwitchField from "../components/form/SwitchField";
 import { apiPost, apiPostForm } from "../../services/api";
 import { resolveMediaUrl } from "../../utils/mediaUrl";
@@ -213,8 +214,6 @@ export default function HeroSlidesPage() {
     }
   };
 
-  const imagePreviewUrl = resolveMediaUrl(form.image_path);
-
   return (
     <div className="hero-slides-page" ref={formRef}>
       <h2>{editingId ? "Editar Hero Slide" : "Crear Hero Slide"}</h2>
@@ -263,12 +262,12 @@ export default function HeroSlidesPage() {
           onChange={handleChange}
         />
 
-        <Field
+        <ImageUrlField
           label="URL de imagen"
-          type="text"
           name="image_path"
           value={form.image_path}
           onChange={handleChange}
+          placeholder="/uploads/media/hero/... o https://..."
           span
         />
 
@@ -296,12 +295,6 @@ export default function HeroSlidesPage() {
               </button>
             </div>
           </label>
-
-          {imagePreviewUrl && (
-            <div className="hero-slide-image-preview">
-              <img src={imagePreviewUrl} alt={form.title || "Hero slide"} />
-            </div>
-          )}
         </div>
 
         <SwitchField
