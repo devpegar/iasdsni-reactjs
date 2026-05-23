@@ -22,6 +22,17 @@
   }
 }
 
+.media-folders {
+  h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+.media-library-filter {
+  width: min(320px, 100%);
+}
+
 .media-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -68,6 +79,16 @@
       color: #6b7280;
       font-size: 0.82rem;
     }
+  }
+
+  &__folder {
+    align-self: flex-start;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #334155;
+    font-size: 0.75rem;
+    font-weight: 600;
   }
 
   &__actions {

@@ -8,6 +8,10 @@ import {
   updateMediaFile,
   uploadMediaFile,
 } from "../services/mediaService";
+import {
+  createMediaFolder,
+  listMediaFolders,
+} from "../services/mediaFoldersService";
 import { toastBus } from "../../services/toastBus";
 
 function formatSize(bytes) {
@@ -36,20 +40,27 @@ function getPreviewUrl(path) {
 export default function MediaLibraryPage() {
   const fileInputRef = useRef(null);
   const [files, setFiles] = useState([]);
+  const [folders, setFolders] = useState([]);
+  const [folderFilter, setFolderFilter] = useState("all");
   const [altDrafts, setAltDrafts] = useState({});
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [actionLoading, setActionLoading] = useState(null);
-  const [form, setForm] = useState({ alt_text: "" });
+  const [form, setForm] = useState({ alt_text: "", folder_id: "" });
+  const [folderForm, setFolderForm] = useState({ name: "" });
   const [error, setError] = useState(null);
 
-  const fetchFiles = async () => {
+  const fetchData = async () => {
     try {
       setLoading(true);
-      const res = await listMediaFiles();
-      const nextFiles = res.media_files ?? [];
+      const [filesRes, foldersRes] = await Promise.all([
+        listMediaFiles(),
+        listMediaFolders(),
+      ]);
+      const nextFiles = filesRes.media_files ?? [];
 
       setFiles(nextFiles);
+      setFolders(foldersRes.folders ?? []);
       setAltDrafts(
         nextFiles.reduce((acc, file) => {
           acc[file.id] = file.alt_text || "";
@@ -65,7 +76,7 @@ export default function MediaLibraryPage() {
   };
 
   useEffect(() => {
-    fetchFiles();
+    fetchData();
   }, []);
 
   const handleUpload = async (event) => {
@@ -80,6 +91,9 @@ export default function MediaLibraryPage() {
     const data = new FormData();
     data.append("image", file);
     data.append("alt_text", form.alt_text);
+    if (form.folder_id) {
+      data.append("folder_id", form.folder_id);
+    }
 
     try {
       setUploading(true);
@@ -90,15 +104,37 @@ export default function MediaLibraryPage() {
       }
 
       toastBus.success("Imagen subida");
-      setForm({ alt_text: "" });
+      setForm((prev) => ({ ...prev, alt_text: "" }));
 
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
 
-      await fetchFiles();
+      await fetchData();
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleCreateFolder = async (event) => {
+    event.preventDefault();
+
+    if (!folderForm.name.trim()) {
+      toastBus.error("Ingresá un nombre de carpeta");
+      return;
+    }
+
+    try {
+      setActionLoading("create-folder");
+      const res = await createMediaFolder({ name: folderForm.name });
+
+      if (res.success !== false) {
+        toastBus.success("Carpeta creada");
+        setFolderForm({ name: "" });
+        await fetchData();
+      }
+    } finally {
+      setActionLoading(null);
     }
   };
 
@@ -120,7 +156,7 @@ export default function MediaLibraryPage() {
 
       if (res.success !== false) {
         toastBus.success("Texto alternativo actualizado");
-        await fetchFiles();
+        await fetchData();
       }
     } finally {
       setActionLoading(null);
@@ -138,12 +174,18 @@ export default function MediaLibraryPage() {
 
       if (res.success !== false) {
         toastBus.success("Imagen desactivada");
-        await fetchFiles();
+        await fetchData();
       }
     } finally {
       setActionLoading(null);
     }
   };
+
+  const filteredFiles = files.filter((file) => {
+    if (folderFilter === "all") return true;
+    if (folderFilter === "none") return !file.folder_id;
+    return String(file.folder_id) === folderFilter;
+  });
 
   return (
     <div className="media-library-page">
@@ -177,6 +219,23 @@ export default function MediaLibraryPage() {
             placeholder="Descripción breve de la imagen"
           />
 
+          <Field
+            label="Carpeta"
+            type="select"
+            name="folder_id"
+            value={form.folder_id}
+            onChange={(event) =>
+              setForm((prev) => ({ ...prev, folder_id: event.target.value }))
+            }
+          >
+            <option value="">Sin carpeta / General</option>
+            {folders.map((folder) => (
+              <option key={folder.id} value={folder.id}>
+                {folder.name}
+              </option>
+            ))}
+          </Field>
+
           <div className="form-actions">
             <button type="submit" className="btn btn-primary" disabled={uploading}>
               <FaUpload />
@@ -186,17 +245,59 @@ export default function MediaLibraryPage() {
         </FormLayout>
       </section>
 
+      <section className="card media-folders">
+        <div className="card-header">
+          <h3>Carpetas</h3>
+        </div>
+
+        <form className="form form--inline" onSubmit={handleCreateFolder}>
+          <Field
+            label="Nueva carpeta"
+            name="folder_name"
+            value={folderForm.name}
+            onChange={(event) => setFolderForm({ name: event.target.value })}
+            placeholder="Ej. Ministerio joven"
+          />
+          <button
+            type="submit"
+            className="btn btn-secondary"
+            disabled={actionLoading === "create-folder"}
+          >
+            Crear carpeta
+          </button>
+        </form>
+      </section>
+
+      <div className="media-library-filter">
+        <label className="label">
+          Filtrar por carpeta
+          <select
+            className="select"
+            value={folderFilter}
+            onChange={(event) => setFolderFilter(event.target.value)}
+          >
+            <option value="all">Todas</option>
+            <option value="none">Sin carpeta / General</option>
+            {folders.map((folder) => (
+              <option key={folder.id} value={folder.id}>
+                {folder.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
       {error && <p>{error}</p>}
 
       {loading ? (
         <p>Cargando multimedia...</p>
-      ) : files.length === 0 ? (
+      ) : filteredFiles.length === 0 ? (
         <div className="card">
-          <p>No hay imágenes cargadas.</p>
+          <p>No hay imágenes para este filtro.</p>
         </div>
       ) : (
         <div className="media-grid">
-          {files.map((file) => {
+          {filteredFiles.map((file) => {
             const previewUrl = getPreviewUrl(file.public_url);
 
             return (
@@ -208,6 +309,9 @@ export default function MediaLibraryPage() {
                 <div className="media-card__body">
                   <h3 title={file.original_name}>{file.original_name}</h3>
                   <p>{file.mime_type} · {formatSize(file.size_bytes)}</p>
+                  <span className="media-card__folder">
+                    {file.folder_name || "Sin carpeta / General"}
+                  </span>
 
                   <label className="label">
                     URL

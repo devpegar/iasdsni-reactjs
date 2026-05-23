@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { listMediaFiles } from "../../services/mediaService";
+import { listMediaFolders } from "../../services/mediaFoldersService";
 import "./MediaPickerModal.scss";
 
 export function getMediaPreviewUrl(path) {
@@ -17,6 +18,8 @@ export function getMediaPreviewUrl(path) {
 
 export default function MediaPickerModal({ open, onClose, onSelect }) {
   const [files, setFiles] = useState([]);
+  const [folders, setFolders] = useState([]);
+  const [folderFilter, setFolderFilter] = useState("all");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -28,17 +31,21 @@ export default function MediaPickerModal({ open, onClose, onSelect }) {
     async function loadFiles() {
       try {
         setLoading(true);
-        const res = await listMediaFiles();
+        const [filesRes, foldersRes] = await Promise.all([
+          listMediaFiles(),
+          listMediaFolders(),
+        ]);
 
         if (ignore) return;
 
-        if (res.success === false) {
-          setError(res.message || "No se pudo cargar Multimedia");
+        if (filesRes.success === false) {
+          setError(filesRes.message || "No se pudo cargar Multimedia");
           setFiles([]);
           return;
         }
 
-        setFiles(res.media_files ?? []);
+        setFiles(filesRes.media_files ?? []);
+        setFolders(foldersRes.folders ?? []);
         setError(null);
       } catch (err) {
         if (!ignore) {
@@ -68,6 +75,12 @@ export default function MediaPickerModal({ open, onClose, onSelect }) {
     onClose();
   };
 
+  const filteredFiles = files.filter((file) => {
+    if (folderFilter === "all") return true;
+    if (folderFilter === "none") return !file.folder_id;
+    return String(file.folder_id) === folderFilter;
+  });
+
   return (
     <div className="media-picker" role="dialog" aria-modal="true">
       <div className="media-picker__backdrop" onClick={onClose} />
@@ -83,13 +96,34 @@ export default function MediaPickerModal({ open, onClose, onSelect }) {
         {loading && <p>Cargando imágenes...</p>}
         {error && <p>{error}</p>}
 
-        {!loading && !error && files.length === 0 && (
+        {!loading && !error && (
+          <div className="media-picker__filters">
+            <label className="label">
+              Carpeta
+              <select
+                className="select"
+                value={folderFilter}
+                onChange={(event) => setFolderFilter(event.target.value)}
+              >
+                <option value="all">Todas</option>
+                <option value="none">Sin carpeta / General</option>
+                {folders.map((folder) => (
+                  <option key={folder.id} value={folder.id}>
+                    {folder.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        )}
+
+        {!loading && !error && filteredFiles.length === 0 && (
           <p>No hay imágenes cargadas. Subí una imagen desde Sitio Web → Multimedia.</p>
         )}
 
-        {!loading && !error && files.length > 0 && (
+        {!loading && !error && filteredFiles.length > 0 && (
           <div className="media-picker__grid">
-            {files.map((file) => (
+            {filteredFiles.map((file) => (
               <article className="media-picker__item" key={file.id}>
                 <div className="media-picker__preview">
                   <img
@@ -100,6 +134,7 @@ export default function MediaPickerModal({ open, onClose, onSelect }) {
 
                 <div className="media-picker__body">
                   <h3 title={file.original_name}>{file.original_name}</h3>
+                  <span>{file.folder_name || "Sin carpeta / General"}</span>
                   <p title={file.public_url}>{file.public_url}</p>
                   <button
                     type="button"

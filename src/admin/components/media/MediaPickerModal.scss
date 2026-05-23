@@ -43,6 +43,11 @@
     gap: 1rem;
   }
 
+  &__filters {
+    width: min(320px, 100%);
+    margin-bottom: 1rem;
+  }
+
   &__item {
     overflow: hidden;
     border: 1px solid #e5e7eb;
@@ -83,6 +88,12 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+
+    span {
+      color: #334155;
+      font-size: 0.78rem;
+      font-weight: 600;
     }
   }
 
