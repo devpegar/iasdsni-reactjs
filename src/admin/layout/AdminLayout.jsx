@@ -26,6 +26,7 @@ const navGroups = [
       "/admin/daily-verses",
       "/admin/pages",
       "/admin/navigation",
+      "/admin/home-sections",
       "/admin/posts",
     ],
     items: [
@@ -34,6 +35,7 @@ const navGroups = [
       { label: "Versiculo Diario", to: "/admin/daily-verses" },
       { label: "Páginas", to: "/admin/pages" },
       { label: "Menú", to: "/admin/navigation" },
+      { label: "Home", to: "/admin/home-sections" },
       { label: "Noticias", to: "/admin/posts", disabled: true },
     ],
   },

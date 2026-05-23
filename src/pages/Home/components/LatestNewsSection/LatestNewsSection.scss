@@ -1,0 +1,59 @@
+@use "../../../../styles/variables" as *;
+
+.latest-news-section {
+  width: 100%;
+  padding: 3rem 1.5rem;
+  background: #fff;
+
+  &__header {
+    max-width: 900px;
+    margin: 0 auto 1.5rem;
+
+    h2 {
+      color: $primary-color;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  &__grid {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  &__link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: $primary-color;
+    font-weight: 600;
+  }
+}
+
+.latest-news-card {
+  padding: 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0.75rem;
+  text-align: left;
+
+  h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  a {
+    color: $primary-color;
+    text-decoration: none;
+  }
+
+  &__date {
+    font-size: 0.9rem;
+    opacity: 0.75;
+  }
+}
+
+@media (max-width: 900px) {
+  .latest-news-section__grid {
+    grid-template-columns: 1fr;
+  }
+}

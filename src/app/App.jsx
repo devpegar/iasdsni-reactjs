@@ -20,6 +20,7 @@ import HeroSlidesPage from "../admin/pages/HeroSlidesPage";
 import DailyVersesPage from "../admin/pages/DailyVersesPage";
 import DynamicPagesPage from "../admin/pages/DynamicPagesPage";
 import NavigationPage from "../admin/pages/NavigationPage";
+import HomeSectionsPage from "../admin/pages/HomeSectionsPage";
 import PublicPage from "../features/public-pages/pages/PublicPage";
 import NewsListPage from "../features/news/pages/NewsListPage";
 
@@ -145,6 +146,15 @@ export default function App() {
           element={
             <PermissionGuard can={hasPermission(role, ["admin"])}>
               <NavigationPage />
+            </PermissionGuard>
+          }
+        />
+
+        <Route
+          path="home-sections"
+          element={
+            <PermissionGuard can={hasPermission(role, ["admin"])}>
+              <HomeSectionsPage />
             </PermissionGuard>
           }
         />
