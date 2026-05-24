@@ -5,6 +5,8 @@ import FormLayout from "../../../layout/FormLayout";
 import TableLayout from "../../../layout/TableLayout";
 import Field from "../../../components/form/Field";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import AdminCard from "../../../components/ui/AdminCard";
+import SectionHeader from "../../../components/ui/SectionHeader";
 import TableActions from "../../../components/ui/TableActions";
 
 export default function DepartmentsTab() {
@@ -45,8 +47,12 @@ export default function DepartmentsTab() {
 
   return (
     <div ref={formRef} className="departmentsTab">
-      <h2>{editingId ? "Editar Departamento" : "Crear Departamento"}</h2>
-      <div className="departmentsTab">
+      <AdminCard className="departmentsTab__form">
+        <SectionHeader
+          title={editingId ? "Editar departamento" : "Crear departamento"}
+          description="Organizá usuarios por áreas, ministerios o responsabilidades internas."
+        />
+
         <FormLayout inline compact onSubmit={handleSubmit}>
           <Field
             type="text"
@@ -65,7 +71,7 @@ export default function DepartmentsTab() {
 
           <div className="form-actions">
             <button type="submit" className="btn btn-primary">
-              {editingId ? "Guardar Cambios" : "Crear Departamento"}
+              {editingId ? "Guardar cambios" : "Crear departamento"}
             </button>
 
             {editingId && (
@@ -79,9 +85,12 @@ export default function DepartmentsTab() {
             )}
           </div>
         </FormLayout>
-      </div>
+      </AdminCard>
 
-      <h3>Lista de departamentos</h3>
+      <SectionHeader
+        title="Lista de departamentos"
+        description="Departamentos disponibles para asignación de usuarios."
+      />
 
         <TableLayout
           toolbar={`${departments.length} departamentos registrados`}

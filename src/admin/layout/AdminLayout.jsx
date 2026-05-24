@@ -12,9 +12,9 @@ const navGroups = [
     paths: ["/admin", "/admin/settings", "/admin/users", "/admin/secretaria"],
     items: [
       { label: "Dashboard", to: "/admin", end: true },
-      { label: "Configuracion", to: "/admin/settings" },
+      { label: "Configuración", to: "/admin/settings" },
       { label: "Usuarios", to: "/admin/users" },
-      { label: "Secretaria", to: "/admin/secretaria" },
+      { label: "Secretaría", to: "/admin/secretaria" },
     ],
   },
   {
@@ -35,7 +35,7 @@ const navGroups = [
     items: [
       { label: "Dashboard CMS", to: "/admin/web" },
       { label: "Hero Slides", to: "/admin/hero-slides" },
-      { label: "Versiculo Diario", to: "/admin/daily-verses" },
+      { label: "Versículo Diario", to: "/admin/daily-verses" },
       { label: "Páginas", to: "/admin/pages" },
       { label: "Menú", to: "/admin/navigation" },
       { label: "Home", to: "/admin/home-sections" },

@@ -14,6 +14,9 @@ import FormLayout from "../layout/FormLayout";
 import TableLayout from "../layout/TableLayout";
 import Field from "../components/form/Field";
 import TableActions from "../components/ui/TableActions";
+import AdminCard from "../components/ui/AdminCard";
+import PageHeader from "../components/ui/PageHeader";
+import SectionHeader from "../components/ui/SectionHeader";
 import ImageUrlField from "../components/media/ImageUrlField";
 import SwitchField from "../components/form/SwitchField";
 import { apiPost, apiPostForm } from "../../services/api";
@@ -232,119 +235,132 @@ export default function HeroSlidesPage() {
 
   return (
     <div className="hero-slides-page" ref={formRef}>
-      <h2>{editingId ? "Editar Hero Slide" : "Crear Hero Slide"}</h2>
+      <PageHeader
+        title="Hero slides"
+        description="Administrá banners, textos, llamadas a la acción, imágenes y orden del carrusel principal."
+      />
 
-      <FormLayout columns={2} onSubmit={handleSubmit}>
-        <AdminAlert variant="error">{formError}</AdminAlert>
-
-        <Field
-          label="Título"
-          type="text"
-          name="title"
-          value={form.title}
-          onChange={handleChange}
-          required
+      <AdminCard>
+        <SectionHeader
+          title={editingId ? "Editar hero slide" : "Crear hero slide"}
+          description="Completá el contenido visible del slide y definí si queda publicado."
         />
 
-        <Field
-          label="Orden"
-          type="number"
-          name="position"
-          value={form.position}
-          onChange={handleChange}
-          helpText="Define la posición del slide en el carrusel."
-        />
+        <FormLayout columns={2} onSubmit={handleSubmit}>
+          <AdminAlert variant="error">{formError}</AdminAlert>
 
-        <Field
-          label="Descripción"
-          type="textarea"
-          name="description"
-          value={form.description}
-          onChange={handleChange}
-          rows={4}
-          span
-        />
+          <Field
+            label="Título"
+            type="text"
+            name="title"
+            value={form.title}
+            onChange={handleChange}
+            required
+          />
 
-        <Field
-          label="Texto del botón"
-          type="text"
-          name="button_text"
-          value={form.button_text}
-          onChange={handleChange}
-        />
+          <Field
+            label="Orden"
+            type="number"
+            name="position"
+            value={form.position}
+            onChange={handleChange}
+            helpText="Define la posición del slide en el carrusel."
+          />
 
-        <Field
-          label="URL del botón"
-          type="text"
-          name="button_link"
-          value={form.button_link}
-          onChange={handleChange}
-          helpText="Usá una ruta interna como /pagina/historia o una URL completa."
-        />
+          <Field
+            label="Descripción"
+            type="textarea"
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            rows={4}
+            span
+          />
 
-        <ImageUrlField
-          label="URL de imagen"
-          name="image_path"
-          value={form.image_path}
-          onChange={handleChange}
-          placeholder="/uploads/media/hero/... o https://..."
-          span
-        />
+          <Field
+            label="Texto del botón"
+            type="text"
+            name="button_text"
+            value={form.button_text}
+            onChange={handleChange}
+          />
 
-        <div className="hero-slide-image-field full-span">
-          <AdminAlert variant="error">{imageError}</AdminAlert>
-          <label className="label">
-            Imagen
-            <div className="hero-slide-image-field__controls">
-              <input
-                ref={fileInputRef}
-                className="input"
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                disabled={uploading}
-              />
+          <Field
+            label="URL del botón"
+            type="text"
+            name="button_link"
+            value={form.button_link}
+            onChange={handleChange}
+            helpText="Usá una ruta interna como /pagina/historia o una URL completa."
+          />
 
+          <ImageUrlField
+            label="URL de imagen"
+            name="image_path"
+            value={form.image_path}
+            onChange={handleChange}
+            placeholder="/uploads/media/hero/... o https://..."
+            span
+          />
+
+          <div className="hero-slide-image-field full-span">
+            <AdminAlert variant="error">{imageError}</AdminAlert>
+            <label className="label">
+              Imagen
+              <div className="hero-slide-image-field__controls">
+                <input
+                  ref={fileInputRef}
+                  className="input"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  disabled={uploading}
+                />
+
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  disabled={uploading}
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <FaUpload />
+                  {uploading ? "Subiendo..." : "Subir imagen"}
+                </button>
+              </div>
+              <p className="field-message">Podés pegar una URL arriba o subir una imagen para completar el campo automáticamente.</p>
+            </label>
+          </div>
+
+          <SwitchField
+            label="Activo"
+            checked={form.is_active}
+            onChange={(checked) =>
+              setForm((prev) => ({ ...prev, is_active: checked }))
+            }
+          />
+
+          <div className="form-actions">
+            <button type="submit" className="btn btn-primary">
+              {editingId ? "Guardar cambios" : "Crear slide"}
+            </button>
+
+            {editingId && (
               <button
                 type="button"
                 className="btn btn-secondary"
-                disabled={uploading}
-                onClick={() => fileInputRef.current?.click()}
+                onClick={resetForm}
               >
-                <FaUpload />
-                {uploading ? "Subiendo..." : "Subir imagen"}
+                Cancelar edición
               </button>
-            </div>
-            <p className="field-message">Podés pegar una URL arriba o subir una imagen para completar el campo automáticamente.</p>
-          </label>
-        </div>
+            )}
+          </div>
+        </FormLayout>
+      </AdminCard>
 
-        <SwitchField
-          label="Activo"
-          checked={form.is_active}
-          onChange={(checked) =>
-            setForm((prev) => ({ ...prev, is_active: checked }))
-          }
-        />
-
-        <div className="form-actions">
-          <button type="submit" className="btn btn-primary">
-            {editingId ? "Guardar Cambios" : "Crear Slide"}
-          </button>
-
-          {editingId && (
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={resetForm}
-            >
-              Cancelar edicion
-            </button>
-          )}
-        </div>
-      </FormLayout>
-
-      <h3>Listado de hero slides</h3>
+      <SectionHeader
+        title="Listado de hero slides"
+        description="Reordená, publicá o editá los slides activos del carrusel."
+      />
 
       <TableLayout
         toolbar={`${orderedSlides.length} slides configurados`}
@@ -368,16 +384,16 @@ export default function HeroSlidesPage() {
               );
             },
           },
-          { key: "title", label: "Titulo", width: "220px", truncate: true },
+          { key: "title", label: "Título", width: "220px", truncate: true },
           {
             key: "description",
-            label: "Descripcion",
+            label: "Descripción",
             width: "320px",
             truncate: true,
           },
           {
             key: "button_text",
-            label: "Boton",
+            label: "Botón",
             width: "160px",
             truncate: true,
           },

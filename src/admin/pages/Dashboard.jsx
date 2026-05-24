@@ -3,6 +3,10 @@ import { FaCog, FaGlobe, FaUsers } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { apiGet } from "../../services/api";
 
+import AdminCard from "../components/ui/AdminCard";
+import PageHeader from "../components/ui/PageHeader";
+import SectionHeader from "../components/ui/SectionHeader";
+import StatusBadge from "../components/ui/StatusBadge";
 import useMinimumLoader from "../hooks/useMinimumLoader";
 import Loading from "../../components/loading/Loading";
 
@@ -29,12 +33,10 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard">
-      <div className="dashboard-header">
-        <div>
-          <h2>Dashboard</h2>
-          <p>Resumen general de administracion del sistema y sitio web.</p>
-        </div>
-      </div>
+      <PageHeader
+        title="Dashboard"
+        description="Resumen general de administración del sistema y sitio web."
+      />
 
       <div className="dashboard-grid">
         <Link to="/admin/settings" className="dashboard-card">
@@ -44,11 +46,11 @@ export default function Dashboard() {
           <div>
             <h3>Sistema</h3>
             <p>
-              Configuracion global, usuarios, permisos y gestion interna.
+              Configuración global, usuarios, permisos y gestión interna.
             </p>
-            <span>
-              Mantenimiento: {maintenance ? "ACTIVADO" : "DESACTIVADO"}
-            </span>
+            <StatusBadge variant={maintenance ? "warning" : "success"}>
+              Mantenimiento: {maintenance ? "activado" : "desactivado"}
+            </StatusBadge>
           </div>
         </Link>
 
@@ -58,23 +60,25 @@ export default function Dashboard() {
           </div>
           <div>
             <h3>Sitio Web</h3>
-            <p>Contenido publico, hero principal y modulos editoriales.</p>
+            <p>Contenido público, hero principal y módulos editoriales.</p>
             <span>CMS del sitio</span>
           </div>
         </Link>
       </div>
 
-      <div className="maintenance-card">
-        <h3>Estado del sitio</h3>
+      <AdminCard className="maintenance-card">
+        <SectionHeader title="Estado del sitio" />
         <p>
           <strong>Mantenimiento:</strong>{" "}
-          {maintenance ? "ACTIVADO" : "DESACTIVADO"}
+          <StatusBadge variant={maintenance ? "warning" : "success"}>
+            {maintenance ? "Activado" : "Desactivado"}
+          </StatusBadge>
         </p>
         <Link to="/admin/users" className="dashboard-inline-link">
           <FaUsers />
           Administrar usuarios
         </Link>
-      </div>
+      </AdminCard>
     </div>
   );
 }

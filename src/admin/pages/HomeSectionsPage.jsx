@@ -6,6 +6,9 @@ import useFormEdit from "../hooks/useFormEdit";
 import FormLayout from "../layout/FormLayout";
 import TableLayout from "../layout/TableLayout";
 import TableActions from "../components/ui/TableActions";
+import AdminCard from "../components/ui/AdminCard";
+import PageHeader from "../components/ui/PageHeader";
+import SectionHeader from "../components/ui/SectionHeader";
 import {
   createHomeSection,
   deactivateHomeSection,
@@ -149,71 +152,83 @@ export default function HomeSectionsPage() {
 
   return (
     <div className="home-sections-page" ref={formRef}>
-      <h2>{editingId ? "Editar Sección del Home" : "Crear Sección del Home"}</h2>
-      <p>Claves soportadas: {SUPPORTED_KEYS.join(", ")}</p>
+      <PageHeader
+        title="Home"
+        description="Configurá las secciones visibles, su orden y el contenido técnico que usa la portada del sitio."
+      />
 
-      <FormLayout columns={2} onSubmit={handleSubmit}>
-        <AdminAlert variant="error">{formError}</AdminAlert>
-
-        <Field
-          label="Clave de sección"
-          type="select"
-          name="section_key"
-          value={form.section_key}
-          onChange={handleChange}
-          required
-          helpText="Identificador técnico que define qué componente del Home se renderiza."
-        >
-          {SUPPORTED_KEYS.map((key) => (
-            <option key={key} value={key}>
-              {key}
-            </option>
-          ))}
-        </Field>
-
-        <Field
-          label="Orden"
-          type="number"
-          name="sort_order"
-          value={form.sort_order}
-          onChange={handleChange}
-          required
-          helpText="Número usado para ordenar las secciones de menor a mayor."
-        />
-        <Field label="Título" name="title" value={form.title} onChange={handleChange} />
-        <Field label="Subtítulo" name="subtitle" value={form.subtitle} onChange={handleChange} />
-        <Field
-          label="Configuración JSON"
-          type="textarea"
-          name="config_json"
-          value={form.config_json}
-          onChange={handleChange}
-          rows={5}
-          placeholder='{"limit": 3}'
-          helpText="Campo técnico opcional. Debe ser JSON válido si se completa."
-          span
+      <AdminCard>
+        <SectionHeader
+          title={editingId ? "Editar sección del Home" : "Crear sección del Home"}
+          description={`Claves soportadas: ${SUPPORTED_KEYS.join(", ")}`}
         />
 
-        <SwitchField
-          label="Activa"
-          checked={form.is_active}
-          onChange={(checked) => setForm((prev) => ({ ...prev, is_active: checked }))}
-        />
+        <FormLayout columns={2} onSubmit={handleSubmit}>
+          <AdminAlert variant="error">{formError}</AdminAlert>
 
-        <div className="form-actions">
-          <button type="submit" className="btn btn-primary" disabled={actionLoading === "save"}>
-            {editingId ? "Guardar Cambios" : "Crear Sección"}
-          </button>
+          <Field
+            label="Clave de sección"
+            type="select"
+            name="section_key"
+            value={form.section_key}
+            onChange={handleChange}
+            required
+            helpText="Identificador técnico que define qué componente del Home se renderiza."
+          >
+            {SUPPORTED_KEYS.map((key) => (
+              <option key={key} value={key}>
+                {key}
+              </option>
+            ))}
+          </Field>
 
-          {editingId && (
-            <button type="button" className="btn btn-secondary" onClick={resetForm}>
-              Cancelar edición
+          <Field
+            label="Orden"
+            type="number"
+            name="sort_order"
+            value={form.sort_order}
+            onChange={handleChange}
+            required
+            helpText="Número usado para ordenar las secciones de menor a mayor."
+          />
+          <Field label="Título" name="title" value={form.title} onChange={handleChange} />
+          <Field label="Subtítulo" name="subtitle" value={form.subtitle} onChange={handleChange} />
+          <Field
+            label="Configuración JSON"
+            type="textarea"
+            name="config_json"
+            value={form.config_json}
+            onChange={handleChange}
+            rows={5}
+            placeholder='{"limit": 3}'
+            helpText="Campo técnico opcional. Debe ser JSON válido si se completa."
+            span
+          />
+
+          <SwitchField
+            label="Activa"
+            checked={form.is_active}
+            onChange={(checked) => setForm((prev) => ({ ...prev, is_active: checked }))}
+          />
+
+          <div className="form-actions">
+            <button type="submit" className="btn btn-primary" disabled={actionLoading === "save"}>
+              {editingId ? "Guardar cambios" : "Crear sección"}
             </button>
-          )}
-        </div>
-      </FormLayout>
 
-      <h3>Secciones configuradas</h3>
+            {editingId && (
+              <button type="button" className="btn btn-secondary" onClick={resetForm}>
+                Cancelar edición
+              </button>
+            )}
+          </div>
+        </FormLayout>
+      </AdminCard>
+
+      <SectionHeader
+        title="Secciones configuradas"
+        description="Controlá el orden y el estado de cada bloque publicado en la portada."
+      />
 
       <TableLayout
         toolbar={`${sections.length} secciones configuradas`}

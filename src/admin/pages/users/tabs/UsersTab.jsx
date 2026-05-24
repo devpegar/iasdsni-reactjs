@@ -8,7 +8,10 @@ import SwitchField from "../../../components/form/SwitchField";
 import SelectField from "../../../components/form/SelectField";
 import MultiSelectField from "../../../components/form/MultiSelectField";
 import { apiPost } from "../../../../services/api";
-import { FaEdit, FaTrash, FaKey } from "react-icons/fa";
+import { FaEdit, FaKey } from "react-icons/fa";
+import AdminCard from "../../../components/ui/AdminCard";
+import SectionHeader from "../../../components/ui/SectionHeader";
+import StatusBadge from "../../../components/ui/StatusBadge";
 import TableActions from "../../../components/ui/TableActions";
 
 export default function UsersTab() {
@@ -119,11 +122,12 @@ export default function UsersTab() {
 
   return (
     <div ref={formRef}>
-      {/* ==========================
-          FORMULARIO PRINCIPAL
-      ========================== */}
-      <h2>{editingId ? "Editar Usuario" : "Crear Usuario"}</h2>
-      <div className="users-tab">
+      <AdminCard className="users-tab">
+        <SectionHeader
+          title={editingId ? "Editar usuario" : "Crear usuario"}
+          description="Definí rol, departamentos y acceso al sistema para cada persona."
+        />
+
         <FormLayout columns={2} onSubmit={handleSubmit} className="users-form">
           <Field
             type="text"
@@ -220,18 +224,18 @@ export default function UsersTab() {
             </button>
 
             {editingId && (
-              <button type="button" onClick={resetForm}>
+              <button type="button" className="btn btn-secondary" onClick={resetForm}>
                 Cancelar edición
               </button>
             )}
           </div>
         </FormLayout>
-      </div>
+      </AdminCard>
 
-      {/* ==========================
-    LISTADO
-========================== */}
-      <h3>Listado de Usuarios</h3>
+      <SectionHeader
+        title="Listado de usuarios"
+        description="Revisá estado, acceso y asignaciones de cada usuario registrado."
+      />
 
       <TableLayout
         toolbar={`${users.length} usuarios registrados`}
@@ -272,9 +276,9 @@ export default function UsersTab() {
             width: "90px",
             render: (u) =>
               u.has_access ? (
-                <span className="badge badge-success">Con acceso</span>
+                <StatusBadge variant="success">Con acceso</StatusBadge>
               ) : (
-                <span className="badge badge-muted">Sin acceso</span>
+                <StatusBadge>Sin acceso</StatusBadge>
               ),
           },
           {
@@ -283,9 +287,9 @@ export default function UsersTab() {
             width: "75px",
             render: (u) =>
               u.active ? (
-                <span className="badge badge-success">Activo</span>
+                <StatusBadge variant="success">Activo</StatusBadge>
               ) : (
-                <span className="badge badge-warning">Inactivo</span>
+                <StatusBadge variant="warning">Inactivo</StatusBadge>
               ),
           },
           { key: "actions", label: "Acciones", type: "actions" },
@@ -299,6 +303,7 @@ export default function UsersTab() {
           <TableActions>
             <button
               className="btn-icon"
+              title="Editar"
               onClick={() => {
                 startEdit(u);
               }}
@@ -307,7 +312,11 @@ export default function UsersTab() {
             </button>
 
             {!u.has_access && (
-              <button className="btn-icon" onClick={() => setActivatingUser(u)}>
+              <button
+                className="btn-icon"
+                title="Activar acceso"
+                onClick={() => setActivatingUser(u)}
+              >
                 <FaKey />
               </button>
             )}
@@ -338,11 +347,13 @@ export default function UsersTab() {
             />
 
             <div className="modal-actions">
-              <button onClick={activateAccess} disabled={activating}>
+              <button className="btn btn-primary" onClick={activateAccess} disabled={activating}>
                 {activating ? "Activando..." : "Activar"}
               </button>
 
-              <button onClick={() => setActivatingUser(null)}>Cancelar</button>
+              <button className="btn btn-secondary" onClick={() => setActivatingUser(null)}>
+                Cancelar
+              </button>
             </div>
           </div>
         </div>

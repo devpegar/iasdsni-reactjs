@@ -50,7 +50,7 @@ export default function SettingsPage() {
         </label>
 
         <div className="actions">
-          <button className="btn-primary" onClick={updateMaintenance}>
+          <button className="btn btn-primary" onClick={updateMaintenance}>
             Guardar cambios
           </button>
         </div>
@@ -63,7 +63,7 @@ export default function SettingsPage() {
         </p>
         <div className="actions">
           <button
-            className="btn-danger"
+            className="btn btn-danger"
             onClick={resetSecretaria}
             disabled={resetting}
           >

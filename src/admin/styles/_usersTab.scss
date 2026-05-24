@@ -95,29 +95,6 @@
 }
 
 /* ======================
-   ACCIONES
-====================== */
-
-.btn-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  padding: 4px;
-  cursor: pointer;
-}
-
-.btn-icon.btn-danger {
-  color: $red-600;
-}
-
-.btn-icon.btn-danger:hover {
-  background-color: $red-100;
-  border-radius: 4px;
-}
-
-/* ======================
    MODAL ACTIVAR ACCESO
 ====================== */
 

@@ -15,8 +15,12 @@ import {
 import { resolveMediaUrl } from "../../utils/mediaUrl";
 import { toastBus } from "../../services/toastBus";
 import AdminAlert from "../components/ui/AdminAlert";
+import AdminCard from "../components/ui/AdminCard";
 import EmptyStateAdmin from "../components/ui/EmptyStateAdmin";
 import LoadingStateAdmin from "../components/ui/LoadingStateAdmin";
+import PageHeader from "../components/ui/PageHeader";
+import SectionHeader from "../components/ui/SectionHeader";
+import StatusBadge from "../components/ui/StatusBadge";
 
 function formatSize(bytes) {
   if (!bytes) return "0 KB";
@@ -38,6 +42,13 @@ const OPTIMIZATION_LABELS = {
 function formatDimensions(width, height) {
   if (!width || !height) return null;
   return `${width} x ${height}px`;
+}
+
+function getOptimizationVariant(status) {
+  if (status === "optimized") return "success";
+  if (status === "skipped") return "warning";
+  if (status === "failed") return "danger";
+  return "neutral";
 }
 
 export default function MediaLibraryPage() {
@@ -186,15 +197,17 @@ export default function MediaLibraryPage() {
 
   return (
     <div className="media-library-page">
-      <div className="media-library-page__header">
-        <div>
-          <h2>Multimedia</h2>
-          <p>Subí imágenes y copiá sus URLs para reutilizarlas en páginas, SEO y configuración.</p>
-          <p>Se sirven imágenes optimizadas cuando están disponibles.</p>
-        </div>
-      </div>
+      <PageHeader
+        title="Multimedia"
+        description="Subí imágenes, organizalas por carpeta y copiá sus URLs para reutilizarlas en páginas, SEO y configuración."
+      />
 
-      <section className="card media-upload">
+      <AdminCard className="media-upload">
+        <SectionHeader
+          title="Subir imagen"
+          description="Se sirven imágenes optimizadas cuando están disponibles."
+        />
+
         <FormLayout columns={2} onSubmit={handleUpload}>
           <AdminAlert variant="error">{uploadError}</AdminAlert>
 
@@ -245,12 +258,13 @@ export default function MediaLibraryPage() {
             </button>
           </div>
         </FormLayout>
-      </section>
+      </AdminCard>
 
-      <section className="card media-folders">
-        <div className="card-header">
-          <h3>Carpetas</h3>
-        </div>
+      <AdminCard className="media-folders">
+        <SectionHeader
+          title="Carpetas"
+          description="Usá carpetas para separar contenido editorial, institucional o de páginas específicas."
+        />
 
         <form className="form form--inline" onSubmit={handleCreateFolder}>
           <Field
@@ -268,7 +282,7 @@ export default function MediaLibraryPage() {
             Crear carpeta
           </button>
         </form>
-      </section>
+      </AdminCard>
 
       <div className="media-library-filter">
         <label className="label">
@@ -320,9 +334,12 @@ export default function MediaLibraryPage() {
                   <p>{file.mime_type} · original {formatSize(file.size_bytes)}</p>
                   {originalDimensions && <p>Original: {originalDimensions}</p>}
                   {optimizedDimensions && <p>Optimizada: {optimizedDimensions}</p>}
-                  <span className={`media-card__status media-card__status--${optimizationStatus}`}>
+                  <StatusBadge
+                    variant={getOptimizationVariant(optimizationStatus)}
+                    className="media-card__status"
+                  >
                     {OPTIMIZATION_LABELS[optimizationStatus] || optimizationStatus}
-                  </span>
+                  </StatusBadge>
                   <span className="media-card__folder">
                     {file.folder_name || "Sin carpeta / General"}
                   </span>

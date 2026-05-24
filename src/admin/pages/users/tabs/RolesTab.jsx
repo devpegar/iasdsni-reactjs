@@ -5,6 +5,8 @@ import FormLayout from "../../../layout/FormLayout";
 import TableLayout from "../../../layout/TableLayout";
 import Field from "../../../components/form/Field";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import AdminCard from "../../../components/ui/AdminCard";
+import SectionHeader from "../../../components/ui/SectionHeader";
 import TableActions from "../../../components/ui/TableActions";
 
 export default function RolesTab() {
@@ -33,7 +35,6 @@ export default function RolesTab() {
       name: form.name,
       description: form.description,
     };
-    console.log(payload);
 
     if (editingId) {
       await updateItem(editingId, payload);
@@ -46,8 +47,12 @@ export default function RolesTab() {
 
   return (
     <div ref={formRef}>
-      <h2>{editingId ? "Editar Rol" : "Crear Rol"}</h2>
-      <div className="rolesTab">
+      <AdminCard className="rolesTab">
+        <SectionHeader
+          title={editingId ? "Editar rol" : "Crear rol"}
+          description="Creá grupos de permisos para asignarlos a usuarios del panel."
+        />
+
         <FormLayout inline compact onSubmit={handleSubmit}>
           <Field
             type="text"
@@ -68,7 +73,7 @@ export default function RolesTab() {
 
           <div className="form-actions">
             <button type="submit" className="btn btn-primary">
-              {editingId ? "Guardar Cambios" : "Crear Rol"}
+              {editingId ? "Guardar cambios" : "Crear rol"}
             </button>
 
             {editingId && (
@@ -82,9 +87,12 @@ export default function RolesTab() {
             )}
           </div>
         </FormLayout>
-      </div>
+      </AdminCard>
 
-      <h3>Listado de roles</h3>
+      <SectionHeader
+        title="Listado de roles"
+        description="Roles disponibles para clasificar usuarios y permisos."
+      />
 
         <TableLayout
           toolbar={`${roles.length} roles registrados`}

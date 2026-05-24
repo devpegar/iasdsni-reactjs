@@ -4,6 +4,7 @@ import RolesTab from "./tabs/RolesTab";
 import DepartmentsTab from "./tabs/DepartmentsTab";
 import { useAuth } from "../../../context/AuthContext";
 import PermissionGuard from "../../components/PermissionGuard";
+import PageHeader from "../../components/ui/PageHeader";
 import hasPermission from "../../helper/hasPermision";
 
 export default function UsersPanel() {
@@ -18,9 +19,11 @@ export default function UsersPanel() {
 
   return (
     <div className="users-panel">
-      <h2>Gestión de Usuarios</h2>
+      <PageHeader
+        title="Gestión de usuarios"
+        description="Administrá usuarios, roles y departamentos con permisos de acceso al sistema."
+      />
 
-      {/* TABS */}
       <div className="tabs">
         <button
           className={`tab-button ${active === "users" ? "is-active" : ""}`}
@@ -46,7 +49,6 @@ export default function UsersPanel() {
         </button>
       </div>
 
-      {/* CONTENT */}
       <div className="tab-content">
         {active === "users" && (
           <PermissionGuard can={hasPermission(role, ["admin"])}>

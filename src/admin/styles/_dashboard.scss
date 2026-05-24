@@ -64,11 +64,15 @@
     line-height: 1.45;
   }
 
-  span {
+  span:not(.status-badge) {
     display: inline-flex;
     color: $primary-color;
     font-size: 0.85rem;
     font-weight: 600;
+  }
+
+  .status-badge {
+    align-self: flex-start;
   }
 
   &__icon {
@@ -95,10 +99,6 @@
 
 .maintenance-card {
   width: min(100%, 360px);
-  padding: 15px;
-  background: $gray-100;
-  border-radius: 8px;
-  border: 1px solid $border-color;
 
   h3 {
     margin-bottom: 10px;
