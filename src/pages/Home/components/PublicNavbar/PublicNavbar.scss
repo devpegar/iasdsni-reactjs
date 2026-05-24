@@ -1,38 +1,145 @@
 @use "../../../../styles/variables" as *;
 
 .public-navbar {
+  position: relative;
+  z-index: 100;
   width: 100%;
-  background: $primary-color;
+  background: $color-surface-inverse;
+  box-shadow: $shadow-xs;
+
+  &__inner {
+    display: none;
+    width: min($container-lg, 100%);
+    margin: 0 auto;
+    padding: $space-2 $container-padding;
+  }
+
+  &__toggle {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgba($color-text-inverse, 0.18);
+    border-radius: $radius-md;
+    background: rgba($color-text-inverse, 0.08);
+    color: $color-text-inverse;
+
+    span {
+      width: 1.25rem;
+      height: 2px;
+      border-radius: $radius-pill;
+      background: currentColor;
+      transition:
+        transform $transition-base,
+        opacity $transition-base;
+    }
+  }
+
+  &--open &__toggle span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  &--open &__toggle span:nth-child(2) {
+    opacity: 0;
+  }
+
+  &--open &__toggle span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
 
   &__list {
-    width: min(1200px, 100%);
+    width: min($container-lg, 100%);
     margin: 0 auto;
-    padding: 0.75rem 1.5rem;
+    padding: $space-3 $container-padding;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
+    gap: $space-2;
     list-style: none;
   }
 
   &__item a {
-    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: $space-2 $space-3;
+    border-radius: $radius-pill;
+    color: rgba($color-text-inverse, 0.9);
     text-decoration: none;
-    font-weight: 600;
-    transition: opacity 0.2s ease;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    transition:
+      background-color $transition-base,
+      color $transition-base;
 
-    &:hover {
-      opacity: 0.8;
+    &:hover,
+    &:focus-visible {
+      background: rgba($color-text-inverse, 0.12);
+      color: $color-text-inverse;
     }
   }
 
   @media (max-width: 768px) {
+    &__inner {
+      display: flex;
+      justify-content: flex-end;
+    }
+
     &__list {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      left: 0;
+      z-index: 101;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
       justify-content: flex-start;
-      gap: 0.75rem;
-      overflow-x: auto;
-      white-space: nowrap;
-      scrollbar-width: thin;
+      gap: $space-1;
+      width: 100%;
+      max-height: 0;
+      margin: 0;
+      overflow: hidden;
+      padding: 0 $container-padding;
+      border-top: 1px solid rgba($color-text-inverse, 0.12);
+      background: $color-surface-inverse;
+      box-shadow: $shadow-md;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-0.35rem);
+      transition:
+        max-height $transition-base,
+        opacity $transition-base,
+        padding-bottom $transition-base,
+        transform $transition-base;
+    }
+
+    &--open &__list {
+      max-height: 24rem;
+      padding-top: $space-2;
+      padding-bottom: $space-3;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    &__item a {
+      min-height: 3rem;
+      justify-content: flex-start;
+      width: 100%;
+      border-radius: $radius-md;
+      padding: $space-3;
+      font-size: $font-size-base;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__list,
+    &__toggle span {
+      transition: none;
     }
   }
 }

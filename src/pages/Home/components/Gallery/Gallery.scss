@@ -2,35 +2,36 @@
 @use "sass:color";
 
 .gallery {
-  padding: 2rem 0;
-  background: linear-gradient(90deg, $primary-color 0%, $secondary-color 100%);
+  padding: $space-8 $container-padding;
+  background:
+    linear-gradient(135deg, rgba($color-brand-primary, 0.96), rgba($color-brand-secondary, 0.92)),
+    $color-brand-primary;
 
   h2 {
-    color: #fff;
+    color: $color-text-inverse;
     text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+    font-size: $font-size-3xl;
+    margin: 0 0 $space-3;
   }
 
   p {
-    color: #f0f0f0;
+    color: rgba($color-text-inverse, 0.84);
     text-align: center;
     max-width: 600px;
-    margin: 0 auto 2rem auto;
-    font-size: 1.1rem;
+    margin: 0 auto $space-6;
+    font-size: $font-size-lg;
   }
 
   &__container {
-    max-width: 1200px;
+    max-width: $container-lg;
     margin: 0 auto;
-    padding: 0 1rem;
     text-align: center;
   }
 
   &__grid {
-    margin-top: 2rem;
+    margin-top: $space-6;
     display: grid;
-    gap: 1rem;
+    gap: $space-4;
 
     grid-template-columns: repeat(1, 1fr);
 
@@ -50,18 +51,16 @@
   &__item {
     /* Estado inicial oculto */
     opacity: 0;
-    transform: translateY(40px);
-    filter: blur(8px);
+    transform: translateY(24px);
 
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out,
-      filter 0.8s ease-out;
+    transition: opacity $transition-slow, transform $transition-slow;
 
     /* Estilos originales */
     width: 100%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
     position: relative;
-    border-radius: 10px;
+    border-radius: $radius-lg;
     cursor: pointer;
 
     img {
@@ -69,7 +68,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.3s ease;
+      transition: transform $transition-slow;
     }
 
     &:hover img {
@@ -81,17 +80,27 @@
   &__item.visible {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 
   &__album {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border-radius: 10px;
-    background: #fff;
-    color: $primary-color;
+    border: 1px solid rgba($color-text-inverse, 0.16);
+    border-radius: $radius-lg;
+    background: $color-surface;
+    color: $color-brand-primary;
     text-decoration: none;
+    box-shadow: $shadow-sm;
+    transition:
+      box-shadow $transition-base,
+      transform $transition-base;
+
+    &:hover,
+    &:focus-visible {
+      box-shadow: $shadow-md;
+      transform: translateY(-1px);
+    }
 
     img,
     span {
@@ -104,24 +113,46 @@
     }
 
     strong {
-      padding: 1rem 1rem 0.25rem;
-      font-size: 1.1rem;
+      padding: $space-4 $space-4 $space-1;
+      font-size: $font-size-lg;
     }
 
     small {
-      padding: 0 1rem 1rem;
-      color: #4b5563;
+      padding: 0 $space-4 $space-4;
+      color: $color-text-muted;
     }
   }
 
   &__link {
     display: inline-block;
-    margin-top: 2rem;
-    padding: 0.75rem 1.25rem;
-    border-radius: 6px;
-    background: #fff;
-    color: $primary-color;
+    margin-top: $space-6;
+    padding: $space-3 $space-5;
+    border-radius: $radius-md;
+    background: $color-surface;
+    color: $color-brand-primary;
     text-decoration: none;
     font-weight: 700;
+    transition:
+      background-color $transition-base,
+      box-shadow $transition-base;
+
+    &:hover,
+    &:focus-visible {
+      background: $color-surface-subtle;
+      box-shadow: $shadow-sm;
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    padding-block: $space-7;
+
+    h2 {
+      font-size: $font-size-2xl;
+    }
+
+    p {
+      font-size: $font-size-base;
+      margin-bottom: $space-5;
+    }
   }
 }

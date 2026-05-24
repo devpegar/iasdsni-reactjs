@@ -36,7 +36,7 @@ export default function Header() {
     <header className="header">
       <div className="header__container">
         {/* Logo */}
-        <div>
+        <div className="header__brand">
           <Logo
             logoUrl={logoUrl}
             siteName={settings.site_name}

@@ -2,58 +2,156 @@
 
 .latest-news-section {
   width: 100%;
-  padding: 3rem 1.5rem;
-  background: #fff;
+  padding: $space-8 $container-padding;
+  background: $color-surface;
+}
 
-  &__header {
-    max-width: 900px;
-    margin: 0 auto 1.5rem;
+.latest-news-section__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: $space-5;
+  width: min($container-lg, 100%);
+  margin: 0 auto $space-5;
+}
 
-    h2 {
-      color: $primary-color;
-      margin-bottom: 0.5rem;
-    }
-  }
+.latest-news-section__header h2 {
+  margin: 0 0 $space-2;
+  color: $color-brand-primary;
+  font-size: $font-size-3xl;
+}
 
-  &__grid {
-    width: min(1100px, 100%);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
+.latest-news-section__header p {
+  max-width: 58ch;
+  margin: 0;
+  color: $color-text-secondary;
+}
 
-  &__link {
-    display: inline-block;
-    margin-top: 1.5rem;
-    color: $primary-color;
-    font-weight: 600;
+.latest-news-section__controls {
+  display: flex;
+  gap: $space-2;
+}
+
+.latest-news-section__controls button {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid $color-border;
+  border-radius: $radius-pill;
+  background: $color-surface;
+  color: $color-brand-primary;
+  font-size: $font-size-2xl;
+  line-height: 1;
+  transition:
+    background-color $transition-base,
+    border-color $transition-base,
+    color $transition-base;
+}
+
+.latest-news-section__controls button:hover:not(:disabled),
+.latest-news-section__controls button:focus-visible {
+  border-color: $color-brand-primary;
+  background: rgba($color-brand-primary, 0.08);
+}
+
+.latest-news-section__controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.latest-news-section__carousel {
+  display: grid;
+  grid-auto-columns: minmax(18rem, 32%);
+  grid-auto-flow: column;
+  gap: $space-4;
+  width: min($container-lg, 100%);
+  margin: 0 auto;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  padding: $space-1 $space-1 $space-4;
+  scroll-behavior: smooth;
+  scroll-snap-type: inline mandatory;
+  scrollbar-width: thin;
+
+  &:focus-visible {
+    outline: 3px solid $color-focus;
+    outline-offset: 4px;
   }
 }
 
-.latest-news-card {
-  padding: 1.25rem;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 0.75rem;
-  text-align: left;
+.latest-news-section__slide {
+  position: relative;
+  min-width: 0;
+  scroll-snap-align: start;
+}
 
-  h3 {
-    margin-bottom: 0.5rem;
-  }
+.latest-news-section__slide .ui-news-card {
+  min-height: 100%;
+}
 
-  a {
-    color: $primary-color;
-    text-decoration: none;
-  }
+.latest-news-section__position {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
 
-  &__date {
-    font-size: 0.9rem;
-    opacity: 0.75;
+.latest-news-section__dots {
+  display: flex;
+  justify-content: center;
+  gap: $space-2;
+  width: min($container-lg, 100%);
+  margin: $space-4 auto 0;
+}
+
+.latest-news-section__dots button {
+  width: 0.6rem;
+  height: 0.6rem;
+  padding: 0;
+  border-radius: $radius-pill;
+  background: $color-border;
+  transition:
+    background-color $transition-base,
+    transform $transition-base;
+}
+
+.latest-news-section__dots button[aria-current="true"] {
+  background: $color-brand-primary;
+  transform: scale(1.25);
+}
+
+.latest-news-section__link {
+  margin: $space-5 auto 0;
+}
+
+@media (max-width: $breakpoint-lg) {
+  .latest-news-section__carousel {
+    grid-auto-columns: minmax(18rem, 48%);
   }
 }
 
-@media (max-width: 900px) {
-  .latest-news-section__grid {
-    grid-template-columns: 1fr;
+@media (max-width: $breakpoint-md) {
+  .latest-news-section {
+    padding-block: $space-7;
+  }
+
+  .latest-news-section__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .latest-news-section__header h2 {
+    font-size: $font-size-2xl;
+  }
+
+  .latest-news-section__carousel {
+    grid-auto-columns: 100%;
+    gap: 0;
+    padding-right: 0;
+    padding-left: 0;
+    scroll-padding-inline: 0;
   }
 }

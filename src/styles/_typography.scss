@@ -17,9 +17,9 @@ h5,
 h6 {
   font-family: $font-primary;
   font-weight: 700;
-  color: $primary-color;
-  margin-bottom: 0.5em;
-  line-height: 1.2;
+  color: $color-brand-primary;
+  margin: 0 0 0.5em;
+  line-height: $line-height-tight;
 }
 
 // Títulos generales (NO acompañan símbolo) → usar Noto Sans
@@ -29,65 +29,73 @@ body:not(.with-symbol) h3,
 body:not(.with-symbol) h4,
 body:not(.with-symbol) h5,
 body:not(.with-symbol) h6 {
-  font-family: "Noto Sans", sans-serif;
+  font-family: $font-primary;
 }
 
-// Escalas sugeridas
 h1 {
-  font-size: 2.5rem;
+  font-size: $font-size-4xl;
 }
 h2 {
-  font-size: 2rem;
+  font-size: $font-size-3xl;
 }
 h3 {
-  font-size: 1.5rem;
+  font-size: $font-size-2xl;
 }
 h4 {
-  font-size: 1.25rem;
+  font-size: $font-size-xl;
 }
 h5 {
-  font-size: 1.1rem;
+  font-size: $font-size-lg;
 }
 h6 {
-  font-size: 1rem;
+  font-size: $font-size-base;
 }
 
 // ---------- CUERPO DE TEXTO ----------
 p,
-li,
-span,
-small {
+li {
   font-family: $font-secondary;
-  color: $gray-100;
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
+  color: $color-text-secondary;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  margin: 0 0 $space-4;
+}
+
+span {
+  color: inherit;
+}
+
+small {
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+  line-height: $line-height-base;
 }
 
 strong {
   font-weight: 600;
-  color: color.adjust($primary-color, $lightness: 15%);
+  color: $color-text-primary;
 }
 
 // ---------- CITAS Y DESTACADOS ----------
 blockquote {
   font-family: $font-third;
   font-style: italic;
-  font-size: 1.1rem;
-  color: $gray-500;
-  border-left: 4px solid $primary-color;
-  padding-left: 1rem;
-  margin: 1.5rem 0;
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
+  border-left: 4px solid $color-brand-primary;
+  padding-left: $space-4;
+  margin: $space-5 0;
 }
 
 // ---------- ENLACES ----------
 a {
-  color: $primary-color;
+  color: $color-text-link;
   text-decoration: underline;
-  transition: color 0.3s;
+  text-underline-offset: 0.18em;
+  transition: color $transition-base;
 
   &:hover {
-    color: color.adjust($primary-color, $lightness: 10%);
+    color: color.adjust($color-brand-primary, $lightness: 10%);
   }
 }
 
@@ -96,6 +104,4 @@ button,
 .btn {
   font-family: $font-secondary;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }

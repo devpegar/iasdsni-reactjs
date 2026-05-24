@@ -1,0 +1,44 @@
+@use "../../../styles/variables" as *;
+
+.ui-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 16rem;
+  padding: $space-7 $space-5;
+  border: 1px solid $color-border-subtle;
+  border-radius: $radius-lg;
+  background: $color-surface-subtle;
+  color: $color-text-secondary;
+  text-align: center;
+}
+
+.ui-empty-state__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: $space-4;
+  border-radius: $radius-pill;
+  background: rgba($color-brand-primary, 0.08);
+  color: $color-brand-primary;
+  font-size: $font-size-2xl;
+}
+
+.ui-empty-state__title {
+  margin: 0;
+  color: $color-text-primary;
+  font-size: $font-size-2xl;
+}
+
+.ui-empty-state__description {
+  max-width: 42rem;
+  margin: $space-3 0 0;
+  color: $color-text-secondary;
+}
+
+.ui-empty-state__action {
+  margin-top: $space-5;
+}

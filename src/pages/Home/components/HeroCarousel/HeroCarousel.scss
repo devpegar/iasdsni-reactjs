@@ -3,10 +3,13 @@
 
 .hero-carousel {
   width: 100%;
-  min-height: 80vh;
-  background: linear-gradient(90deg, $primary-color 0%, $secondary-color 100%);
-  color: #fff;
+  min-height: clamp(560px, 78vh, 760px);
+  background:
+    radial-gradient(circle at 78% 18%, rgba($color-brand-accent, 0.18), transparent 28rem),
+    linear-gradient(135deg, rgba($color-brand-primary, 0.98), rgba($color-brand-secondary, 0.92));
+  color: $color-text-inverse;
   position: relative;
+  overflow: hidden;
 
   .hero-swiper {
     width: 100%;
@@ -14,7 +17,7 @@
   }
 
   .swiper-pagination-bullet {
-    background: #fff;
+    background: $color-text-inverse;
     opacity: 0.6;
 
     &-active {
@@ -23,79 +26,98 @@
   }
 
   .slide-content {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);
     align-items: center;
-    justify-content: space-between;
-    min-height: 80vh;
-    padding: 0 4rem;
-    gap: 2rem;
+    min-height: clamp(560px, 78vh, 760px);
+    width: min($container-xl, calc(100% - (#{$container-padding} * 2)));
+    margin-inline: auto;
+    padding: $space-7 0 $space-8;
+    gap: clamp($space-5, 5vw, $space-8);
   }
 
   .slide-text {
-    flex: 1;
-    max-width: 500px;
+    max-width: 620px;
+    text-align: left;
 
     h2 {
-      font-family: "Advent Sans", sans-serif;
-      color: #fff;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      line-height: 1.1;
+      font-family: $font-primary;
+      color: $color-text-inverse;
+      font-size: clamp(2.25rem, 5vw, 4.4rem);
+      margin: 0 0 $space-4;
+      line-height: 1.05;
     }
 
     p {
-      color: #e6e6e6;
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
+      color: rgba($color-text-inverse, 0.86);
+      font-size: $font-size-lg;
+      line-height: $line-height-relaxed;
+      margin: 0 0 $space-5;
     }
 
     .btn-primary {
-      display: inline-block;
-      background-color: $butom-color;
-      color: $primary-color;
-      padding: 0.75rem 1.5rem;
-      border-radius: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3rem;
+      background-color: $color-brand-accent;
+      color: $color-brand-primary;
+      padding: $space-3 $space-5;
+      border-radius: $radius-md;
       text-decoration: none;
-      font-weight: 600;
+      font-weight: 700;
+      transition:
+        background-color $transition-base,
+        box-shadow $transition-base,
+        transform $transition-fast;
+
+      &:hover,
+      &:focus-visible {
+        background-color: color.adjust($color-brand-accent, $lightness: 7%);
+        box-shadow: $shadow-md;
+      }
+
+      &:active {
+        transform: translateY(1px);
+      }
     }
   }
 
   .slide-image {
-    flex: 1;
     display: flex;
     justify-content: center;
+    min-width: 0;
 
     img {
       width: 100%;
-      max-width: 620px;
-      max-height: 460px;
-      height: auto;
-      border-radius: 1rem;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      object-fit: contain;
+      max-height: min(52vh, 520px);
+      aspect-ratio: 16 / 10;
+      border: 1px solid rgba($color-text-inverse, 0.18);
+      border-radius: $radius-xl;
+      box-shadow: $shadow-lg;
+      object-fit: cover;
     }
   }
 
   /* TABLET */
   @media (max-width: 900px) {
+    min-height: auto;
+
     .slide-content {
-      flex-direction: column;
+      grid-template-columns: 1fr;
       justify-content: center;
       text-align: center;
       min-height: auto;
-      padding: 2rem 1.5rem 4rem;
-    }
-
-    .slide-image {
-      order: 1;
+      padding: $space-6 0 $space-8;
+      gap: $space-5;
     }
 
     .slide-text {
-      order: 2;
       max-width: 100%;
+      text-align: center;
 
       h2 {
-        font-size: 2rem;
+        font-size: clamp(2rem, 8vw, 3rem);
       }
 
       p {
@@ -105,7 +127,7 @@
 
     .slide-image img {
       max-width: 100%;
-      max-height: 320px;
+      max-height: 340px;
     }
   }
 
@@ -114,22 +136,18 @@
     min-height: auto;
 
     .slide-content {
-      padding: 1rem 1rem 4rem;
-      gap: 1rem;
-    }
-
-    .slide-text h2 {
-      font-size: 1.8rem;
+      padding: $space-5 0 $space-8;
+      gap: $space-4;
     }
 
     .slide-text p {
-      font-size: 1rem;
-      margin-bottom: 1rem;
+      font-size: $font-size-base;
+      margin-bottom: $space-4;
     }
 
     .slide-image img {
-      max-height: 220px;
-      border-radius: 12px;
+      max-height: 240px;
+      border-radius: $radius-lg;
     }
 
     .btn-primary {

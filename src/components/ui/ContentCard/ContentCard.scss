@@ -1,0 +1,29 @@
+@use "../../../styles/variables" as *;
+
+.ui-content-card {
+  overflow: hidden;
+  border: 1px solid $color-border-subtle;
+  border-radius: $radius-lg;
+  background: $color-surface;
+  color: $color-text-primary;
+  box-shadow: $shadow-xs;
+}
+
+.ui-content-card--interactive {
+  transition:
+    border-color $transition-base,
+    box-shadow $transition-base,
+    transform $transition-base;
+
+  &:hover {
+    border-color: $color-border;
+    box-shadow: $shadow-sm;
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible,
+  &:focus-within {
+    border-color: $color-brand-primary;
+    box-shadow: $shadow-sm;
+  }
+}

@@ -1,0 +1,68 @@
+@use "../../styles/variables" as *;
+
+.ui-preview {
+  background: $color-surface;
+}
+
+.ui-preview__section {
+  padding-block: $space-6;
+  border-top: 1px solid $color-border-subtle;
+}
+
+.ui-preview__section h2 {
+  margin: 0 0 $space-4;
+  color: $color-text-primary;
+  font-size: $font-size-2xl;
+}
+
+.ui-preview__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $space-3;
+}
+
+.ui-preview__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-5;
+}
+
+.ui-preview__stack {
+  display: grid;
+  gap: $space-5;
+}
+
+.ui-preview__content-card,
+.ui-preview__skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  padding: $space-5;
+}
+
+.ui-preview__content-card h3 {
+  margin: 0;
+  color: $color-text-primary;
+  font-size: $font-size-xl;
+}
+
+.ui-preview__content-card p {
+  margin: 0;
+}
+
+.ui-preview__skeleton-card {
+  min-height: 16rem;
+}
+
+@media (max-width: $breakpoint-lg) {
+  .ui-preview__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .ui-preview__grid {
+    grid-template-columns: 1fr;
+  }
+}

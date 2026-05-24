@@ -1,27 +1,57 @@
 // ======================================
-// VARIABLES GLOBALES
-// Basadas en el Manual de Marca IASD
+// TOKENS GLOBALES
+// Basados en el Manual de Marca IASD
 // ======================================
 
-// Colores principales
-$primary-color: #003366; // División Sudamericana - Pantone 541C
-$secondary-color: #3e8391; // tono complementario
-$butom-color: #ffa92d; // color ming para botones y llamados a la acción
-$icon-color: #4b207f; // color púrpura para iconos y detalles
+// Colores institucionales
+$color-brand-primary: #003366; // División Sudamericana - Pantone 541C
+$color-brand-secondary: #3e8391;
+$color-brand-accent: #ffa92d;
+$color-brand-icon: #4b207f;
+$color-brand-verse: #7f264a;
 
-// Colores de texto
-$text-color: #333333; // color principal del texto
-$text-light: #666666; // para párrafos secundarios
-$text-inverse: #ffffff; // para texto sobre fondos oscuros
-$text-color-verses: #7f264a; // color especial para versículos bíblicos
+// Neutrales
+$gray-50: #ffffff;
+$gray-100: #f9fafb;
+$gray-200: #edf0f2;
+$gray-300: #d8dee4;
+$gray-400: #a7b0ba;
+$gray-500: #667085;
+$gray-600: #3d4752;
+$gray-700: #2c3440;
+$gray-800: #1c2430;
+$gray-900: #101820;
 
-// Escalas de grises
-$gray-100: #f9f9f9;
-$gray-200: #e6e6e6;
-$gray-300: #cccccc;
-$gray-400: #999999;
-$gray-500: #666666;
-$gray-600: #333333;
+// Texto
+$color-text-primary: $gray-900;
+$color-text-secondary: $gray-600;
+$color-text-muted: $gray-500;
+$color-text-inverse: #ffffff;
+$color-text-link: $color-brand-primary;
+
+// Superficies y bordes
+$color-surface: #ffffff;
+$color-surface-subtle: $gray-100;
+$color-surface-muted: $gray-200;
+$color-surface-inverse: $color-brand-primary;
+$color-border-subtle: $gray-200;
+$color-border: $gray-300;
+$color-border-strong: $gray-400;
+$color-focus: $color-brand-accent;
+
+// Sombras
+$shadow-xs: 0 1px 2px rgba(16, 24, 32, 0.06);
+$shadow-sm: 0 4px 12px rgba(16, 24, 32, 0.08);
+$shadow-md: 0 10px 24px rgba(16, 24, 32, 0.1);
+$shadow-lg: 0 18px 44px rgba(16, 24, 32, 0.14);
+
+// Radios
+$radius-xs: 0.25rem;
+$radius-sm: 0.375rem;
+$radius-md: 0.5rem;
+$radius-lg: 0.75rem;
+$radius-xl: 1rem;
+$radius-pill: 999px;
 
 // Tipografía
 $font-advent-sans: "Advent Sans", sans-serif;
@@ -29,15 +59,69 @@ $font-primary: "Noto Sans", sans-serif;
 $font-secondary: "Open Sans", sans-serif;
 $font-third: "Noto Serif", serif;
 
-// Espaciados
-$spacing-xs: 0.25rem;
-$spacing-sm: 0.5rem;
-$spacing-md: 1rem;
-$spacing-lg: 2rem;
-$spacing-xl: 4rem;
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 2rem;
+$font-size-4xl: 2.5rem;
+
+$line-height-tight: 1.2;
+$line-height-base: 1.6;
+$line-height-relaxed: 1.75;
+
+// Espaciado
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-5: 1.5rem;
+$space-6: 2rem;
+$space-7: 3rem;
+$space-8: 4rem;
 
 // Breakpoints
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
+$breakpoint-2xl: 1440px;
+
+// Containers
+$container-sm: 720px;
+$container-md: 960px;
+$container-lg: 1200px;
+$container-xl: 1360px;
+$container-padding: clamp(1rem, 4vw, 2rem);
+
+// Transiciones
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+$transition-fast: 150ms ease;
+$transition-base: 220ms ease;
+$transition-slow: 320ms ease;
+
+// ======================================
+// ALIASES COMPATIBLES
+// ======================================
+
+$primary-color: $color-brand-primary;
+$secondary-color: $color-brand-secondary;
+$butom-color: $color-brand-accent;
+$button-color: $color-brand-accent;
+$icon-color: $color-brand-icon;
+
+$text-color: $color-text-primary;
+$text-light: $color-text-secondary;
+$text-muted: $color-text-muted;
+$text-inverse: $color-text-inverse;
+$text-color-verses: $color-brand-verse;
+
+$border-color: $color-border;
+
+$spacing-xs: $space-1;
+$spacing-sm: $space-2;
+$spacing-md: $space-4;
+$spacing-lg: $space-6;
+$spacing-xl: $space-8;

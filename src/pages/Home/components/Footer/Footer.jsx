@@ -47,6 +47,7 @@ export default function Footer() {
             src={footerLogoUrl ? resolveMediaUrl(footerLogoUrl) : logo}
             alt="Logo IASD San Nicolás"
             className="footer__logo"
+            loading="lazy"
           />
 
           <div className="footer__desc">

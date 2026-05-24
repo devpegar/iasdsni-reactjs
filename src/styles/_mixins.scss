@@ -29,9 +29,19 @@
   justify-content: center;
 }
 
-@mixin heading-style($size, $color: $primary-color) {
+@mixin heading-style($size, $color: $color-brand-primary) {
   font-family: $font-primary;
   color: $color;
   font-size: $size;
-  line-height: 1.2;
+  line-height: $line-height-tight;
+}
+
+@mixin container($max-width: $container-lg) {
+  width: min($max-width, calc(100% - (#{$container-padding} * 2)));
+  margin-inline: auto;
+}
+
+@mixin focus-ring {
+  outline: 3px solid $color-focus;
+  outline-offset: 3px;
 }

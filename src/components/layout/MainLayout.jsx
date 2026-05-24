@@ -27,6 +27,7 @@ export default function MainLayout() {
           src={sabbathLogoUrl ? resolveMediaUrl(sabbathLogoUrl) : logo}
           alt="Logo Iglesia Adventista"
           className="logo"
+          loading="lazy"
         />
       </div>
     </div>

@@ -1,16 +1,16 @@
 @use "../../styles/variables" as *;
 
 .content-layout {
-  width: min(900px, calc(100% - 3rem));
+  width: min($container-sm, calc(100% - (#{$container-padding} * 2)));
   flex: 1;
   margin: 0 auto;
-  padding: 3rem 0 4rem;
-  color: $text-color;
+  padding: $space-7 0 $space-8;
+  color: $color-text-primary;
   text-align: left;
 
   h1 {
-    margin-bottom: 1rem;
-    color: $primary-color;
+    margin-bottom: $space-4;
+    color: $color-brand-primary;
   }
 
   article,
@@ -19,11 +19,20 @@
   }
 
   p {
-    line-height: 1.7;
+    line-height: $line-height-relaxed;
   }
 
-  @media (max-width: 768px) {
-    width: calc(100% - 2rem);
-    padding: 2rem 0 3rem;
+  // Preparado para futuras variantes por clase sin requerir cambios JSX ahora.
+  &.content-layout--wide {
+    width: min($container-md, calc(100% - (#{$container-padding} * 2)));
+  }
+
+  &.content-layout--grid {
+    width: min($container-lg, calc(100% - (#{$container-padding} * 2)));
+  }
+
+  @media (max-width: $breakpoint-md) {
+    width: calc(100% - (#{$space-4} * 2));
+    padding: $space-6 0 $space-7;
   }
 }

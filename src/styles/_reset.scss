@@ -16,11 +16,17 @@ body {
   scroll-behavior: smooth;
 }
 
+html {
+  font-size: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   font-family: $font-primary;
-  background-color: #fff;
-  color: $primary-color;
+  background-color: $color-surface;
+  color: $color-text-primary;
   line-height: 1.6;
+  min-width: 320px;
 }
 
 img {
@@ -44,4 +50,5 @@ button {
   border: none;
   background: none;
   cursor: pointer;
+  font: inherit;
 }

@@ -1,0 +1,30 @@
+@use "../../../styles/variables" as *;
+
+.ui-section-container {
+  width: min(var(--ui-section-container-max), calc(100% - (#{$container-padding} * 2)));
+  margin-inline: auto;
+}
+
+.ui-section-container--sm {
+  --ui-section-container-max: #{$container-sm};
+}
+
+.ui-section-container--md {
+  --ui-section-container-max: #{$container-md};
+}
+
+.ui-section-container--lg {
+  --ui-section-container-max: #{$container-lg};
+}
+
+.ui-section-container--xl {
+  --ui-section-container-max: #{$container-xl};
+}
+
+.ui-section-container--padded {
+  padding-block: $space-7;
+
+  @media (max-width: $breakpoint-md) {
+    padding-block: $space-6;
+  }
+}

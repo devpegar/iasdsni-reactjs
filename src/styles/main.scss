@@ -8,9 +8,3 @@
 @use "./reset";
 @use "./typography";
 @use "./global";
-@use "./variables" as *;
-
-body {
-  background-color: #fff;
-  font-family: $font-primary;
-}

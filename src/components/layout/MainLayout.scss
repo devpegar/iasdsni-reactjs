@@ -4,8 +4,9 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   min-height: 100vh;
-  font-family: "Noto Sans", sans-serif;
-  background-color: #fff;
+  font-family: $font-primary;
+  color: $color-text-primary;
+  background-color: $color-surface;
 
   .content {
     grid-column: span 6;
@@ -15,7 +16,7 @@
   }
 
   .sabbath-column {
-    background-color: $primary-color;
+    background-color: $color-surface-inverse;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -26,8 +27,9 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: $breakpoint-md) {
     grid-template-columns: 1fr;
+
     .sabbath-column {
       display: none;
     }

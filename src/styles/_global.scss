@@ -5,8 +5,27 @@
 // ======================================
 
 .container {
-  width: 90%;
-  max-width: 1200px;
+  width: min($container-lg, calc(100% - (#{$container-padding} * 2)));
+  margin: 0 auto;
+}
+
+.container-sm {
+  width: min($container-sm, calc(100% - (#{$container-padding} * 2)));
+  margin: 0 auto;
+}
+
+.container-md {
+  width: min($container-md, calc(100% - (#{$container-padding} * 2)));
+  margin: 0 auto;
+}
+
+.container-lg {
+  width: min($container-lg, calc(100% - (#{$container-padding} * 2)));
+  margin: 0 auto;
+}
+
+.container-xl {
+  width: min($container-xl, calc(100% - (#{$container-padding} * 2)));
   margin: 0 auto;
 }
 
@@ -15,22 +34,35 @@
 }
 
 .mt-lg {
-  margin-top: $spacing-lg;
+  margin-top: $space-6;
 }
 
 .mb-lg {
-  margin-bottom: $spacing-lg;
+  margin-bottom: $space-6;
 }
 
 .btn {
-  background-color: $primary-color;
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.25rem;
+  background-color: $color-brand-primary;
+  color: $color-text-inverse;
+  padding: $space-3 $space-5;
+  border-radius: $radius-sm;
   font-weight: 600;
-  transition: background 0.3s;
+  transition:
+    background-color $transition-base,
+    color $transition-base,
+    box-shadow $transition-base;
 
   &:hover {
-    background-color: color.adjust($primary-color, $lightness: 10%);
+    background-color: color.adjust($color-brand-primary, $lightness: 10%);
   }
+}
+
+:focus-visible {
+  outline: 3px solid $color-focus;
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba($color-brand-accent, 0.35);
+  color: $color-text-primary;
 }

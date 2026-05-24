@@ -2,17 +2,21 @@
 @use "sass:color";
 
 .footer {
-  background: $primary-color;
-  color: $text-inverse;
-  padding: 3rem 1.5rem 1rem;
-  font-family: "Inter", sans-serif;
+  $footer-text-secondary: rgba($color-text-inverse, 0.82);
+  $footer-text-muted: rgba($color-text-inverse, 0.7);
+
+  background: $color-surface-inverse;
+  color: $color-text-inverse;
+  padding: $space-7 $space-5 $space-4;
+  font-family: $font-primary;
   width: 100%;
 
   .footer__container {
+    width: min($container-lg, 100%);
     margin: 0 auto;
     display: grid;
     grid-template-columns: 60% 40%;
-    gap: 2.5rem;
+    gap: $space-6;
 
     @media (max-width: 768px) {
       grid-template-columns: 1fr;
@@ -23,12 +27,12 @@
   .footer__col {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: $space-3;
 
     h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      color: #fff;
+      font-size: $font-size-xl;
+      margin-bottom: $space-2;
+      color: $color-text-inverse;
       font-weight: 600;
     }
 
@@ -36,19 +40,28 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
-      opacity: 0.85;
+      color: $footer-text-secondary;
+      margin: 0;
 
       svg {
         font-size: 1.1rem;
+        color: $color-text-inverse;
+        flex: 0 0 auto;
       }
+
       @media (max-width: 768px) {
         justify-content: center;
       }
     }
+
+    span,
+    small {
+      color: $footer-text-muted;
+    }
   }
 
   .footer__logo {
-    width: 160px;
+    width: 150px;
 
     @media (max-width: 768px) {
       margin: 0 auto;
@@ -56,46 +69,105 @@
   }
 
   .footer__desc p {
+    color: $footer-text-secondary;
     margin: 0;
   }
 
   .footer__frase {
-    margin-top: 0.5rem;
+    margin-top: $space-2;
+    color: $footer-text-muted;
     font-style: italic;
-    opacity: 0.9;
   }
 
   .footer__social {
-    margin-top: 1rem;
+    margin-top: $space-2;
     display: flex;
-    gap: 1rem;
+    gap: $space-3;
 
     @media (max-width: 768px) {
       justify-content: center;
     }
 
     a {
-      font-size: 1.3rem;
-      color: #fff;
-      opacity: 0.8;
-      transition: 0.3s;
+      display: inline-grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: $radius-pill;
+      background: rgba($color-text-inverse, 0.08);
+      font-size: 1.15rem;
+      color: $footer-text-secondary;
+      line-height: 1;
+      transition:
+        color $transition-base,
+        transform $transition-base;
+
+      svg {
+        color: currentColor;
+      }
 
       &:hover {
-        opacity: 1;
-        transform: scale(1.15);
+        background: rgba($color-text-inverse, 0.14);
+        color: $color-text-inverse;
+        transform: translateY(-1px);
+      }
+
+      &:focus-visible {
+        color: $color-text-inverse;
       }
     }
   }
 
   .footer__bottom {
-    margin-top: 2rem;
+    margin-top: $space-6;
     text-align: center;
-    font-size: 0.9rem;
-    opacity: 0.7;
+    font-size: $font-size-sm;
+    color: $footer-text-muted;
 
     a {
-      color: #fff;
+      color: $color-text-inverse;
       text-decoration: underline;
+      text-underline-offset: 0.18em;
+
+      &:hover,
+      &:focus-visible {
+        color: $color-brand-accent;
+      }
+    }
+
+    p,
+    span,
+    small {
+      color: $footer-text-muted;
+    }
+
+    .app-version {
+      margin: $space-2 0 0;
+      color: $footer-text-muted;
+    }
+  }
+
+  @media (max-width: $breakpoint-md) {
+    padding: $space-6 $space-4 $space-4;
+
+    .footer__container {
+      gap: $space-4;
+    }
+
+    .footer__col {
+      gap: $space-2;
+    }
+
+    .footer__logo {
+      width: 128px;
+    }
+
+    .footer__frase {
+      margin-top: $space-1;
+    }
+
+    .footer__bottom {
+      margin-top: $space-5;
     }
   }
 }

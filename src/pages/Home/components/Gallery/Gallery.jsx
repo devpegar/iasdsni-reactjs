@@ -59,7 +59,11 @@ export default function Gallery() {
               {albums.map((album) => (
                 <Link className="gallery__album" to={`/galeria/${album.slug}`} key={album.id}>
                   {album.cover_image_url ? (
-                    <img src={resolveMediaUrl(album.cover_image_url)} alt={album.cover_alt_text || album.title} />
+                    <img
+                      src={resolveMediaUrl(album.cover_image_url)}
+                      alt={album.cover_alt_text || album.title}
+                      loading="lazy"
+                    />
                   ) : (
                     <span>Sin portada</span>
                   )}

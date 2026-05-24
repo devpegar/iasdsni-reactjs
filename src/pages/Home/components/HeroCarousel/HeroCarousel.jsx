@@ -39,7 +39,7 @@ export default function HeroCarousel() {
         loop={slides.length > 1}
         className="hero-swiper"
       >
-        {slides.map((slide) => (
+        {slides.map((slide, index) => (
           <SwiperSlide key={slide.id}>
             <div className="slide-content">
               <div className="slide-text">
@@ -62,7 +62,8 @@ export default function HeroCarousel() {
                 <img
                   src={resolveMediaUrl(slide.image_url || slide.image_path)}
                   alt={slide.title}
-                  loading="lazy"
+                  fetchPriority={index === 0 ? "high" : "auto"}
+                  loading={index === 0 ? "eager" : "lazy"}
                 />
               </div>
             </div>

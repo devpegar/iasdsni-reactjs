@@ -1,0 +1,36 @@
+@use "../../../styles/variables" as *;
+
+.ui-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 1.5rem;
+  padding: $space-1 $space-3;
+  border: 1px solid transparent;
+  border-radius: $radius-pill;
+  font-family: $font-primary;
+  font-size: $font-size-xs;
+  font-weight: 700;
+  line-height: $line-height-tight;
+}
+
+.ui-badge--default {
+  background: $color-surface-muted;
+  color: $color-text-secondary;
+}
+
+.ui-badge--primary {
+  background: rgba($color-brand-primary, 0.1);
+  color: $color-brand-primary;
+}
+
+.ui-badge--accent {
+  background: rgba($color-brand-accent, 0.18);
+  color: $color-text-primary;
+}
+
+.ui-badge--muted {
+  border-color: $color-border-subtle;
+  background: $color-surface;
+  color: $color-text-muted;
+}
