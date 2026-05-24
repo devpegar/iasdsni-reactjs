@@ -106,7 +106,7 @@ export default function DepartmentsTab() {
               <button
                 className="btn-icon btn-danger"
                 title="Eliminar"
-                onClick={() => deleteItem(d)}
+                onClick={() => deleteItem(d.id)}
               >
                 <FaTrash />
               </button>

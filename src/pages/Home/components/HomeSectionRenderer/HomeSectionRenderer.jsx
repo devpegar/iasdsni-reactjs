@@ -6,7 +6,7 @@ import Gallery from "../Gallery/Gallery";
 import ContactMap from "../ContactMap/ContactMap";
 import LatestNewsSection from "../LatestNewsSection/LatestNewsSection";
 
-export const SECTION_COMPONENTS = {
+const SECTION_COMPONENTS = {
   hero_carousel: HeroCarousel,
   verse_daily: VerseDaily,
   mission_vision_service: MissionVisionService,

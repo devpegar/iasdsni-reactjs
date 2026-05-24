@@ -132,13 +132,8 @@ export default function VotesList({
     if (!confirm) return;
 
     try {
-      const res = await apiPost(
-        `/secretaria/boards/votes/delete.php?id=${voteId}`
-      );
-
-      if (!res?.success) throw new Error("Error al eliminar el voto");
-
-      loadVotes();
+      await apiPost("/secretaria/boards/votes/delete.php", { id: voteId });
+      await loadVotes();
     } catch (err) {
       alert(err.message);
     }

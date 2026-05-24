@@ -36,7 +36,7 @@ export default function useCrud(basePath) {
   };
 
   const deleteItem = async (id) => {
-    const res = await apiGet(`${basePath}/delete.php?id=${id}`);
+    const res = await apiPost(`${basePath}/delete.php`, { id });
     await fetchAll();
     return res;
   };
