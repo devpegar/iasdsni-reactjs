@@ -1,26 +1,49 @@
 import { useEffect, useMemo, useState } from "react";
-import { FaChevronDown, FaChevronRight } from "react-icons/fa";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import {
+  FaBars,
+  FaBookOpen,
+  FaCog,
+  FaColumns,
+  FaFileAlt,
+  FaGlobe,
+  FaHome,
+  FaImages,
+  FaLayerGroup,
+  FaNewspaper,
+  FaPhotoVideo,
+  FaSitemap,
+  FaSlidersH,
+  FaTools,
+  FaUserFriends,
+  FaUsers,
+} from "react-icons/fa";
+import { Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Breadcrumbs from "../components/ui/Breadcrumbs";
+import SidebarNavItem from "../components/ui/SidebarNavItem";
+import SidebarToggle from "../components/ui/SidebarToggle";
 import formatUsername from "../utils/formatUsername";
 import "../styles/admin.scss";
+
+const SIDEBAR_COLLAPSED_KEY = "iasdsni-admin-sidebar-collapsed";
 
 const navGroups = [
   {
     key: "system",
     label: "Sistema",
+    icon: FaTools,
     paths: ["/admin", "/admin/settings", "/admin/users", "/admin/secretaria"],
     items: [
-      { label: "Dashboard", to: "/admin", end: true },
-      { label: "Configuración", to: "/admin/settings" },
-      { label: "Usuarios", to: "/admin/users" },
-      { label: "Secretaría", to: "/admin/secretaria" },
+      { label: "Dashboard", to: "/admin", end: true, icon: FaColumns },
+      { label: "Configuración", to: "/admin/settings", icon: FaCog },
+      { label: "Usuarios", to: "/admin/users", icon: FaUsers },
+      { label: "Secretaría", to: "/admin/secretaria", icon: FaUserFriends },
     ],
   },
   {
     key: "content",
     label: "Contenido",
+    icon: FaLayerGroup,
     paths: [
       "/admin/web",
       "/admin/hero-slides",
@@ -30,17 +53,18 @@ const navGroups = [
       "/admin/posts",
     ],
     items: [
-      { label: "Dashboard CMS", to: "/admin/web" },
-      { label: "Hero Slides", to: "/admin/hero-slides" },
-      { label: "Versículo Diario", to: "/admin/daily-verses" },
-      { label: "Páginas", to: "/admin/pages" },
-      { label: "Galería", to: "/admin/gallery" },
-      { label: "Noticias", to: "/admin/posts", disabled: true },
+      { label: "Dashboard CMS", to: "/admin/web", icon: FaGlobe },
+      { label: "Hero Slides", to: "/admin/hero-slides", icon: FaImages },
+      { label: "Versículo Diario", to: "/admin/daily-verses", icon: FaBookOpen },
+      { label: "Páginas", to: "/admin/pages", icon: FaFileAlt },
+      { label: "Galería", to: "/admin/gallery", icon: FaPhotoVideo },
+      { label: "Noticias", to: "/admin/posts", disabled: true, icon: FaNewspaper },
     ],
   },
   {
     key: "structure",
     label: "Estructura y medios",
+    icon: FaSitemap,
     paths: [
       "/admin/navigation",
       "/admin/home-sections",
@@ -48,13 +72,18 @@ const navGroups = [
       "/admin/media",
     ],
     items: [
-      { label: "Menú", to: "/admin/navigation" },
-      { label: "Home", to: "/admin/home-sections" },
-      { label: "Configuración del sitio", to: "/admin/site-settings" },
-      { label: "Multimedia", to: "/admin/media" },
+      { label: "Menú", to: "/admin/navigation", icon: FaBars },
+      { label: "Home", to: "/admin/home-sections", icon: FaHome },
+      { label: "Configuración del sitio", to: "/admin/site-settings", icon: FaSlidersH },
+      { label: "Multimedia", to: "/admin/media", icon: FaPhotoVideo },
     ],
   },
 ];
+
+function getStoredSidebarState() {
+  if (typeof window === "undefined") return false;
+  return window.localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === "true";
+}
 
 function getBreadcrumbs(pathname) {
   if (pathname === "/admin") {
@@ -99,6 +128,7 @@ export default function AdminLayout() {
   const { user, logout } = useAuth();
   const location = useLocation();
   const breadcrumbs = useMemo(() => getBreadcrumbs(location.pathname), [location.pathname]);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(getStoredSidebarState);
 
   const defaultOpenGroups = useMemo(
     () =>
@@ -125,11 +155,26 @@ export default function AdminLayout() {
     }));
   };
 
+  const toggleSidebar = () => {
+    setSidebarCollapsed((prev) => {
+      const next = !prev;
+      window.localStorage.setItem(SIDEBAR_COLLAPSED_KEY, String(next));
+      return next;
+    });
+  };
+
   return (
-    <div className="admin-layout">
-      <aside className="sidebar">
+    <div className={`admin-layout${sidebarCollapsed ? " is-sidebar-collapsed" : ""}`}>
+      <aside className={`sidebar${sidebarCollapsed ? " is-collapsed" : ""}`}>
         <div>
-          <h2 className="menu-title">Panel Admin</h2>
+          <div className="sidebar-brand">
+            <div className="sidebar-brand__mark">IA</div>
+            <div className="sidebar-brand__text">
+              <span>Panel</span>
+              <strong>Admin</strong>
+            </div>
+            <SidebarToggle collapsed={sidebarCollapsed} onToggle={toggleSidebar} />
+          </div>
 
           {user && (
             <div className="user-info">
@@ -142,6 +187,7 @@ export default function AdminLayout() {
             {navGroups.map((group) => {
               const isOpen = openGroups[group.key];
               const active = isGroupActive(location.pathname, group);
+              const GroupIcon = group.icon;
 
               return (
                 <div
@@ -153,22 +199,21 @@ export default function AdminLayout() {
                     className="menu-group__toggle"
                     onClick={() => toggleGroup(group.key)}
                     aria-expanded={isOpen}
+                    title={sidebarCollapsed ? group.label : undefined}
+                    aria-label={sidebarCollapsed ? group.label : undefined}
                   >
-                    <span>{group.label}</span>
-                    {isOpen ? <FaChevronDown /> : <FaChevronRight />}
+                    <GroupIcon className="menu-group__icon" aria-hidden="true" />
+                    <span className="menu-group__label">{group.label}</span>
+                    <span className="menu-group__chevron" aria-hidden="true">
+                      {isOpen ? "−" : "+"}
+                    </span>
                   </button>
 
                   {isOpen && (
                     <ul>
                       {group.items.map((item) => (
                         <li key={item.to}>
-                          {item.disabled ? (
-                            <span className="disabled">{item.label}</span>
-                          ) : (
-                            <NavLink to={item.to} end={item.end}>
-                              {item.label}
-                            </NavLink>
-                          )}
+                          <SidebarNavItem item={item} collapsed={sidebarCollapsed} />
                         </li>
                       ))}
                     </ul>
@@ -179,8 +224,14 @@ export default function AdminLayout() {
           </nav>
         </div>
 
-        <button className="btn btn-primary" onClick={logout}>
-          Salir
+        <button
+          className="btn btn-primary sidebar-logout"
+          title={sidebarCollapsed ? "Salir" : undefined}
+          aria-label={sidebarCollapsed ? "Salir" : undefined}
+          onClick={logout}
+        >
+          <FaUserFriends aria-hidden="true" />
+          <span>Salir</span>
         </button>
       </aside>
 

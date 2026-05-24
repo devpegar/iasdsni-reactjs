@@ -1,6 +1,18 @@
-import { FaImage, FaNewspaper } from "react-icons/fa";
+import {
+  FaBars,
+  FaFileAlt,
+  FaHome,
+  FaImage,
+  FaImages,
+  FaNewspaper,
+  FaPhotoVideo,
+  FaSitemap,
+} from "react-icons/fa";
 import { Link } from "react-router-dom";
+import DashboardActionCard from "../components/ui/DashboardActionCard";
 import PageHeader from "../components/ui/PageHeader";
+import SectionHeader from "../components/ui/SectionHeader";
+import StatusBadge from "../components/ui/StatusBadge";
 
 export default function WebDashboard() {
   return (
@@ -20,28 +32,72 @@ export default function WebDashboard() {
         }
       />
 
-      <div className="dashboard-grid">
-        <Link to="/admin/hero-slides" className="dashboard-card">
-          <div className="dashboard-card__icon">
-            <FaImage />
-          </div>
-          <div>
-            <h3>Hero Slides</h3>
-            <p>Administrar banners, llamados a la acción, imágenes y orden.</p>
-            <span>Gestionar slides</span>
-          </div>
-        </Link>
+      <section className="dashboard-hero dashboard-hero--cms">
+        <DashboardActionCard
+          to="/admin/hero-slides"
+          icon={FaImage}
+          title="Hero principal"
+          description="Banners, textos, llamados a la acción, imágenes y orden del carrusel."
+          meta="Portada"
+          badge={<StatusBadge variant="info">Prioritario</StatusBadge>}
+        />
+        <DashboardActionCard
+          to="/admin/media"
+          icon={FaPhotoVideo}
+          title="Multimedia"
+          description="Imágenes optimizadas, carpetas y URLs reutilizables en el sitio."
+          meta="Biblioteca"
+        />
+      </section>
 
-        <div className="dashboard-card dashboard-card--disabled">
-          <div className="dashboard-card__icon">
-            <FaNewspaper />
-          </div>
-          <div>
-            <h3>Noticias</h3>
-            <p>Módulo editorial preparado para futuras publicaciones.</p>
-            <span>Próximamente</span>
-          </div>
-        </div>
+      <SectionHeader
+        title="Operación de contenido"
+        description="Accesos directos para mantener el sitio actualizado."
+      />
+
+      <div className="dashboard-action-grid dashboard-action-grid--cms">
+        <DashboardActionCard
+          to="/admin/pages"
+          icon={FaFileAlt}
+          title="Páginas"
+          description="Páginas públicas, noticias, anuncios y eventos."
+          meta="Contenido editorial"
+        />
+        <DashboardActionCard
+          to="/admin/home-sections"
+          icon={FaHome}
+          title="Home"
+          description="Orden y activación de bloques de la portada."
+          meta="Estructura de portada"
+        />
+        <DashboardActionCard
+          to="/admin/navigation"
+          icon={FaBars}
+          title="Menú"
+          description="Enlaces visibles en la navegación pública."
+          meta="Navegación"
+        />
+        <DashboardActionCard
+          to="/admin/gallery"
+          icon={FaImages}
+          title="Galería"
+          description="Álbumes, portadas e imágenes publicadas."
+          meta="Contenido visual"
+        />
+        <DashboardActionCard
+          to="/admin/site-settings"
+          icon={FaSitemap}
+          title="Datos del sitio"
+          description="Identidad, contacto, redes y textos globales."
+          meta="Configuración pública"
+        />
+        <DashboardActionCard
+          icon={FaNewspaper}
+          title="Noticias"
+          description="Módulo editorial preparado para futuras publicaciones."
+          meta="Próximamente"
+          disabled
+        />
       </div>
     </div>
   );
