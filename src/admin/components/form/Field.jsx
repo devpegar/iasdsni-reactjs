@@ -1,6 +1,8 @@
 import clsx from "clsx";
+import { useId } from "react";
 
 export default function Field({
+  id,
   label,
   type = "text",
   name,
@@ -10,35 +12,53 @@ export default function Field({
   placeholder,
   rows = 3,
   span = false,
+  error,
+  helpText,
+  inputRef,
   children,
+  ...inputProps
 }) {
+  const generatedId = useId();
+  const fieldId = id || name || generatedId;
+  const messageId = `${fieldId}-message`;
+  const message = error || helpText;
   const fieldClass = clsx({
     "full-span": span,
+    "label--error": Boolean(error),
   });
+  const controlProps = {
+    id: fieldId,
+    name,
+    value,
+    onChange,
+    required,
+    placeholder,
+    "aria-invalid": error ? "true" : undefined,
+    "aria-describedby": message ? messageId : undefined,
+    ...inputProps,
+  };
 
   return (
-    <label className={clsx("label", fieldClass)}>
-      {label}
+    <div className={clsx("label", fieldClass)}>
+      {label && (
+        <label className="label__text" htmlFor={fieldId}>
+          {label}
+          {required && <span className="label__required"> *</span>}
+        </label>
+      )}
 
       {type === "textarea" && (
         <textarea
+          {...controlProps}
           className="textarea"
-          name={name}
-          value={value}
-          onChange={onChange}
           rows={rows}
-          required={required}
-          placeholder={placeholder}
         />
       )}
 
       {type === "select" && (
         <select
+          {...controlProps}
           className="select"
-          name={name}
-          value={value}
-          onChange={onChange}
-          required={required}
         >
           {children}
         </select>
@@ -46,15 +66,23 @@ export default function Field({
 
       {type !== "textarea" && type !== "select" && (
         <input
+          {...controlProps}
+          ref={inputRef}
           className="input"
           type={type}
-          name={name}
-          value={value}
-          onChange={onChange}
-          required={required}
-          placeholder={placeholder}
         />
       )}
-    </label>
+
+      {message && (
+        <p
+          id={messageId}
+          className={clsx("field-message", {
+            "field-message--error": Boolean(error),
+          })}
+        >
+          {message}
+        </p>
+      )}
+    </div>
   );
 }

@@ -18,6 +18,7 @@ import SwitchField from "../components/form/SwitchField";
 import { apiPost, apiPostForm } from "../../services/api";
 import { resolveMediaUrl } from "../../utils/mediaUrl";
 import { toastBus } from "../../services/toastBus";
+import AdminAlert from "../components/ui/AdminAlert";
 
 const BASE_PATH = "/admin/hero_slides";
 
@@ -70,6 +71,8 @@ export default function HeroSlidesPage() {
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
   const [actionLoading, setActionLoading] = useState(null);
+  const [formError, setFormError] = useState(null);
+  const [imageError, setImageError] = useState(null);
 
   const { form, setForm, handleChange, resetForm, editingId, setEditingId } =
     useFormEdit(initialForm, { formRef });
@@ -108,13 +111,19 @@ export default function HeroSlidesPage() {
       is_active: form.is_active ? 1 : 0,
     };
 
-    if (editingId) {
-      await updateItem(editingId, payload);
-    } else {
-      await createItem(payload);
-    }
+    try {
+      setFormError(null);
 
-    resetForm();
+      if (editingId) {
+        await updateItem(editingId, payload);
+      } else {
+        await createItem(payload);
+      }
+
+      resetForm();
+    } catch (err) {
+      setFormError(err.message || "No se pudo guardar el slide");
+    }
   };
 
   const handleImageUpload = async (e) => {
@@ -129,17 +138,22 @@ export default function HeroSlidesPage() {
     }
 
     try {
+      setImageError(null);
       setUploading(true);
       const res = await apiPostForm(`${BASE_PATH}/upload_image.php`, data);
       const imagePath = getImageValue(res);
 
       if (!imagePath) {
-        toastBus.error("No se recibio la ruta de la imagen");
+        const message = "No se recibió la ruta de la imagen";
+        setImageError(message);
+        toastBus.error(message);
         return;
       }
 
       setForm((prev) => ({ ...prev, image_path: imagePath }));
       toastBus.success("Imagen subida");
+    } catch (err) {
+      setImageError(err.message || "No se pudo subir la imagen");
     } finally {
       setUploading(false);
       if (fileInputRef.current) {
@@ -219,8 +233,10 @@ export default function HeroSlidesPage() {
       <h2>{editingId ? "Editar Hero Slide" : "Crear Hero Slide"}</h2>
 
       <FormLayout columns={2} onSubmit={handleSubmit}>
+        <AdminAlert variant="error">{formError}</AdminAlert>
+
         <Field
-          label="Titulo"
+          label="Título"
           type="text"
           name="title"
           value={form.title}
@@ -234,10 +250,11 @@ export default function HeroSlidesPage() {
           name="position"
           value={form.position}
           onChange={handleChange}
+          helpText="Define la posición del slide en el carrusel."
         />
 
         <Field
-          label="Descripcion"
+          label="Descripción"
           type="textarea"
           name="description"
           value={form.description}
@@ -247,7 +264,7 @@ export default function HeroSlidesPage() {
         />
 
         <Field
-          label="Texto del boton"
+          label="Texto del botón"
           type="text"
           name="button_text"
           value={form.button_text}
@@ -255,11 +272,12 @@ export default function HeroSlidesPage() {
         />
 
         <Field
-          label="URL del boton"
+          label="URL del botón"
           type="text"
           name="button_link"
           value={form.button_link}
           onChange={handleChange}
+          helpText="Usá una ruta interna como /pagina/historia o una URL completa."
         />
 
         <ImageUrlField
@@ -272,6 +290,7 @@ export default function HeroSlidesPage() {
         />
 
         <div className="hero-slide-image-field full-span">
+          <AdminAlert variant="error">{imageError}</AdminAlert>
           <label className="label">
             Imagen
             <div className="hero-slide-image-field__controls">
@@ -294,6 +313,7 @@ export default function HeroSlidesPage() {
                 {uploading ? "Subiendo..." : "Subir imagen"}
               </button>
             </div>
+            <p className="field-message">Podés pegar una URL arriba o subir una imagen para completar el campo automáticamente.</p>
           </label>
         </div>
 

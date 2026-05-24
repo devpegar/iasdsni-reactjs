@@ -11,11 +11,6 @@ export default function FormLayout({
   return (
     <form
       onSubmit={onSubmit}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") {
-          e.preventDefault();
-        }
-      }}
       className={clsx(
         "form",
         {

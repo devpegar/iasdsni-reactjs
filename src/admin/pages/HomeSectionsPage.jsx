@@ -12,6 +12,7 @@ import {
   updateHomeSection,
 } from "../services/homeSectionsService";
 import { toastBus } from "../../services/toastBus";
+import AdminAlert from "../components/ui/AdminAlert";
 
 const SUPPORTED_KEYS = [
   "hero_carousel",
@@ -64,6 +65,7 @@ export default function HomeSectionsPage() {
   const [sections, setSections] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [formError, setFormError] = useState(null);
   const [actionLoading, setActionLoading] = useState(null);
   const { form, setForm, handleChange, resetForm, editingId, setEditingId } =
     useFormEdit(initialForm, { formRef });
@@ -95,6 +97,7 @@ export default function HomeSectionsPage() {
     event.preventDefault();
 
     try {
+      setFormError(null);
       setActionLoading("save");
       const payload = getPayload(form);
 
@@ -108,6 +111,8 @@ export default function HomeSectionsPage() {
 
       resetForm();
       await fetchSections();
+    } catch (err) {
+      setFormError(err.message || "No se pudo guardar la sección");
     } finally {
       setActionLoading(null);
     }
@@ -147,12 +152,16 @@ export default function HomeSectionsPage() {
       <p>Claves soportadas: {SUPPORTED_KEYS.join(", ")}</p>
 
       <FormLayout columns={2} onSubmit={handleSubmit}>
+        <AdminAlert variant="error">{formError}</AdminAlert>
+
         <Field
-          label="section_key"
+          label="Clave de sección"
           type="select"
           name="section_key"
           value={form.section_key}
           onChange={handleChange}
+          required
+          helpText="Identificador técnico que define qué componente del Home se renderiza."
         >
           {SUPPORTED_KEYS.map((key) => (
             <option key={key} value={key}>
@@ -161,17 +170,26 @@ export default function HomeSectionsPage() {
           ))}
         </Field>
 
-        <Field label="Orden" type="number" name="sort_order" value={form.sort_order} onChange={handleChange} />
+        <Field
+          label="Orden"
+          type="number"
+          name="sort_order"
+          value={form.sort_order}
+          onChange={handleChange}
+          required
+          helpText="Número usado para ordenar las secciones de menor a mayor."
+        />
         <Field label="Título" name="title" value={form.title} onChange={handleChange} />
         <Field label="Subtítulo" name="subtitle" value={form.subtitle} onChange={handleChange} />
         <Field
-          label="config_json"
+          label="Configuración JSON"
           type="textarea"
           name="config_json"
           value={form.config_json}
           onChange={handleChange}
           rows={5}
           placeholder='{"limit": 3}'
+          helpText="Campo técnico opcional. Debe ser JSON válido si se completa."
           span
         />
 
@@ -195,7 +213,7 @@ export default function HomeSectionsPage() {
       </FormLayout>
 
       <h3>Secciones configuradas</h3>
-      {error && <p>{error}</p>}
+      <AdminAlert variant="error">{error}</AdminAlert>
 
       <TableLayout
         columns={[

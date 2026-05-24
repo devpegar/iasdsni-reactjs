@@ -14,6 +14,7 @@ import {
 } from "../services/mediaFoldersService";
 import { resolveMediaUrl } from "../../utils/mediaUrl";
 import { toastBus } from "../../services/toastBus";
+import AdminAlert from "../components/ui/AdminAlert";
 
 function formatSize(bytes) {
   if (!bytes) return "0 KB";
@@ -49,6 +50,7 @@ export default function MediaLibraryPage() {
   const [form, setForm] = useState({ alt_text: "", folder_id: "" });
   const [folderForm, setFolderForm] = useState({ name: "" });
   const [error, setError] = useState(null);
+  const [uploadError, setUploadError] = useState(null);
 
   const fetchData = async () => {
     try {
@@ -84,7 +86,9 @@ export default function MediaLibraryPage() {
     const file = fileInputRef.current?.files?.[0];
 
     if (!file) {
-      toastBus.error("Seleccioná una imagen");
+      const message = "Seleccioná una imagen";
+      setUploadError(message);
+      toastBus.error(message);
       return;
     }
 
@@ -96,6 +100,7 @@ export default function MediaLibraryPage() {
     }
 
     try {
+      setUploadError(null);
       setUploading(true);
       await uploadMediaFile(data);
 
@@ -107,6 +112,8 @@ export default function MediaLibraryPage() {
       }
 
       await fetchData();
+    } catch (err) {
+      setUploadError(err.message || "No se pudo subir la imagen");
     } finally {
       setUploading(false);
     }
@@ -187,16 +194,19 @@ export default function MediaLibraryPage() {
 
       <section className="card media-upload">
         <FormLayout columns={2} onSubmit={handleUpload}>
-          <label className="label full-span">
-            Imagen
-            <input
-              ref={fileInputRef}
-              className="input"
-              type="file"
-              accept="image/jpeg,image/png,image/webp,image/gif"
-              disabled={uploading}
-            />
-          </label>
+          <AdminAlert variant="error">{uploadError}</AdminAlert>
+
+          <Field
+            label="Imagen"
+            type="file"
+            name="image"
+            inputRef={fileInputRef}
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            disabled={uploading}
+            error={uploadError}
+            helpText="Formatos aceptados: JPG, PNG, WebP o GIF. Tamaño máximo: 10MB."
+            span
+          />
 
           <Field
             label="Texto alternativo"
@@ -206,6 +216,7 @@ export default function MediaLibraryPage() {
               setForm((prev) => ({ ...prev, alt_text: event.target.value }))
             }
             placeholder="Descripción breve de la imagen"
+            helpText="Usalo para describir la imagen a lectores de pantalla y buscadores."
           />
 
           <Field
@@ -276,7 +287,7 @@ export default function MediaLibraryPage() {
         </label>
       </div>
 
-      {error && <p>{error}</p>}
+      <AdminAlert variant="error">{error}</AdminAlert>
 
       {loading ? (
         <p>Cargando multimedia...</p>

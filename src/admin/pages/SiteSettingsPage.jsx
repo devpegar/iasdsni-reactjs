@@ -7,6 +7,7 @@ import {
   updateSiteSettings,
 } from "../services/siteSettingsService";
 import { toastBus } from "../../services/toastBus";
+import AdminAlert from "../components/ui/AdminAlert";
 
 const groupLabels = {
   identidad: "Identidad institucional",
@@ -112,10 +113,13 @@ export default function SiteSettingsPage() {
     }, {});
 
     try {
+      setError(null);
       setSaving(true);
       await updateSiteSettings(changedSettings);
       toastBus.success("Configuración del sitio guardada");
       await fetchSettings();
+    } catch (err) {
+      setError(err.message || "No se pudo guardar la configuración del sitio");
     } finally {
       setSaving(false);
     }
@@ -139,7 +143,7 @@ export default function SiteSettingsPage() {
         </div>
       </div>
 
-      {error && <p>{error}</p>}
+      <AdminAlert variant="error">{error}</AdminAlert>
 
       {Object.keys(groups).length === 0 ? (
         <div className="card">
