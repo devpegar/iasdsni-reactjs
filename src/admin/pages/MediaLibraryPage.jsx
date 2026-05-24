@@ -15,6 +15,8 @@ import {
 import { resolveMediaUrl } from "../../utils/mediaUrl";
 import { toastBus } from "../../services/toastBus";
 import AdminAlert from "../components/ui/AdminAlert";
+import EmptyStateAdmin from "../components/ui/EmptyStateAdmin";
+import LoadingStateAdmin from "../components/ui/LoadingStateAdmin";
 
 function formatSize(bytes) {
   if (!bytes) return "0 KB";
@@ -290,11 +292,12 @@ export default function MediaLibraryPage() {
       <AdminAlert variant="error">{error}</AdminAlert>
 
       {loading ? (
-        <p>Cargando multimedia...</p>
+        <LoadingStateAdmin label="Cargando multimedia..." />
       ) : filteredFiles.length === 0 ? (
-        <div className="card">
-          <p>No hay imágenes para este filtro.</p>
-        </div>
+        <EmptyStateAdmin
+          title="No hay imágenes para este filtro"
+          description="Subí una imagen o cambiá el filtro de carpeta para ver otros archivos."
+        />
       ) : (
         <div className="media-grid">
           {filteredFiles.map((file) => {

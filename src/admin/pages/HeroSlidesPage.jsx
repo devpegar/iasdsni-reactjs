@@ -13,6 +13,7 @@ import useFormEdit from "../hooks/useFormEdit";
 import FormLayout from "../layout/FormLayout";
 import TableLayout from "../layout/TableLayout";
 import Field from "../components/form/Field";
+import TableActions from "../components/ui/TableActions";
 import ImageUrlField from "../components/media/ImageUrlField";
 import SwitchField from "../components/form/SwitchField";
 import { apiPost, apiPostForm } from "../../services/api";
@@ -65,6 +66,7 @@ export default function HeroSlidesPage() {
     deleteItem,
     refresh,
     loading,
+    error,
   } = useCrud(BASE_PATH);
 
   const formRef = useRef(null);
@@ -345,6 +347,7 @@ export default function HeroSlidesPage() {
       <h3>Listado de hero slides</h3>
 
       <TableLayout
+        toolbar={`${orderedSlides.length} slides configurados`}
         columns={[
           { type: "index", label: "#", width: "60px" },
           {
@@ -397,13 +400,15 @@ export default function HeroSlidesPage() {
         ]}
         data={orderedSlides}
         loading={loading}
-        emptyText="No hay hero slides registrados"
+        error={error}
+        emptyTitle="No hay hero slides registrados"
+        emptyDescription="Creá un slide para empezar a armar el carrusel principal."
         renderActions={(slide) => {
           const index = orderedSlides.findIndex((item) => item.id === slide.id);
           const isActive = toBoolean(slide.is_active ?? slide.active ?? true);
 
           return (
-            <>
+            <TableActions>
               <button
                 className="btn-icon"
                 title="Mover arriba"
@@ -450,7 +455,7 @@ export default function HeroSlidesPage() {
               >
                 <FaTrash />
               </button>
-            </>
+            </TableActions>
           );
         }}
       />

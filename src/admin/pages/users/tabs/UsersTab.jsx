@@ -9,6 +9,7 @@ import SelectField from "../../../components/form/SelectField";
 import MultiSelectField from "../../../components/form/MultiSelectField";
 import { apiPost } from "../../../../services/api";
 import { FaEdit, FaTrash, FaKey } from "react-icons/fa";
+import TableActions from "../../../components/ui/TableActions";
 
 export default function UsersTab() {
   const {
@@ -17,6 +18,7 @@ export default function UsersTab() {
     updateItem,
     // deleteItem,
     loading,
+    error,
     refresh,
   } = useCrud("/admin/users");
 
@@ -232,6 +234,7 @@ export default function UsersTab() {
       <h3>Listado de Usuarios</h3>
 
       <TableLayout
+        toolbar={`${users.length} usuarios registrados`}
         columns={[
           { key: "username", label: "Usuario", width: "150px" },
           {
@@ -289,8 +292,11 @@ export default function UsersTab() {
         ]}
         data={users}
         loading={loading}
+        error={error}
+        emptyTitle="No hay usuarios registrados"
+        emptyDescription="Creá usuarios para asignar roles, departamentos y acceso al sistema."
         renderActions={(u) => (
-          <>
+          <TableActions>
             <button
               className="btn-icon"
               onClick={() => {
@@ -305,7 +311,7 @@ export default function UsersTab() {
                 <FaKey />
               </button>
             )}
-          </>
+          </TableActions>
         )}
       />
 

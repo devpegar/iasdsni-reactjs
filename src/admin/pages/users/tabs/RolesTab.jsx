@@ -5,6 +5,7 @@ import FormLayout from "../../../layout/FormLayout";
 import TableLayout from "../../../layout/TableLayout";
 import Field from "../../../components/form/Field";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import TableActions from "../../../components/ui/TableActions";
 
 export default function RolesTab() {
   const {
@@ -13,6 +14,7 @@ export default function RolesTab() {
     updateItem,
     deleteItem,
     loading,
+    error,
   } = useCrud("/admin/roles");
 
   const formRef = useRef(null);
@@ -84,10 +86,8 @@ export default function RolesTab() {
 
       <h3>Listado de roles</h3>
 
-      {loading ? (
-        <p>Cargando...</p>
-      ) : (
         <TableLayout
+          toolbar={`${roles.length} roles registrados`}
           columns={[
             {
               type: "index",
@@ -114,9 +114,11 @@ export default function RolesTab() {
           ]}
           data={roles}
           loading={loading}
-          emptyText="No hay roles registrados"
+          error={error}
+          emptyTitle="No hay roles registrados"
+          emptyDescription="Creá roles para agrupar permisos y tipos de usuario."
           renderActions={(r) => (
-            <>
+            <TableActions>
               <button
                 className="btn-icon"
                 title="Editar"
@@ -132,10 +134,9 @@ export default function RolesTab() {
               >
                 <FaTrash />
               </button>
-            </>
+            </TableActions>
           )}
         />
-      )}
     </div>
   );
 }

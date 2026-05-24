@@ -5,6 +5,7 @@ import SwitchField from "../components/form/SwitchField";
 import useFormEdit from "../hooks/useFormEdit";
 import FormLayout from "../layout/FormLayout";
 import TableLayout from "../layout/TableLayout";
+import TableActions from "../components/ui/TableActions";
 import {
   createHomeSection,
   deactivateHomeSection,
@@ -213,9 +214,9 @@ export default function HomeSectionsPage() {
       </FormLayout>
 
       <h3>Secciones configuradas</h3>
-      <AdminAlert variant="error">{error}</AdminAlert>
 
       <TableLayout
+        toolbar={`${sections.length} secciones configuradas`}
         columns={[
           { type: "index", label: "#", width: "60px" },
           { key: "section_key", label: "Clave", width: "220px" },
@@ -231,12 +232,14 @@ export default function HomeSectionsPage() {
         ]}
         data={sections}
         loading={loading}
-        emptyText="No hay secciones configuradas"
+        error={error}
+        emptyTitle="No hay secciones configuradas"
+        emptyDescription="Creá una sección para controlar qué bloques aparecen en el Home."
         renderActions={(section) => {
           const isActive = toBoolean(section.is_active);
 
           return (
-            <>
+            <TableActions>
               <button className="btn-icon" title="Editar" onClick={() => startEdit(section)}>
                 <FaEdit />
               </button>
@@ -248,7 +251,7 @@ export default function HomeSectionsPage() {
               >
                 {isActive ? <FaToggleOn /> : <FaToggleOff />}
               </button>
-            </>
+            </TableActions>
           );
         }}
       />

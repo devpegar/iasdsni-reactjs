@@ -5,6 +5,7 @@ import FormLayout from "../../../layout/FormLayout";
 import TableLayout from "../../../layout/TableLayout";
 import Field from "../../../components/form/Field";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import TableActions from "../../../components/ui/TableActions";
 
 export default function DepartmentsTab() {
   const {
@@ -13,6 +14,7 @@ export default function DepartmentsTab() {
     updateItem,
     deleteItem,
     loading,
+    error,
   } = useCrud("/admin/departments");
 
   const formRef = useRef(null);
@@ -81,10 +83,8 @@ export default function DepartmentsTab() {
 
       <h3>Lista de departamentos</h3>
 
-      {loading ? (
-        <p>Cargando...</p>
-      ) : (
         <TableLayout
+          toolbar={`${departments.length} departamentos registrados`}
           columns={[
             { type: "index", label: "#", width: "80px" },
             { key: "name", label: "Departamento", width: "180px" },
@@ -93,9 +93,11 @@ export default function DepartmentsTab() {
           ]}
           data={departments}
           loading={loading}
-          emptyText="No hay roles registrados"
+          error={error}
+          emptyTitle="No hay departamentos registrados"
+          emptyDescription="Creá departamentos para organizar usuarios y responsables."
           renderActions={(d) => (
-            <>
+            <TableActions>
               <button
                 className="btn-icon"
                 title="Editar"
@@ -110,10 +112,9 @@ export default function DepartmentsTab() {
               >
                 <FaTrash />
               </button>
-            </>
+            </TableActions>
           )}
         />
-      )}
     </div>
   );
 }
