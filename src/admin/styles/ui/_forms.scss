@@ -248,3 +248,47 @@
   align-items: center;
   gap: 1rem;
 }
+
+@media (max-width: $breakpoint-md) {
+  .form {
+    &--cols-2 {
+      @include form-layout(1);
+    }
+
+    &--inline {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: stretch;
+
+      .form-actions,
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+
+  .label {
+    width: 100%;
+  }
+
+  .input,
+  .select,
+  .textarea,
+  .input[type="date"] {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    font-size: 1rem;
+  }
+
+  .form-actions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.65rem;
+
+    .btn {
+      width: 100%;
+      min-height: 42px;
+    }
+  }
+}

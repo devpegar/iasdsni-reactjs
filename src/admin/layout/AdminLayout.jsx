@@ -129,6 +129,7 @@ export default function AdminLayout() {
   const location = useLocation();
   const breadcrumbs = useMemo(() => getBreadcrumbs(location.pathname), [location.pathname]);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(getStoredSidebarState);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const defaultOpenGroups = useMemo(
     () =>
@@ -148,6 +149,18 @@ export default function AdminLayout() {
     }));
   }, [defaultOpenGroups]);
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    document.body.classList.toggle("admin-mobile-menu-open", mobileMenuOpen);
+
+    return () => {
+      document.body.classList.remove("admin-mobile-menu-open");
+    };
+  }, [mobileMenuOpen]);
+
   const toggleGroup = (key) => {
     setOpenGroups((prev) => ({
       ...prev,
@@ -164,7 +177,31 @@ export default function AdminLayout() {
   };
 
   return (
-    <div className={`admin-layout${sidebarCollapsed ? " is-sidebar-collapsed" : ""}`}>
+    <div
+      className={`admin-layout${sidebarCollapsed ? " is-sidebar-collapsed" : ""}${
+        mobileMenuOpen ? " is-mobile-menu-open" : ""
+      }`}
+    >
+      <button
+        type="button"
+        className="mobile-menu-button"
+        aria-label="Abrir menú de administración"
+        aria-expanded={mobileMenuOpen}
+        onClick={() => setMobileMenuOpen(true)}
+      >
+        <FaBars aria-hidden="true" />
+        <span>Menú</span>
+      </button>
+
+      {mobileMenuOpen && (
+        <button
+          type="button"
+          className="sidebar-overlay"
+          aria-label="Cerrar menú de administración"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
       <aside className={`sidebar${sidebarCollapsed ? " is-collapsed" : ""}`}>
         <div>
           <div className="sidebar-brand">

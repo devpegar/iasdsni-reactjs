@@ -48,3 +48,14 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .site-settings-form__actions {
+    position: static;
+    align-items: stretch;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}

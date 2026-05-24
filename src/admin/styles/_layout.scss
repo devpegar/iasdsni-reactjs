@@ -1,6 +1,7 @@
 // src/admin/styles/layout.scss
 
 .admin-layout {
+  position: relative;
   display: flex;
   height: 100vh;
   background: #f5f6fa;
@@ -13,10 +14,58 @@
   }
 }
 
+.mobile-menu-button,
+.sidebar-overlay {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  body.admin-mobile-menu-open {
+    overflow: hidden;
+  }
+
   .admin-layout {
+    display: block;
+    min-height: 100vh;
+    height: auto;
+
     .content {
-      padding: 1.25rem;
+      width: 100%;
+      min-height: 100vh;
+      padding: 4.35rem 0.85rem 1.25rem;
+      overflow: visible;
     }
+  }
+
+  .mobile-menu-button {
+    position: fixed;
+    top: 0.85rem;
+    left: 0.85rem;
+    z-index: 80;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 40px;
+    padding: 0 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    background: #fff;
+    color: #374151;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .mobile-menu-button:focus-visible {
+    outline: 3px solid rgba(79, 70, 229, 0.22);
+    outline-offset: 2px;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    display: block;
+    border: 0;
+    background: rgba(15, 23, 42, 0.56);
   }
 }

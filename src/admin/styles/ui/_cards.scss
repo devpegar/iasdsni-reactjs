@@ -202,14 +202,42 @@
 }
 
 @media (max-width: 720px) {
+  .card,
+  .admin-card {
+    padding: $spacing-md;
+  }
+
   .page-header,
   .section-header {
     flex-direction: column;
     align-items: stretch;
+    gap: $spacing-md;
+  }
+
+  .page-header {
+    margin-bottom: $spacing-md;
+
+    h1 {
+      font-size: 1.45rem;
+    }
+
+    p {
+      font-size: 0.92rem;
+    }
   }
 
   .page-header__actions,
   .section-header__actions {
+    width: 100%;
     justify-content: flex-start;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  .admin-breadcrumbs {
+    margin-bottom: $spacing-sm;
+    font-size: 0.78rem;
   }
 }

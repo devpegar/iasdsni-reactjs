@@ -15,6 +15,9 @@ export default function TableLayout({
   emptyDescription,
   loadingText = "Cargando registros...",
   renderActions,
+  mobileTitle,
+  mobileDescription,
+  mobileMeta,
 }) {
   const gridTemplate = columns
     .map((col) => {
@@ -48,6 +51,7 @@ export default function TableLayout({
       )}
 
       {!loading && !error && data.length > 0 && (
+        <>
         <div className="data-table" role="table">
           <div
             className="data-table__header"
@@ -107,6 +111,61 @@ export default function TableLayout({
             </div>
           ))}
         </div>
+        <div className="data-table-mobile-list">
+          {data.map((row, index) => {
+            const titleColumn =
+              mobileTitle ||
+              columns.find((col) => col.mobileTitle) ||
+              columns.find((col) => col.key && col.type !== "actions");
+            const descriptionColumn =
+              mobileDescription ||
+              columns.find((col) => col.mobileDescription);
+            const metaColumn = mobileMeta || columns.find((col) => col.mobileMeta);
+
+            const renderColumn = (col) => {
+              if (!col) return null;
+              if (typeof col === "function") return col(row, index);
+              if (col.type === "index") return index + 1;
+              return col.render ? col.render(row) : row[col.key] ?? "—";
+            };
+
+            return (
+              <article className="data-table-mobile-card" key={row.id ?? index}>
+                <div className="data-table-mobile-card__header">
+                  <div>
+                    <strong>{renderColumn(titleColumn)}</strong>
+                    {descriptionColumn && <p>{renderColumn(descriptionColumn)}</p>}
+                    {metaColumn && <span>{renderColumn(metaColumn)}</span>}
+                  </div>
+                  {renderActions && (
+                    <div className="data-table-mobile-card__actions">
+                      {renderActions(row)}
+                    </div>
+                  )}
+                </div>
+
+                <dl className="data-table-mobile-card__meta">
+                  {columns
+                    .filter(
+                      (col) =>
+                        col.type !== "actions" &&
+                        col !== titleColumn &&
+                        col !== descriptionColumn &&
+                        col !== metaColumn,
+                    )
+                    .slice(0, 5)
+                    .map((col) => (
+                      <div key={col.key || col.type}>
+                        <dt>{col.label}</dt>
+                        <dd>{renderColumn(col)}</dd>
+                      </div>
+                    ))}
+                </dl>
+              </article>
+            );
+          })}
+        </div>
+        </>
       )}
     </div>
   );

@@ -50,3 +50,18 @@
     flex-wrap: wrap;
   }
 }
+
+@media (max-width: 640px) {
+  .gallery-items-admin__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-item-admin__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}

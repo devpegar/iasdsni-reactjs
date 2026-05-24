@@ -171,3 +171,30 @@
   max-width: 100%;
   white-space: nowrap;
 }
+
+@media (max-width: 640px) {
+  .users-tab,
+  .users-form {
+    max-width: none;
+  }
+
+  .form-switch-group {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .modal {
+    width: calc(100% - 1.5rem);
+    padding: 16px;
+  }
+
+  .modal-actions {
+    align-items: stretch;
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
