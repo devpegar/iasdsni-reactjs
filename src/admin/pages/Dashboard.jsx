@@ -13,10 +13,16 @@ export default function Dashboard() {
   const loading = useMinimumLoader(fetching, 800);
 
   useEffect(() => {
-    apiGet("/maintenance/get.php").then((res) => {
-      if (res.success) setMaintenance(res.maintenance);
-      setFetching(false);
-    });
+    apiGet("/maintenance/get.php")
+      .then((res) => {
+        setMaintenance(res.maintenance);
+      })
+      .catch(() => {
+        setMaintenance(false);
+      })
+      .finally(() => {
+        setFetching(false);
+      });
   }, []);
 
   if (loading) return <Loading />;

@@ -6,9 +6,11 @@ export default function SettingsPage() {
   const [resetting, setResetting] = useState(false);
 
   useEffect(() => {
-    apiGet("/maintenance/get.php").then((res) => {
-      if (res?.success) setMaintenance(res.maintenance);
-    });
+    apiGet("/maintenance/get.php")
+      .then((res) => {
+        setMaintenance(res.maintenance);
+      })
+      .catch(() => {});
   }, []);
 
   const updateMaintenance = async () => {
@@ -22,10 +24,13 @@ export default function SettingsPage() {
 
     if (!confirm) return;
 
-    setResetting(true);
-    const res = await apiPost("/admin/reset/secretaria.php");
-    alert(res.message || "Reset ejecutado");
-    setResetting(false);
+    try {
+      setResetting(true);
+      const res = await apiPost("/admin/reset/secretaria.php");
+      alert(res.message || "Reset ejecutado");
+    } finally {
+      setResetting(false);
+    }
   };
 
   return (

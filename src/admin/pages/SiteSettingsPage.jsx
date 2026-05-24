@@ -73,11 +73,6 @@ export default function SiteSettingsPage() {
       setLoading(true);
       const res = await listSiteSettings();
 
-      if (res.success === false) {
-        setError(res.message || "No se pudo cargar la configuración del sitio");
-        return;
-      }
-
       const nextGroups = res.groups ?? {};
       const nextValues = buildInitialValues(nextGroups);
 
@@ -118,12 +113,7 @@ export default function SiteSettingsPage() {
 
     try {
       setSaving(true);
-      const res = await updateSiteSettings(changedSettings);
-
-      if (res.success === false) {
-        return;
-      }
-
+      await updateSiteSettings(changedSettings);
       toastBus.success("Configuración del sitio guardada");
       await fetchSettings();
     } finally {

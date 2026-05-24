@@ -137,12 +137,8 @@ export default function GalleryAdminPage() {
   };
 
   const handleToggleAlbum = async (album) => {
-    try {
-      await updateGalleryAlbum(album.id, { is_active: toBoolean(album.is_active) ? 0 : 1 });
-      await fetchAlbums();
-    } catch {
-      toastBus.error("No se pudo actualizar estado");
-    }
+    await updateGalleryAlbum(album.id, { is_active: toBoolean(album.is_active) ? 0 : 1 });
+    await fetchAlbums();
   };
 
   const handleDeleteAlbum = async (album) => {

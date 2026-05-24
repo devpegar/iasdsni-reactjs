@@ -17,17 +17,18 @@ export default function LoginForm() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
 
-    const res = await apiPost("/auth/login.php", {
-      username,
-      password,
-    });
+    try {
+      await apiPost("/auth/login.php", {
+        username,
+        password,
+      });
 
-    if (res.success) {
       await refresh(); // 💥 ACTUALIZA EL CONTEXTO INMEDIATAMENTE
       navigate("/admin");
-    } else {
-      setError("Credenciales incorrectas");
+    } catch (err) {
+      setError(err.message || "Credenciales incorrectas");
     }
   };
 

@@ -97,11 +97,7 @@ export default function MediaLibraryPage() {
 
     try {
       setUploading(true);
-      const res = await uploadMediaFile(data);
-
-      if (res.success === false) {
-        return;
-      }
+      await uploadMediaFile(data);
 
       toastBus.success("Imagen subida");
       setForm((prev) => ({ ...prev, alt_text: "" }));
@@ -126,13 +122,10 @@ export default function MediaLibraryPage() {
 
     try {
       setActionLoading("create-folder");
-      const res = await createMediaFolder({ name: folderForm.name });
-
-      if (res.success !== false) {
-        toastBus.success("Carpeta creada");
-        setFolderForm({ name: "" });
-        await fetchData();
-      }
+      await createMediaFolder({ name: folderForm.name });
+      toastBus.success("Carpeta creada");
+      setFolderForm({ name: "" });
+      await fetchData();
     } finally {
       setActionLoading(null);
     }
@@ -150,14 +143,12 @@ export default function MediaLibraryPage() {
   const handleSaveAlt = async (file) => {
     try {
       setActionLoading(`save-${file.id}`);
-      const res = await updateMediaFile(file.id, {
+      await updateMediaFile(file.id, {
         alt_text: altDrafts[file.id] || "",
       });
 
-      if (res.success !== false) {
-        toastBus.success("Texto alternativo actualizado");
-        await fetchData();
-      }
+      toastBus.success("Texto alternativo actualizado");
+      await fetchData();
     } finally {
       setActionLoading(null);
     }
@@ -170,12 +161,9 @@ export default function MediaLibraryPage() {
 
     try {
       setActionLoading(`delete-${file.id}`);
-      const res = await deleteMediaFile(file.id);
-
-      if (res.success !== false) {
-        toastBus.success("Imagen desactivada");
-        await fetchData();
-      }
+      await deleteMediaFile(file.id);
+      toastBus.success("Imagen desactivada");
+      await fetchData();
     } finally {
       setActionLoading(null);
     }
