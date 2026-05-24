@@ -8,6 +8,16 @@ export default function WebDashboard() {
       <PageHeader
         title="Dashboard CMS"
         description="Gestión de contenido visible en el sitio público."
+        actions={
+          <>
+            <Link to="/admin/media" className="btn btn-secondary">
+              Multimedia
+            </Link>
+            <Link to="/admin/pages" className="btn btn-secondary">
+              Páginas
+            </Link>
+          </>
+        }
       />
 
       <div className="dashboard-grid">

@@ -159,6 +159,48 @@
   }
 }
 
+.admin-breadcrumbs {
+  margin: 0 0 $spacing-md;
+  color: $gray-500;
+  font-size: 0.82rem;
+
+  ol {
+    display: flex;
+    align-items: center;
+    gap: $spacing-xs;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-xs;
+
+    &:not(:last-child)::after {
+      content: "/";
+      color: $gray-400;
+    }
+  }
+
+  a {
+    color: $primary-color;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    color: $gray-600;
+  }
+}
+
 @media (max-width: 720px) {
   .page-header,
   .section-header {

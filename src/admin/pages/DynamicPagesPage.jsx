@@ -6,6 +6,8 @@ import SwitchField from "../components/form/SwitchField";
 import useFormEdit from "../hooks/useFormEdit";
 import FormLayout from "../layout/FormLayout";
 import TableLayout from "../layout/TableLayout";
+import PageHeader from "../components/ui/PageHeader";
+import SectionHeader from "../components/ui/SectionHeader";
 import {
   createPage,
   deactivatePage,
@@ -13,6 +15,7 @@ import {
   updatePage,
 } from "../services/pagesService";
 import { toastBus } from "../../services/toastBus";
+import { confirmDestructive } from "../utils/confirmAction";
 
 const initialForm = {
   slug: "",
@@ -129,7 +132,14 @@ export default function DynamicPagesPage() {
   const handleToggleActive = async (page) => {
     const normalized = normalizePage(page);
 
-    if (normalized.is_active && !window.confirm(`Desactivar la página "${page.title}"?`)) {
+    if (
+      normalized.is_active &&
+      !confirmDestructive({
+        title: `Desactivar página "${page.title}"`,
+        detail: "La página dejará de estar publicada en el sitio.",
+        action: "Desactivar página",
+      })
+    ) {
       return;
     }
 
@@ -161,7 +171,22 @@ export default function DynamicPagesPage() {
 
   return (
     <div className="dynamic-pages-page" ref={formRef}>
-      <h2>{editingId ? "Editar Página" : "Crear Página"}</h2>
+      <PageHeader
+        title="Páginas"
+        description="Creá y administrá páginas, noticias, anuncios y eventos publicados en el sitio."
+        actions={
+          editingId && (
+            <button type="button" className="btn btn-secondary" onClick={resetForm}>
+              Crear nueva página
+            </button>
+          )
+        }
+      />
+
+      <SectionHeader
+        title={editingId ? "Editar página" : "Crear página"}
+        description="Definí contenido, publicación y datos SEO de la página."
+      />
 
       <FormLayout columns={2} onSubmit={handleSubmit}>
         <Field
@@ -297,7 +322,7 @@ export default function DynamicPagesPage() {
 
         <div className="form-actions">
           <button type="submit" className="btn btn-primary" disabled={actionLoading === "save"}>
-            {editingId ? "Guardar Cambios" : "Crear Página"}
+            {editingId ? "Guardar cambios" : "Crear página"}
           </button>
 
           {editingId && (
@@ -308,7 +333,10 @@ export default function DynamicPagesPage() {
         </div>
       </FormLayout>
 
-      <h3>Listado de páginas</h3>
+      <SectionHeader
+        title="Listado de páginas"
+        description="Buscá, editá o cambiá el estado de contenido ya cargado."
+      />
 
       <form className="form form--inline" onSubmit={handleSearch}>
         <Field

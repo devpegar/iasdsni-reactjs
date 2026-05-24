@@ -8,6 +8,7 @@ import SwitchField from "../../../components/form/SwitchField";
 import SelectField from "../../../components/form/SelectField";
 import MultiSelectField from "../../../components/form/MultiSelectField";
 import { apiPost } from "../../../../services/api";
+import { toastBus } from "../../../../services/toastBus";
 import { FaEdit, FaKey } from "react-icons/fa";
 import AdminCard from "../../../components/ui/AdminCard";
 import SectionHeader from "../../../components/ui/SectionHeader";
@@ -90,7 +91,7 @@ export default function UsersTab() {
   ========================== */
   const activateAccess = async () => {
     if (!activatingUser || !activateEmail || !activatePassword) {
-      alert("Email y contraseña son obligatorios");
+      toastBus.error("Email y contraseña son obligatorios");
       return;
     }
 
@@ -107,14 +108,14 @@ export default function UsersTab() {
         throw new Error(res?.message || "Error al activar acceso");
       }
 
-      alert("Acceso habilitado correctamente");
+      toastBus.success("Acceso habilitado correctamente");
 
       setActivatingUser(null);
       setActivateEmail("");
       setActivatePassword("");
       refresh();
     } catch (err) {
-      alert(err.message);
+      toastBus.error(err.message || "No se pudo activar el acceso");
     } finally {
       setActivating(false);
     }
@@ -220,7 +221,7 @@ export default function UsersTab() {
 
           <div className="form-actions">
             <button type="submit" className="btn btn-primary">
-              {editingId ? "Guardar Cambios" : "Crear Usuario"}
+              {editingId ? "Guardar cambios" : "Crear usuario"}
             </button>
 
             {editingId && (

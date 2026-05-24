@@ -7,6 +7,7 @@ import TableLayout from "../../../layout/TableLayout";
 import TableSelectField from "../../../components/form/TableSelectField";
 import DescriptionPreview from "../../../components/ui/DescriptionPreview";
 import formatUsername from "../../../utils/formatUsername";
+import { confirmDestructive } from "../../../utils/confirmAction";
 import { getDayMonthYear, formatDateDMY } from "../../../../utils/date";
 
 export default function VotesList({
@@ -126,9 +127,12 @@ export default function VotesList({
      DELETE
   ======================= */
   const deleteVote = async (voteId) => {
-    const confirm = window.confirm(
-      "¿Está seguro que desea eliminar este voto?\n\nEsta acción no se puede deshacer."
-    );
+    const confirm = confirmDestructive({
+      title: "Eliminar voto",
+      detail: "El voto se quitará de esta junta.",
+      action: "Eliminar voto",
+      irreversible: true,
+    });
     if (!confirm) return;
 
     try {

@@ -23,6 +23,7 @@ import { apiPost, apiPostForm } from "../../services/api";
 import { resolveMediaUrl } from "../../utils/mediaUrl";
 import { toastBus } from "../../services/toastBus";
 import AdminAlert from "../components/ui/AdminAlert";
+import { confirmDestructive } from "../utils/confirmAction";
 
 const BASE_PATH = "/admin/hero_slides";
 
@@ -219,7 +220,16 @@ export default function HeroSlidesPage() {
   };
 
   const handleDelete = async (slide) => {
-    if (!window.confirm(`Eliminar el slide "${slide.title}"?`)) return;
+    if (
+      !confirmDestructive({
+        title: `Eliminar slide "${slide.title}"`,
+        detail: "El slide se quitará del carrusel principal.",
+        action: "Eliminar slide",
+        irreversible: true,
+      })
+    ) {
+      return;
+    }
 
     try {
       setActionLoading(`delete-${slide.id}`);
@@ -238,6 +248,13 @@ export default function HeroSlidesPage() {
       <PageHeader
         title="Hero slides"
         description="Administrá banners, textos, llamadas a la acción, imágenes y orden del carrusel principal."
+        actions={
+          editingId && (
+            <button type="button" className="btn btn-secondary" onClick={resetForm}>
+              Crear nuevo slide
+            </button>
+          )
+        }
       />
 
       <AdminCard>

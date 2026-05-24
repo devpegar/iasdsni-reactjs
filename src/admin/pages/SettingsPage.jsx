@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { apiGet, apiPost } from "../../services/api";
+import { toastBus } from "../../services/toastBus";
+import { confirmDestructive } from "../utils/confirmAction";
 
 export default function SettingsPage() {
   const [maintenance, setMaintenance] = useState(false);
@@ -18,16 +20,19 @@ export default function SettingsPage() {
   };
 
   const resetSecretaria = async () => {
-    const confirm = window.confirm(
-      "⚠️ ATENCIÓN\n\nEsto eliminará TODAS las juntas, asistencias y votos.\nEsta acción NO se puede deshacer.\n\n¿Desea continuar?"
-    );
+    const confirm = confirmDestructive({
+      title: "Reiniciar datos de Secretaría",
+      detail: "Esto eliminará todas las juntas, asistencias y votos de prueba.",
+      action: "Reiniciar Secretaría",
+      irreversible: true,
+    });
 
     if (!confirm) return;
 
     try {
       setResetting(true);
       const res = await apiPost("/admin/reset/secretaria.php");
-      alert(res.message || "Reset ejecutado");
+      toastBus.success(res.message || "Reset ejecutado");
     } finally {
       setResetting(false);
     }

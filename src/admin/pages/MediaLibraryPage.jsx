@@ -21,6 +21,7 @@ import LoadingStateAdmin from "../components/ui/LoadingStateAdmin";
 import PageHeader from "../components/ui/PageHeader";
 import SectionHeader from "../components/ui/SectionHeader";
 import StatusBadge from "../components/ui/StatusBadge";
+import { confirmDestructive } from "../utils/confirmAction";
 
 function formatSize(bytes) {
   if (!bytes) return "0 KB";
@@ -175,7 +176,13 @@ export default function MediaLibraryPage() {
   };
 
   const handleDelete = async (file) => {
-    if (!window.confirm(`Desactivar "${file.original_name}"?`)) {
+    if (
+      !confirmDestructive({
+        title: `Desactivar "${file.original_name}"`,
+        detail: "La imagen dejará de estar disponible para nuevas selecciones.",
+        action: "Desactivar imagen",
+      })
+    ) {
       return;
     }
 

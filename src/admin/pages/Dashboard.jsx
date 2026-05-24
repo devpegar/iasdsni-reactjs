@@ -36,6 +36,16 @@ export default function Dashboard() {
       <PageHeader
         title="Dashboard"
         description="Resumen general de administración del sistema y sitio web."
+        actions={
+          <>
+            <Link to="/admin/web" className="btn btn-secondary">
+              Ir al CMS
+            </Link>
+            <Link to="/admin/users" className="btn btn-secondary">
+              Usuarios
+            </Link>
+          </>
+        }
       />
 
       <div className="dashboard-grid">

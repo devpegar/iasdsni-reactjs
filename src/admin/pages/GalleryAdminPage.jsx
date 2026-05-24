@@ -5,6 +5,8 @@ import SwitchField from "../components/form/SwitchField";
 import MediaPickerModal from "../components/media/MediaPickerModal";
 import FormLayout from "../layout/FormLayout";
 import TableLayout from "../layout/TableLayout";
+import PageHeader from "../components/ui/PageHeader";
+import SectionHeader from "../components/ui/SectionHeader";
 import { resolveMediaUrl } from "../../utils/mediaUrl";
 import {
   addGalleryItem,
@@ -17,6 +19,7 @@ import {
   updateGalleryItem,
 } from "../services/galleryAdminService";
 import { toastBus } from "../../services/toastBus";
+import { confirmDestructive } from "../utils/confirmAction";
 
 const initialForm = {
   title: "",
@@ -142,7 +145,15 @@ export default function GalleryAdminPage() {
   };
 
   const handleDeleteAlbum = async (album) => {
-    if (!window.confirm(`Desactivar álbum "${album.title}"?`)) return;
+    if (
+      !confirmDestructive({
+        title: `Desactivar álbum "${album.title}"`,
+        detail: "El álbum dejará de mostrarse en la galería pública.",
+        action: "Desactivar álbum",
+      })
+    ) {
+      return;
+    }
     await deleteGalleryAlbum(album.id);
     await fetchAlbums();
   };
@@ -180,7 +191,15 @@ export default function GalleryAdminPage() {
   };
 
   const handleDeleteItem = async (item) => {
-    if (!window.confirm("Desactivar imagen del álbum?")) return;
+    if (
+      !confirmDestructive({
+        title: "Desactivar imagen del álbum",
+        detail: "La imagen dejará de mostrarse dentro de este álbum.",
+        action: "Desactivar imagen",
+      })
+    ) {
+      return;
+    }
     await deleteGalleryItem(item.id);
     await fetchItems(selectedAlbum.id);
     await fetchAlbums();
@@ -188,7 +207,22 @@ export default function GalleryAdminPage() {
 
   return (
     <div className="gallery-admin-page">
-      <h2>Galería</h2>
+      <PageHeader
+        title="Galería"
+        description="Creá álbumes, seleccioná portadas y administrá imágenes publicadas."
+        actions={
+          editingId && (
+            <button type="button" className="btn btn-secondary" onClick={resetForm}>
+              Crear nuevo álbum
+            </button>
+          )
+        }
+      />
+
+      <SectionHeader
+        title={editingId ? "Editar álbum" : "Crear álbum"}
+        description="Definí los datos principales y la visibilidad del álbum."
+      />
 
       <FormLayout columns={2} onSubmit={handleSubmit}>
         <Field label="Título" name="title" value={form.title} onChange={handleChange} required />
@@ -212,11 +246,14 @@ export default function GalleryAdminPage() {
           <button className="btn btn-primary" disabled={actionLoading === "save-album"}>
             {editingId ? "Guardar álbum" : "Crear álbum"}
           </button>
-          {editingId && <button type="button" className="btn btn-secondary" onClick={resetForm}>Cancelar</button>}
+          {editingId && <button type="button" className="btn btn-secondary" onClick={resetForm}>Cancelar edición</button>}
         </div>
       </FormLayout>
 
-      <h3>Álbumes</h3>
+      <SectionHeader
+        title="Álbumes"
+        description="Seleccioná un álbum para gestionar sus imágenes."
+      />
       <TableLayout
         columns={[
           { type: "index", label: "#", width: "60px" },

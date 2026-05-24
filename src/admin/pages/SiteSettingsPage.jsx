@@ -8,6 +8,7 @@ import {
 } from "../services/siteSettingsService";
 import { toastBus } from "../../services/toastBus";
 import AdminAlert from "../components/ui/AdminAlert";
+import PageHeader from "../components/ui/PageHeader";
 
 const groupLabels = {
   identidad: "Identidad institucional",
@@ -128,7 +129,7 @@ export default function SiteSettingsPage() {
   if (loading) {
     return (
       <div className="site-settings-page">
-        <h2>Configuración del sitio</h2>
+        <PageHeader title="Configuración del sitio" />
         <p>Cargando configuración...</p>
       </div>
     );
@@ -136,12 +137,10 @@ export default function SiteSettingsPage() {
 
   return (
     <div className="site-settings-page">
-      <div className="site-settings-page__header">
-        <div>
-          <h2>Configuración del sitio</h2>
-          <p>Datos globales usados por Header, Footer y Contacto. Para imágenes, podés copiar una URL desde Multimedia.</p>
-        </div>
-      </div>
+      <PageHeader
+        title="Configuración del sitio"
+        description="Datos globales usados por Header, Footer y Contacto. Para imágenes, podés copiar una URL desde Multimedia."
+      />
 
       <AdminAlert variant="error">{error}</AdminAlert>
 

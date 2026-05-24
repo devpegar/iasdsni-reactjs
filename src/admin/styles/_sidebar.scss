@@ -32,7 +32,8 @@
     flex-direction: column;
     gap: 0.75rem;
 
-    a {
+    a,
+    span.disabled {
       color: #fff;
       text-decoration: none;
       font-size: $text-md;
@@ -50,21 +51,17 @@
       /* =========================
        LINK DESHABILITADO
        ========================= */
-      &.disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-        pointer-events: none;
-        background: transparent;
+    }
 
-        &:hover {
-          background: transparent;
-        }
-      }
+    span.disabled {
+      display: block;
+      opacity: 0.45;
+      cursor: not-allowed;
     }
   }
 
-  a.disabled::after {
-    content: " - proximamente";
+  span.disabled::after {
+    content: " - próximamente";
     font-size: 0.75rem;
     opacity: 0.8;
   }
@@ -131,11 +128,14 @@
     flex-direction: column;
     gap: 0.3rem;
 
-    li a {
+    li a,
+    li span.disabled {
       padding: 0.5rem 0.8rem !important;
       font-size: 0.9rem;
       border-radius: 6px;
+    }
 
+    li a {
       &:hover {
         background: rgba(255, 255, 255, 0.15);
       }

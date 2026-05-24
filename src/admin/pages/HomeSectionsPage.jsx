@@ -17,6 +17,7 @@ import {
 } from "../services/homeSectionsService";
 import { toastBus } from "../../services/toastBus";
 import AdminAlert from "../components/ui/AdminAlert";
+import { confirmDestructive } from "../utils/confirmAction";
 
 const SUPPORTED_KEYS = [
   "hero_carousel",
@@ -125,7 +126,14 @@ export default function HomeSectionsPage() {
   const handleToggleActive = async (section) => {
     const normalized = normalizeSection(section);
 
-    if (normalized.is_active && !window.confirm(`Desactivar "${section.section_key}"?`)) {
+    if (
+      normalized.is_active &&
+      !confirmDestructive({
+        title: `Desactivar sección "${section.section_key}"`,
+        detail: "La sección dejará de mostrarse en el Home.",
+        action: "Desactivar sección",
+      })
+    ) {
       return;
     }
 
@@ -155,6 +163,13 @@ export default function HomeSectionsPage() {
       <PageHeader
         title="Home"
         description="Configurá las secciones visibles, su orden y el contenido técnico que usa la portada del sitio."
+        actions={
+          editingId && (
+            <button type="button" className="btn btn-secondary" onClick={resetForm}>
+              Crear nueva sección
+            </button>
+          )
+        }
       />
 
       <AdminCard>

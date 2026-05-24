@@ -5,6 +5,8 @@ import SwitchField from "../components/form/SwitchField";
 import useFormEdit from "../hooks/useFormEdit";
 import FormLayout from "../layout/FormLayout";
 import TableLayout from "../layout/TableLayout";
+import PageHeader from "../components/ui/PageHeader";
+import SectionHeader from "../components/ui/SectionHeader";
 import {
   createNavigationItem,
   deactivateNavigationItem,
@@ -12,6 +14,7 @@ import {
   updateNavigationItem,
 } from "../services/navigationService";
 import { toastBus } from "../../services/toastBus";
+import { confirmDestructive } from "../utils/confirmAction";
 
 const initialForm = {
   label: "",
@@ -101,7 +104,14 @@ export default function NavigationPage() {
   const handleToggleActive = async (item) => {
     const normalized = normalizeItem(item);
 
-    if (normalized.is_active && !window.confirm(`Desactivar "${item.label}"?`)) {
+    if (
+      normalized.is_active &&
+      !confirmDestructive({
+        title: `Desactivar ítem "${item.label}"`,
+        detail: "El enlace dejará de mostrarse en el menú público.",
+        action: "Desactivar ítem",
+      })
+    ) {
       return;
     }
 
@@ -128,7 +138,22 @@ export default function NavigationPage() {
 
   return (
     <div className="navigation-page" ref={formRef}>
-      <h2>{editingId ? "Editar Ítem de Menú" : "Crear Ítem de Menú"}</h2>
+      <PageHeader
+        title="Menú"
+        description="Administrá los enlaces visibles en la navegación pública del sitio."
+        actions={
+          editingId && (
+            <button type="button" className="btn btn-secondary" onClick={resetForm}>
+              Crear nuevo ítem
+            </button>
+          )
+        }
+      />
+
+      <SectionHeader
+        title={editingId ? "Editar ítem de menú" : "Crear ítem de menú"}
+        description="Definí etiqueta, URL, orden y comportamiento del enlace."
+      />
 
       <FormLayout columns={2} onSubmit={handleSubmit}>
         <Field label="Etiqueta" name="label" value={form.label} onChange={handleChange} required />
@@ -149,7 +174,7 @@ export default function NavigationPage() {
 
         <div className="form-actions">
           <button type="submit" className="btn btn-primary" disabled={actionLoading === "save"}>
-            {editingId ? "Guardar Cambios" : "Crear Ítem"}
+            {editingId ? "Guardar cambios" : "Crear ítem"}
           </button>
 
           {editingId && (
@@ -160,7 +185,10 @@ export default function NavigationPage() {
         </div>
       </FormLayout>
 
-      <h3>Ítems del menú</h3>
+      <SectionHeader
+        title="Ítems del menú"
+        description="Ordená y activá los enlaces que componen la navegación principal."
+      />
       {error && <p>{error}</p>}
 
       <TableLayout

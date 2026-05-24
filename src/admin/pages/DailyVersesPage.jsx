@@ -13,6 +13,9 @@ import FormLayout from "../layout/FormLayout";
 import TableLayout from "../layout/TableLayout";
 import Field from "../components/form/Field";
 import SwitchField from "../components/form/SwitchField";
+import PageHeader from "../components/ui/PageHeader";
+import SectionHeader from "../components/ui/SectionHeader";
+import { confirmDestructive } from "../utils/confirmAction";
 
 const BASE_PATH = "/admin/daily_verses";
 
@@ -149,7 +152,14 @@ export default function DailyVersesPage() {
 
   const handleDelete = async (verse) => {
     const normalized = normalizeVerse(verse);
-    if (!window.confirm(`Eliminar el versiculo "${normalized.reference}"?`)) {
+    if (
+      !confirmDestructive({
+        title: `Eliminar versículo "${normalized.reference}"`,
+        detail: "El versículo se quitará del listado diario.",
+        action: "Eliminar versículo",
+        irreversible: true,
+      })
+    ) {
       return;
     }
 
@@ -167,7 +177,22 @@ export default function DailyVersesPage() {
 
   return (
     <div className="daily-verses-page" ref={formRef}>
-      <h2>{editingId ? "Editar Versiculo Diario" : "Crear Versiculo Diario"}</h2>
+      <PageHeader
+        title="Versículo diario"
+        description="Administrá textos, referencias y orden de los versículos mostrados en el sitio."
+        actions={
+          editingId && (
+            <button type="button" className="btn btn-secondary" onClick={resetForm}>
+              Crear nuevo versículo
+            </button>
+          )
+        }
+      />
+
+      <SectionHeader
+        title={editingId ? "Editar versículo diario" : "Crear versículo diario"}
+        description="Completá la referencia, el texto y su posición en el listado."
+      />
 
       <FormLayout columns={2} onSubmit={handleSubmit}>
         <Field
@@ -218,7 +243,7 @@ export default function DailyVersesPage() {
 
         <div className="form-actions">
           <button type="submit" className="btn btn-primary">
-            {editingId ? "Guardar Cambios" : "Crear Versiculo"}
+            {editingId ? "Guardar cambios" : "Crear versículo"}
           </button>
 
           {editingId && (
@@ -227,13 +252,16 @@ export default function DailyVersesPage() {
               className="btn btn-secondary"
               onClick={resetForm}
             >
-              Cancelar edicion
+              Cancelar edición
             </button>
           )}
         </div>
       </FormLayout>
 
-      <h3>Listado de versiculos diarios</h3>
+      <SectionHeader
+        title="Listado de versículos diarios"
+        description="Reordená, editá o eliminá los versículos disponibles."
+      />
 
       <TableLayout
         columns={[
@@ -277,7 +305,7 @@ export default function DailyVersesPage() {
         ]}
         data={orderedVerses}
         loading={loading}
-        emptyText="No hay versiculos diarios registrados"
+        emptyText="No hay versículos diarios registrados"
         renderActions={(verse) => {
           const index = orderedVerses.findIndex((item) => item.id === verse.id);
           const isActive = toBoolean(verse.is_active ?? verse.active ?? true);
