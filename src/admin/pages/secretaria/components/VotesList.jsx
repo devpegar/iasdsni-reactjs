@@ -6,6 +6,7 @@ import AttendanceList from "./AttendanceList";
 import TableLayout from "../../../layout/TableLayout";
 import TableSelectField from "../../../components/form/TableSelectField";
 import DescriptionPreview from "../../../components/ui/DescriptionPreview";
+import StatusBadge from "../../../components/ui/StatusBadge";
 import formatUsername from "../../../utils/formatUsername";
 import { confirmDestructive } from "../../../utils/confirmAction";
 import { getDayMonthYear, formatDateDMY } from "../../../../utils/date";
@@ -285,6 +286,7 @@ export default function VotesList({
                 label: "Descripción",
                 width: "280px",
                 truncate: true,
+                mobileHidden: true,
                 render: (v) => {
                   const isEditing = editingVoteId === v.id;
 
@@ -310,6 +312,7 @@ export default function VotesList({
                 key: "status",
                 label: "Estado",
                 width: "100px",
+                mobileHidden: true,
                 render: (v) => (v.fulfilled_date ? "Cumplido" : "Pendiente"),
               },
               {
@@ -353,6 +356,16 @@ export default function VotesList({
             data={votes}
             loading={loading}
             emptyText="No hay votos registrados"
+            mobileTitle={(v) => `${v.vote_number}/${v.vote_year}`}
+            mobileDescription={(v) => truncateText(v.description, 86)}
+            mobileBadges={(v) =>
+              v.fulfilled_date ? (
+                <StatusBadge variant="success">Cumplido</StatusBadge>
+              ) : (
+                <StatusBadge variant="warning">Pendiente</StatusBadge>
+              )
+            }
+            mobileCompact
             renderActions={(v) => {
               const isEditing = editingVoteId === v.id;
 

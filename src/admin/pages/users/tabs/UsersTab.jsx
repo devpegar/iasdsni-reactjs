@@ -275,6 +275,7 @@ export default function UsersTab() {
             key: "has_access",
             label: "Acceso",
             width: "90px",
+            mobileHidden: true,
             render: (u) =>
               u.has_access ? (
                 <StatusBadge variant="success">Con acceso</StatusBadge>
@@ -286,6 +287,7 @@ export default function UsersTab() {
             key: "active",
             label: "Estado",
             width: "75px",
+            mobileHidden: true,
             render: (u) =>
               u.active ? (
                 <StatusBadge variant="success">Activo</StatusBadge>
@@ -300,6 +302,23 @@ export default function UsersTab() {
         error={error}
         emptyTitle="No hay usuarios registrados"
         emptyDescription="Creá usuarios para asignar roles, departamentos y acceso al sistema."
+        mobileTitle={(u) => u.username}
+        mobileDescription={(u) => u.email || "Sin email"}
+        mobileBadges={(u) => (
+          <>
+            {u.has_access ? (
+              <StatusBadge variant="success">Con acceso</StatusBadge>
+            ) : (
+              <StatusBadge>Sin acceso</StatusBadge>
+            )}
+            {u.active ? (
+              <StatusBadge variant="success">Activo</StatusBadge>
+            ) : (
+              <StatusBadge variant="warning">Inactivo</StatusBadge>
+            )}
+          </>
+        )}
+        mobileCompact
         renderActions={(u) => (
           <TableActions>
             <button

@@ -9,6 +9,7 @@ import TableActions from "../components/ui/TableActions";
 import AdminCard from "../components/ui/AdminCard";
 import PageHeader from "../components/ui/PageHeader";
 import SectionHeader from "../components/ui/SectionHeader";
+import StatusBadge from "../components/ui/StatusBadge";
 import {
   createHomeSection,
   deactivateHomeSection,
@@ -248,7 +249,7 @@ export default function HomeSectionsPage() {
       <TableLayout
         toolbar={`${sections.length} secciones configuradas`}
         columns={[
-          { type: "index", label: "#", width: "60px" },
+          { type: "index", label: "#", width: "60px", mobileHidden: true },
           { key: "section_key", label: "Clave", width: "220px" },
           { key: "title", label: "Título", width: "220px" },
           { key: "sort_order", label: "Orden", width: "90px" },
@@ -256,7 +257,13 @@ export default function HomeSectionsPage() {
             key: "is_active",
             label: "Estado",
             width: "100px",
-            render: (section) => (toBoolean(section.is_active) ? "Activa" : "Inactiva"),
+            mobileHidden: true,
+            render: (section) =>
+              toBoolean(section.is_active) ? (
+                <StatusBadge variant="success">Activa</StatusBadge>
+              ) : (
+                <StatusBadge variant="warning">Inactiva</StatusBadge>
+              ),
           },
           { key: "actions", label: "Acciones", type: "actions" },
         ]}
@@ -265,6 +272,16 @@ export default function HomeSectionsPage() {
         error={error}
         emptyTitle="No hay secciones configuradas"
         emptyDescription="Creá una sección para controlar qué bloques aparecen en el Home."
+        mobileTitle={(section) => section.section_key}
+        mobileDescription={(section) => section.title || "Sin título visible"}
+        mobileBadges={(section) =>
+          toBoolean(section.is_active) ? (
+            <StatusBadge variant="success">Activa</StatusBadge>
+          ) : (
+            <StatusBadge variant="warning">Inactiva</StatusBadge>
+          )
+        }
+        mobileCompact
         renderActions={(section) => {
           const isActive = toBoolean(section.is_active);
 

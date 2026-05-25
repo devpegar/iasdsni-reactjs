@@ -15,7 +15,10 @@
 
 .attendance-selector-list {
   @include card;
-  @include grid($columns: 4, $gap: 8px, $align: center);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  align-items: center;
   padding: 12px;
   border: 1px solid $border-color;
 }
@@ -58,4 +61,27 @@
 .attendance-selector-empty {
   font-size: 0.85rem;
   color: $gray-500;
+}
+
+@media (max-width: $breakpoint-lg) {
+  .attendance-selector-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .attendance-selector {
+    margin-top: 0.75rem;
+  }
+
+  .attendance-selector-list {
+    grid-template-columns: 1fr;
+    padding: 0.75rem;
+  }
+
+  .attendance-selector-item {
+    min-width: 0;
+    padding: 0.55rem;
+    overflow-wrap: anywhere;
+  }
 }

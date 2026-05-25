@@ -7,6 +7,7 @@ import FormLayout from "../layout/FormLayout";
 import TableLayout from "../layout/TableLayout";
 import PageHeader from "../components/ui/PageHeader";
 import SectionHeader from "../components/ui/SectionHeader";
+import StatusBadge from "../components/ui/StatusBadge";
 import {
   createNavigationItem,
   deactivateNavigationItem,
@@ -193,7 +194,7 @@ export default function NavigationPage() {
 
       <TableLayout
         columns={[
-          { type: "index", label: "#", width: "60px" },
+          { type: "index", label: "#", width: "60px", mobileHidden: true },
           { key: "label", label: "Etiqueta", width: "180px" },
           { key: "url", label: "URL", width: "260px", truncate: true },
           { key: "target", label: "Target", width: "100px" },
@@ -202,13 +203,29 @@ export default function NavigationPage() {
             key: "is_active",
             label: "Estado",
             width: "100px",
-            render: (item) => (toBoolean(item.is_active) ? "Activo" : "Inactivo"),
+            mobileHidden: true,
+            render: (item) =>
+              toBoolean(item.is_active) ? (
+                <StatusBadge variant="success">Activo</StatusBadge>
+              ) : (
+                <StatusBadge variant="warning">Inactivo</StatusBadge>
+              ),
           },
           { key: "actions", label: "Acciones", type: "actions" },
         ]}
         data={items}
         loading={loading}
         emptyText="No hay ítems de menú registrados"
+        mobileTitle={(item) => item.label}
+        mobileDescription={(item) => item.url}
+        mobileBadges={(item) =>
+          toBoolean(item.is_active) ? (
+            <StatusBadge variant="success">Activo</StatusBadge>
+          ) : (
+            <StatusBadge variant="warning">Inactivo</StatusBadge>
+          )
+        }
+        mobileCompact
         renderActions={(item) => {
           const isActive = toBoolean(item.is_active);
 

@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   gap: 24px;
+  max-width: 100%;
   //   max-width: 720px;
 }
 
@@ -64,5 +65,30 @@
     @include button-base();
     background: $error-color;
     font-size: $text-sm;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .settings-page {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .settings-card {
+    padding: 1rem;
+  }
+
+  .settings-switch {
+    align-items: flex-start;
+  }
+
+  .actions {
+    align-items: stretch;
+    flex-direction: column;
+
+    .btn {
+      width: 100%;
+    }
   }
 }

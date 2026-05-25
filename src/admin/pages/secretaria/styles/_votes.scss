@@ -4,7 +4,9 @@
 
 .votes {
   @include card;
+  width: 100%;
   max-width: 950px;
+  min-width: 0;
   padding: 18px 20px;
   border: 1px solid $border-color;
   border-radius: $border-radius-lg;
@@ -102,5 +104,26 @@
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .votes {
+    max-width: 100%;
+    padding: 0.9rem;
+    border-radius: $border-radius-md;
+  }
+
+  .votes .form-actions {
+    align-items: stretch;
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  .modal {
+    width: calc(100% - 1.5rem);
+    padding: 1rem;
   }
 }

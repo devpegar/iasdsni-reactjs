@@ -3,10 +3,12 @@
 
 .boards {
   max-width: 1200px;
+  min-width: 0;
 }
 
 .board-form {
   max-width: 950px;
+  min-width: 0;
 }
 
 .boards-table {
@@ -19,10 +21,14 @@
 .board-detail--page {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+
   .board-header {
     display: flex;
     justify-content: space-between;
     padding: 0.5rem;
+    gap: 1rem;
+    min-width: 0;
 
     &__title,
     &__description {
@@ -33,12 +39,38 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-wrap: wrap;
     &__text {
       color: $gray-700;
     }
     &__strong {
       font-weight: 600;
       color: $primary-color;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .board-form {
+    max-width: none;
+  }
+
+  .board-detail--page {
+    .board-header {
+      align-items: stretch;
+      flex-direction: column;
+      padding: 0;
+
+      &__title {
+        font-size: 1.15rem;
+        line-height: 1.25;
+      }
+    }
+
+    .board-meta {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.25rem;
     }
   }
 }

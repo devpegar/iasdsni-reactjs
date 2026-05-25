@@ -12,6 +12,8 @@
 /* Sección estándar */
 .secretaria-section {
   @include card;
+  max-width: 100%;
+  min-width: 0;
   padding: 18px 20px;
   border: 1px solid $border-color;
   border-radius: $border-radius-lg;
@@ -72,4 +74,38 @@
 
 .secretaria-error {
   color: $error-color;
+}
+
+@media (max-width: $breakpoint-md) {
+  .secretaria-layout {
+    padding: 0;
+    gap: 1rem;
+  }
+
+  .secretaria-section {
+    padding: 0.9rem;
+    border-radius: $border-radius-md;
+  }
+
+  .secretaria-section__header,
+  .secretary-header-actions {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .header-left,
+  .header-right {
+    width: 100%;
+  }
+
+  .header-left .btn-icon {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .header-right {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 }

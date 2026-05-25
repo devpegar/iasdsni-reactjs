@@ -17,6 +17,7 @@ import TableActions from "../components/ui/TableActions";
 import AdminCard from "../components/ui/AdminCard";
 import PageHeader from "../components/ui/PageHeader";
 import SectionHeader from "../components/ui/SectionHeader";
+import StatusBadge from "../components/ui/StatusBadge";
 import ImageUrlField from "../components/media/ImageUrlField";
 import SwitchField from "../components/form/SwitchField";
 import { apiPost, apiPostForm } from "../../services/api";
@@ -382,11 +383,12 @@ export default function HeroSlidesPage() {
       <TableLayout
         toolbar={`${orderedSlides.length} slides configurados`}
         columns={[
-          { type: "index", label: "#", width: "60px" },
+          { type: "index", label: "#", width: "60px", mobileHidden: true },
           {
             key: "image",
             label: "Imagen",
             width: "96px",
+            mobileHidden: true,
             render: (slide) => {
               const src = resolveMediaUrl(slide.image_url || slide.image_path);
 
@@ -424,10 +426,11 @@ export default function HeroSlidesPage() {
             key: "is_active",
             label: "Estado",
             width: "100px",
+            mobileHidden: true,
             render: (slide) =>
               toBoolean(slide.is_active ?? slide.active ?? true)
-                ? "Activo"
-                : "Inactivo",
+                ? <StatusBadge variant="success">Activo</StatusBadge>
+                : <StatusBadge variant="warning">Inactivo</StatusBadge>,
           },
           { key: "actions", label: "Acciones", type: "actions" },
         ]}
@@ -436,6 +439,16 @@ export default function HeroSlidesPage() {
         error={error}
         emptyTitle="No hay hero slides registrados"
         emptyDescription="Creá un slide para empezar a armar el carrusel principal."
+        mobileTitle={(slide) => slide.title || "Hero slide sin título"}
+        mobileDescription={(slide) => slide.description || slide.button_text || "Sin descripción"}
+        mobileBadges={(slide) =>
+          toBoolean(slide.is_active ?? slide.active ?? true) ? (
+            <StatusBadge variant="success">Activo</StatusBadge>
+          ) : (
+            <StatusBadge variant="warning">Inactivo</StatusBadge>
+          )
+        }
+        mobileCompact
         renderActions={(slide) => {
           const index = orderedSlides.findIndex((item) => item.id === slide.id);
           const isActive = toBoolean(slide.is_active ?? slide.active ?? true);
