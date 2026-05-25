@@ -7,6 +7,18 @@ ErrorDocument 404 /404.html
 RewriteEngine On
 RewriteBase /
 
+# --- Modo mantenimiento desacoplado de React ---
+# Crear maintenance.flag en esta misma raíz pública activa una respuesta estática.
+# Se excluyen la propia página, admin, endpoints backend/API y recursos existentes
+# para evitar loops y mantener el panel operativo.
+
+RewriteCond %{DOCUMENT_ROOT}/maintenance.flag -f
+RewriteCond %{REQUEST_URI} !^/maintenance\.html$ [NC]
+RewriteCond %{REQUEST_URI} !^/admin(/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/(maintenance|auth|api|uploads|assets)(/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/(favicon\.ico|robots\.txt|404\.html)$ [NC]
+RewriteRule ^ /maintenance.html [R=302,L]
+
 # Si el archivo o directorio existe, lo sirve
 
 RewriteCond %{REQUEST_FILENAME} !-f

@@ -53,6 +53,10 @@ export default function SettingsPage() {
 
           <span className="switch-label">Activar modo mantenimiento</span>
         </label>
+        <p>
+          El mantenimiento se sirve desde <strong>maintenance.html</strong> y no depende
+          del bundle React. Esto permite mantener una pantalla estable durante deploys por FTP.
+        </p>
 
         <div className="actions">
           <button className="btn btn-primary" onClick={updateMaintenance}>
