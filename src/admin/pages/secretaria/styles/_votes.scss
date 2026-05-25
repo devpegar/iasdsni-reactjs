@@ -17,6 +17,75 @@
   gap: 14px;
 }
 
+.votes-create-section {
+  gap: 1rem;
+}
+
+.votes-create-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid $border-color;
+
+  &__main {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    min-width: 0;
+  }
+
+  &__back {
+    flex: 0 0 auto;
+    min-height: 36px;
+    white-space: nowrap;
+  }
+
+  &__title {
+    min-width: 0;
+
+    h3 {
+      margin: 0;
+      color: $primary-color;
+      font-size: 1.12rem;
+      line-height: 1.25;
+    }
+
+    p {
+      margin: 0.25rem 0 0;
+      color: $gray-500;
+      font-size: 0.88rem;
+      line-height: 1.4;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.45rem;
+    flex: 0 0 auto;
+
+    .btn-icon {
+      width: 38px;
+      height: 38px;
+    }
+  }
+}
+
+.votes-create-form {
+  display: grid;
+  gap: 0.85rem;
+
+  .textarea {
+    width: 100%;
+  }
+
+  .form-actions {
+    justify-content: flex-end;
+  }
+}
+
 /* =======================
    TABLA DE VOTOS
 ======================= */
@@ -120,6 +189,34 @@
     .btn {
       width: 100%;
     }
+  }
+
+  .votes-create-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.85rem;
+
+    &__main {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    &__back {
+      width: fit-content;
+      max-width: 100%;
+    }
+
+    &__title h3 {
+      font-size: 1.04rem;
+    }
+
+    &__actions {
+      justify-content: flex-start;
+    }
+  }
+
+  .votes-create-form .form-actions {
+    justify-content: stretch;
   }
 
   .modal {

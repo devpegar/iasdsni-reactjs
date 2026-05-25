@@ -187,20 +187,30 @@ export default function VotesList({
       {/* =======================
           NUEVO VOTO
       ======================= */}
-      <section className="secretaria-section">
-        <div className="secretaria-section__header secretary-header-actions">
-          <div className="header-left">
+      <section className="secretaria-section votes-create-section">
+        <header className="votes-create-header">
+          <div className="votes-create-header__main">
             <button
-              className="btn-icon"
+              type="button"
+              className="btn btn-secondary votes-create-header__back"
               onClick={() => navigate("/admin/secretaria")}
             >
-              <FaArrowLeft /> Volver a listado de juntas
+              <FaArrowLeft aria-hidden="true" />
+              <span>Volver a juntas</span>
             </button>
+
+            <div className="votes-create-header__title">
+              <h3>Votos de la junta</h3>
+              <p>Registrá nuevos votos y gestioná impresión o PDF del acta.</p>
+            </div>
           </div>
 
-          <div className="header-right">
+          <div className="votes-create-header__actions" aria-label="Acciones de junta">
             <button
+              type="button"
               className="btn-icon"
+              title="Imprimir acta"
+              aria-label="Imprimir acta"
               onClick={() =>
                 window.open(
                   `/admin/secretaria/boards/${boardId}/print`,
@@ -212,7 +222,10 @@ export default function VotesList({
             </button>
 
             <button
+              type="button"
               className="btn-icon"
+              title="Generar PDF"
+              aria-label="Generar PDF"
               onClick={() => {
                 const win = window.open(
                   `/admin/secretaria/boards/${boardId}/print?pdf=1&filename=${encodeURIComponent(
@@ -234,11 +247,9 @@ export default function VotesList({
               <FaFilePdf />
             </button>
           </div>
-        </div>
+        </header>
 
-        <form className="form-group">
-          <h3>Votos de la junta</h3>
-
+        <form className="votes-create-form">
           <textarea
             className="textarea"
             value={description}
@@ -248,7 +259,7 @@ export default function VotesList({
           />
 
           <div className="form-actions">
-            <button className="btn btn-primary" onClick={createVote}>
+            <button type="button" className="btn btn-primary" onClick={createVote}>
               Agregar voto
             </button>
           </div>
