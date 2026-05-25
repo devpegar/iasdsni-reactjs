@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title">
+  <title id="title">Cruz iluminada al amanecer</title>
+  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#d24b3a"/><stop offset=".55" stop-color="#f0b64b"/><stop offset="1" stop-color="#203f68"/></linearGradient></defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <circle cx="600" cy="395" r="210" fill="#ffe7a3" opacity=".55"/>
+  <path d="M545 180h110v165h150v105H655v260H545V450H395V345h150z" fill="#ffffff" opacity=".92"/>
+  <path d="M120 710c170-90 320-125 480-125s310 35 480 125z" fill="#17304f" opacity=".52"/>
+</svg>

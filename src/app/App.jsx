@@ -14,6 +14,8 @@ const PublicPage = lazy(() => import("../features/public-pages/pages/PublicPage"
 const NewsListPage = lazy(() => import("../features/news/pages/NewsListPage"));
 const GalleryAlbumsPage = lazy(() => import("../features/gallery/pages/GalleryAlbumsPage"));
 const GalleryAlbumPage = lazy(() => import("../features/gallery/pages/GalleryAlbumPage"));
+const BeliefsPage = lazy(() => import("../features/beliefs/pages/BeliefsPage"));
+const DoctrineDetailPage = lazy(() => import("../features/beliefs/pages/DoctrineDetailPage"));
 const UiPreviewPage = lazy(() => import("../features/ui-preview/UiPreviewPage"));
 
 const AdminLayout = lazy(() => import("../admin/layout/AdminLayout"));
@@ -31,6 +33,7 @@ const HomeSectionsPage = lazy(() => import("../admin/pages/HomeSectionsPage"));
 const SiteSettingsPage = lazy(() => import("../admin/pages/SiteSettingsPage"));
 const MediaLibraryPage = lazy(() => import("../admin/pages/MediaLibraryPage"));
 const GalleryAdminPage = lazy(() => import("../admin/pages/GalleryAdminPage"));
+const BeliefsAdminPage = lazy(() => import("../admin/pages/BeliefsAdminPage"));
 
 const SecretariaLayout = lazy(() => import("../admin/pages/secretaria/SecretariaLayout"));
 const BoardListPage = lazy(() => import("../admin/pages/secretaria/pages/BoardListPage"));
@@ -82,6 +85,22 @@ export default function App() {
             element={
               <ContentLayout>
                 <GalleryAlbumPage />
+              </ContentLayout>
+            }
+          />
+          <Route
+            path="creencias"
+            element={
+              <ContentLayout>
+                <BeliefsPage />
+              </ContentLayout>
+            }
+          />
+          <Route
+            path="creencias/:slug"
+            element={
+              <ContentLayout>
+                <DoctrineDetailPage />
               </ContentLayout>
             }
           />
@@ -209,6 +228,15 @@ export default function App() {
             element={
               <PermissionGuard can={hasPermission(role, ["admin"])}>
                 <GalleryAdminPage />
+              </PermissionGuard>
+            }
+          />
+
+          <Route
+            path="beliefs"
+            element={
+              <PermissionGuard can={hasPermission(role, ["admin"])}>
+                <BeliefsAdminPage />
               </PermissionGuard>
             }
           />

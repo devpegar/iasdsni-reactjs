@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title">
+  <title id="title">Iglesia y comunidad</title>
+  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#466aa0"/><stop offset="1" stop-color="#87b26a"/></linearGradient></defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <path d="M600 185 250 455v230h700V455z" fill="#fff" opacity=".92"/>
+  <path d="M600 120v210m-75-135h150" stroke="#fff" stroke-width="34" stroke-linecap="round"/>
+  <path d="M505 685V535c0-55 40-95 95-95s95 40 95 95v150z" fill="#21496d" opacity=".78"/>
+  <circle cx="310" cy="610" r="45" fill="#f6c76f"/><circle cx="890" cy="610" r="45" fill="#f6c76f"/>
+</svg>

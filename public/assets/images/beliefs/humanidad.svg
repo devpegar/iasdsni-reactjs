@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title">
+  <title id="title">Personas bajo un cielo claro</title>
+  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#6bb7c8"/><stop offset="1" stop-color="#2f7d59"/></linearGradient></defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <circle cx="600" cy="285" r="82" fill="#fff6d8"/>
+  <circle cx="430" cy="340" r="62" fill="#f5d3b3"/>
+  <circle cx="770" cy="340" r="62" fill="#d9a77f"/>
+  <path d="M300 670c32-140 130-230 300-230s268 90 300 230z" fill="#ffffff" opacity=".9"/>
+  <path d="M165 700c20-125 110-210 265-210 80 0 145 26 190 75-70 28-115 74-138 135zM718 700c-23-61-68-107-138-135 45-49 110-75 190-75 155 0 245 85 265 210z" fill="#eef7f0" opacity=".82"/>
+</svg>

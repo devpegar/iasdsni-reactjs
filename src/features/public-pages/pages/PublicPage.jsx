@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPublicPage } from "../services/publicPagesService";
 import Seo from "../../seo/Seo";
+import { normalizeContentHtml, sanitizeHtml } from "../../../utils/sanitizeHtml";
+import "./PublicPage.scss";
 
 export default function PublicPage() {
   const { slug = "" } = useParams();
@@ -87,7 +89,12 @@ export default function PublicPage() {
       <h1>{state.page.title}</h1>
       {state.page.meta_description && <p>{state.page.meta_description}</p>}
       {state.page.content ? (
-        <div style={{ whiteSpace: "pre-wrap" }}>{state.page.content}</div>
+        <div
+          className="public-page__content"
+          dangerouslySetInnerHTML={{
+            __html: sanitizeHtml(normalizeContentHtml(state.page.content)),
+          }}
+        />
       ) : (
         <p>No hay contenido disponible.</p>
       )}

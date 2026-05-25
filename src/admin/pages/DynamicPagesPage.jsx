@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { FaEdit, FaExternalLinkAlt, FaToggleOff, FaToggleOn } from "react-icons/fa";
 import Field from "../components/form/Field";
 import ImageUrlField from "../components/media/ImageUrlField";
+import RichTextEditor from "../components/form/RichTextEditor";
 import SwitchField from "../components/form/SwitchField";
 import useFormEdit from "../hooks/useFormEdit";
 import FormLayout from "../layout/FormLayout";
@@ -258,13 +259,11 @@ export default function DynamicPagesPage() {
           span
         />
 
-        <Field
+        <RichTextEditor
           label="Contenido"
-          type="textarea"
-          name="content"
           value={form.content}
-          onChange={handleChange}
-          rows={8}
+          onChange={(content) => setForm((prev) => ({ ...prev, content }))}
+          placeholder="Escribí el contenido principal de la página..."
           span
         />
 

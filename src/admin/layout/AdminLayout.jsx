@@ -50,6 +50,7 @@ const navGroups = [
       "/admin/daily-verses",
       "/admin/pages",
       "/admin/gallery",
+      "/admin/beliefs",
       "/admin/posts",
     ],
     items: [
@@ -58,6 +59,7 @@ const navGroups = [
       { label: "Versículo Diario", to: "/admin/daily-verses", icon: FaBookOpen },
       { label: "Páginas", to: "/admin/pages", icon: FaFileAlt },
       { label: "Galería", to: "/admin/gallery", icon: FaPhotoVideo },
+      { label: "Creencias", to: "/admin/beliefs", icon: FaBookOpen },
       { label: "Noticias", to: "/admin/posts", disabled: true, icon: FaNewspaper },
     ],
   },
